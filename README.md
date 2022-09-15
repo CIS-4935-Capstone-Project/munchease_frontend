@@ -1,3 +1,5 @@
+#### *When developing don't push to main branch make sure you are on another branch.**
+
 # MunchEase
 
 Tinder but for food.
