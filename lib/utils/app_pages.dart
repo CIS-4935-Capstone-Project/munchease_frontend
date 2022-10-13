@@ -6,6 +6,6 @@ part 'app_routes.dart';
 abstract class AppPages {
   static final pages = [
     // TODO: add new GetPages by typing getpageroute
-    GetPage(name: Routes.INITIAL, page: () => const LoginScreen())
+    GetPage(name: Routes.INITIAL, page: () => LoginScreen())
   ];
 }
