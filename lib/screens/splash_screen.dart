@@ -5,9 +5,10 @@ import '../controllers/splash_screen_controller.dart';
 import 'package:rive/rive.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
-  // find the splash controller
-  final splashController = Get.find<SplashScreenController>();
+  SplashScreen({super.key});
+
+  // put the splash controller
+  final splashController = Get.put(SplashScreenController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,11 +18,22 @@ class SplashScreen extends StatelessWidget {
           SizedBox(
               width: 150,
               height: 150,
-              child: Rive(
-                artboard: _splashArtboard!,
-                fit: BoxFit.fitHeight,
-              )),
-          Image.asset('assets/images/logo_text.png')
+              child: splashController.obx(
+                  (state) => Rive(
+                        artboard: splashController.birdArtboard,
+                      ),
+                  onLoading: const Center(
+                    child: CircularProgressIndicator(),
+                  ))),
+          Text(
+            'MunchEase',
+            style: TextStyle(
+              color: MunchColors.primaryColor,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w700,
+              fontSize: 42.0,
+            ),
+          )
         ]),
       ),
     );
