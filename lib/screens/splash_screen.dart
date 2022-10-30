@@ -5,7 +5,7 @@ import '../controllers/splash_screen_controller.dart';
 import 'package:rive/rive.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+  SplashScreen({super.key});
   // find the splash controller
   final splashController = Get.find<SplashScreenController>();
   @override
@@ -24,7 +24,7 @@ class SplashScreen extends StatelessWidget {
                   onLoading: const Center(
                     child: CircularProgressIndicator(),
                   ))),
-          Text(
+          const Text(
             'MunchEase',
             style: TextStyle(
               color: MunchColors.primaryColor,
