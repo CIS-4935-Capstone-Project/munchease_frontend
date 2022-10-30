@@ -74,20 +74,27 @@ class _MunchChipState extends State<MunchChip> {
 
   void changeSelection(data) {
     setState(() {
-      var x = widget.onSelected ?? (data) {};
-      x(data);
+      var callback = widget.onSelected ?? (data) {};
+      callback(data);
       isSelected = data;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return FilterChip(
+    return RawChip(
+        showCheckmark: false,
+        backgroundColor: MunchColors.transparent,
+        selectedColor: MunchColors.primaryColor,
         labelStyle: Theme.of(context)
             .textTheme
             .labelLarge
             ?.copyWith(color: isSelected ? MunchColors.primaryDark : null),
-        shape: const StadiumBorder(),
+        shape: StadiumBorder(
+            side: BorderSide(
+                color: isSelected
+                    ? MunchColors.transparent
+                    : Theme.of(context).colorScheme.onBackground)),
         label: Text(widget.label),
         selected: isSelected,
         onSelected: changeSelection);

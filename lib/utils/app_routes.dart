@@ -8,4 +8,8 @@ abstract class Routes {
   static const HOME = '/home';
   static const REGISTER = '/register';
   static const SPLASH = '/splash';
+
+  // ONBOARDING RELATED
+  static const CUISINE = '/cuisine';
+  static const DIET = '/diet';
 }

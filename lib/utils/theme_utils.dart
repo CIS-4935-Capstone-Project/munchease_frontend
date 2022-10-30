@@ -40,16 +40,26 @@ class MunchScheme {
 
 class MunchTheme {
   static final lightTheme = ThemeData(
+    appBarTheme: const AppBarTheme(surfaceTintColor: null),
     useMaterial3: true,
-    inputDecorationTheme: InputDecorationTheme(border: OutlineInputBorder()),
+    inputDecorationTheme:
+        const InputDecorationTheme(border: OutlineInputBorder()),
     scaffoldBackgroundColor: MunchScheme.lightColorScheme.background,
-    chipTheme: const ChipThemeData(checkmarkColor: MunchColors.primaryDark),
+    chipTheme: const ChipThemeData(
+        checkmarkColor: MunchColors.transparent,
+        iconTheme: IconThemeData(size: 0)),
     colorScheme: MunchScheme.lightColorScheme,
   );
   static final darkTheme = ThemeData(
-    useMaterial3: true,
-    inputDecorationTheme: InputDecorationTheme(border: OutlineInputBorder()),
-    chipTheme: const ChipThemeData(checkmarkColor: MunchColors.primaryDark),
+    applyElevationOverlayColor: false,
+    appBarTheme: const AppBarTheme(surfaceTintColor: null, elevation: 0),
+    radioTheme: const RadioThemeData(
+        fillColor: MaterialStatePropertyAll(MunchColors.primaryColor)),
+    inputDecorationTheme:
+        const InputDecorationTheme(border: OutlineInputBorder()),
+    chipTheme: const ChipThemeData(
+      checkmarkColor: MunchColors.transparent,
+    ),
     scaffoldBackgroundColor: MunchScheme.darkColorScheme.background,
     colorScheme: MunchScheme.darkColorScheme,
   );

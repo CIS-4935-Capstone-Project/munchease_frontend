@@ -14,13 +14,14 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        themeMode: ThemeMode.light,
+        themeMode: ThemeMode.dark,
         theme: MunchTheme.lightTheme,
         darkTheme: MunchTheme.darkTheme,
         // Run some initial bindings for controllers.
         initialBinding: AppBinding(),
         // The initial route this can be changed to the splash screen route as well.
-        initialRoute: '/',
+        // TODO:change back to home route
+        initialRoute: '/cuisine',
         // Predefined pages.
         getPages: AppPages.pages);
   }
