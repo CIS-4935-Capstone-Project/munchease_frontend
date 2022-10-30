@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MunchColors {
   static const primaryColor = Color(0xFF2EE884);

@@ -6,8 +6,9 @@ import 'package:rive/rive.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});
-  // find the splash controller
-  final splashController = Get.find<SplashScreenController>();
+
+  // put the splash controller
+  final splashController = Get.put(SplashScreenController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +25,7 @@ class SplashScreen extends StatelessWidget {
                   onLoading: const Center(
                     child: CircularProgressIndicator(),
                   ))),
-          const Text(
+          Text(
             'MunchEase',
             style: TextStyle(
               color: MunchColors.primaryColor,

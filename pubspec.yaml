@@ -34,6 +34,7 @@ dependencies:
   # TODO: add dependencies after this line
   get: ^4.6.5
   rive: 
+  google_fonts:
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -67,6 +68,7 @@ flutter:
    - assets/images/logo.png
    - assets/images/logo_text.png
    - assets/animations/splashanimation.riv
+   - assets/google_fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -79,7 +81,27 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
+  fonts:
+    - family: Quicksand
+      fonts:
+        - asset: assets/google_fonts/Quicksand-Regular.ttf
+        - asset: assets/google_fonts/Quicksand-Bold.ttf
+          weight: 700
+    - family: Noto Serif
+      fonts:
+        - asset: assets/google_fonts/NotoSerif-Regular.ttf
+        - asset: assets/google_fonts/NotoSerif-Bold.ttf
+          weight: 700
+    - family: Inter
+      fonts:
+        - asset: assets/google_fonts/Inter-Regular.ttf
+        - asset: assets/google_fonts/Inter-Bold.ttf
+          weight: 700
+    - family: Poppins
+      fonts:
+        - asset: assets/google_fonts/Poppins-Regular.ttf
+        - asset: assets/google_fonts/Poppins-bold.ttf
+          weight: 700
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
