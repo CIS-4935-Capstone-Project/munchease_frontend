@@ -1,25 +1,36 @@
 import 'package:get/get.dart';
+import 'package:munchease/utils/app_boxes.dart';
 
-class OnboardingDietController extends GetxController {
-  List<String> diets = [
+class OnboardingDietController extends GetxController with DietBox {
+  var diets = [
     "None",
-    "Gluten Free",
-    "Ketogenic",
-    "Vegetarian",
     "Lacto-Ovo-Vegetarian",
+    "Ketogenic",
+    "Gluten Free",
+    "Vegetarian",
     "Vegan",
     "Pescetarian",
     "Paleo",
     "Primal",
     "Low FODMAP",
     "Whole30"
-  ];
+  ]; // diets from spoonacular
+  late RxInt _selectedIndex;
+  get selectedIndex => _selectedIndex.value; //getter
+  set selectedIndex(value) => _selectedIndex.value = value; //sett
 
-  final _groupValue = "None".obs;
-  get groupValue => _groupValue.value;
-  set groupValue(value) => _groupValue.value = value;
+  @override
+  void onInit() {
+    super.onInit();
+    _selectedIndex = RxInt(getDiet() ?? 0);
+  }
 
-  selectDiet(diet) {
-    groupValue = diet;
+  changeIndex(value) {
+    selectedIndex = value;
+    _setDiet(value);
+  }
+
+  _setDiet(value) async {
+    await putDiet(value);
   }
 }

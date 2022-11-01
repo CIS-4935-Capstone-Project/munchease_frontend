@@ -9,7 +9,7 @@ import 'package:munchease/controllers/splash_screen_controller.dart';
 class AppBinding implements Bindings {
   @override
   void dependencies() {
-    log('Loading Controllers', name: '${this.runtimeType}');
+    log('Loading Controllers', name: '$runtimeType');
     Get.put(LoginScreenController());
     Get.put(SplashScreenController());
     Get.put(OnboardingCuisineController());

@@ -12,7 +12,16 @@ class OnboardingCuisineScreen extends GetView<OnboardingCuisineController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.changeThemeMode(Get.theme.brightness == Brightness.dark
+              ? ThemeMode.light
+              : ThemeMode.dark);
+        },
+      ),
       appBar: AppBar(
+        elevation: 0,
+        automaticallyImplyLeading: false,
         title: const Text(
           'Cuisines',
           style: TextStyle(
@@ -44,23 +53,28 @@ class OnboardingCuisineScreen extends GetView<OnboardingCuisineController> {
                 ),
                 Expanded(
                   child: Scrollbar(
+                    radius: const Radius.circular(10),
                     thumbVisibility: true,
                     child: SingleChildScrollView(
+                      primary: true,
                       child: Column(children: [
-                        Wrap(
-                          alignment: WrapAlignment.start,
-                          children: controller.availableCuisines
-                              .map((cuisine) => Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 5, vertical: 7.5),
-                                  child: MunchChip(
-                                      label: cuisine,
-                                      onSelected: (isSelected) {
-                                        controller.handleMunchchip(
-                                            cuisine: cuisine,
-                                            isSelected: isSelected);
-                                      })))
-                              .toList(),
+                        Obx(
+                          () => Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+                            alignment: WrapAlignment.start,
+                            children: controller.availableCuisines
+                                .map((cuisine) => MunchChip(
+                                    selected: controller.selectedCuisines
+                                        .contains(cuisine),
+                                    label: cuisine,
+                                    onSelected: (isSelected) {
+                                      controller.handleMunchchip(
+                                          cuisine: cuisine,
+                                          isSelected: isSelected);
+                                    }))
+                                .toList(),
+                          ),
                         ),
                       ]),
                     ),

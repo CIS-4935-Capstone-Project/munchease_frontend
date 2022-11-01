@@ -1,42 +1,50 @@
 import 'package:get/get.dart';
+import 'package:munchease/utils/app_boxes.dart';
 
-class OnboardingCuisineController extends GetxController {
+class OnboardingCuisineController extends GetxController with CuisineBox {
   final availableCuisines = [
-    "African",
-    "American",
-    "British",
-    "Cajun",
-    "Caribbean",
-    "Chinese",
-    "Eastern European",
     "European",
     "French",
     "German",
     "Greek",
     "Indian",
-    "Irish",
+    "Chinese",
     "Italian",
     "Japanese",
-    "Jewish",
+    "African",
+    "American",
+    "British",
+    "Cajun",
     "Korean",
-    "Latin American",
-    "Mediterranean",
-    "Mexican",
-    "Middle Eastern",
-    "Nordic",
-    "Southern",
-    "Spanish",
     "Thai",
-    "Vietnamese"
+    "Nordic",
+    "Caribbean",
+    "Irish",
+    "Mediterranean",
+    "Middle Eastern",
+    "Latin American",
+    "Spanish",
+    "Jewish",
+    "Eastern European",
+    "Vietnamese",
+    "Mexican",
+    "Southern",
   ];
 
-  List<String> selectedCuisines = [];
+  late RxList<String> selectedCuisines;
 
-  void handleMunchchip({bool isSelected = false, required String cuisine}) {
-    // TODO: connect to hive
+  @override
+  void onInit() {
+    super.onInit();
+    selectedCuisines = RxList(getCuisine() ?? List<String>.empty());
+  }
+
+  void handleMunchchip(
+      {bool isSelected = false, required String cuisine}) async {
     isSelected
         ? selectedCuisines.add(cuisine)
         : selectedCuisines.remove(cuisine);
-    print(selectedCuisines);
+
+    await putCuisine(selectedCuisines);
   }
 }
