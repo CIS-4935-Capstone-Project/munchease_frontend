@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class MunchColors {
   static const primaryColor = Color(0xFF2EE884);
@@ -40,8 +39,11 @@ class MunchScheme {
 
 class MunchTheme {
   static final lightTheme = ThemeData(
-    appBarTheme: const AppBarTheme(surfaceTintColor: null),
-    useMaterial3: true,
+    radioTheme: const RadioThemeData(
+        fillColor: MaterialStatePropertyAll(MunchColors.primaryColor)),
+    appBarTheme: const AppBarTheme(
+        titleTextStyle: TextStyle(color: MunchColors.primaryDark),
+        backgroundColor: MunchColors.primaryLight),
     inputDecorationTheme:
         const InputDecorationTheme(border: OutlineInputBorder()),
     scaffoldBackgroundColor: MunchScheme.lightColorScheme.background,
@@ -51,8 +53,9 @@ class MunchTheme {
     colorScheme: MunchScheme.lightColorScheme,
   );
   static final darkTheme = ThemeData(
-    applyElevationOverlayColor: false,
-    appBarTheme: const AppBarTheme(surfaceTintColor: null, elevation: 0),
+    appBarTheme: const AppBarTheme(
+        titleTextStyle: TextStyle(color: MunchColors.primaryLight),
+        backgroundColor: MunchColors.primaryDark),
     radioTheme: const RadioThemeData(
         fillColor: MaterialStatePropertyAll(MunchColors.primaryColor)),
     inputDecorationTheme:
