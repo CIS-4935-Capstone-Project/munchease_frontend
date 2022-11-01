@@ -39,6 +39,8 @@ class MunchScheme {
 
 class MunchTheme {
   static final lightTheme = ThemeData(
+    drawerTheme: const DrawerThemeData(scrimColor: Colors.transparent),
+    canvasColor: MunchColors.primaryLight,
     radioTheme: const RadioThemeData(
         fillColor: MaterialStatePropertyAll(MunchColors.primaryColor)),
     appBarTheme: const AppBarTheme(
@@ -53,6 +55,8 @@ class MunchTheme {
     colorScheme: MunchScheme.lightColorScheme,
   );
   static final darkTheme = ThemeData(
+    drawerTheme: const DrawerThemeData(scrimColor: Colors.transparent),
+    canvasColor: MunchColors.primaryDark,
     appBarTheme: const AppBarTheme(
         titleTextStyle: TextStyle(color: MunchColors.primaryLight),
         backgroundColor: MunchColors.primaryDark),
