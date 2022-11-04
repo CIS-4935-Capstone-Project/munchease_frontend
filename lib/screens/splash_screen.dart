@@ -19,8 +19,11 @@ class SplashScreen extends StatelessWidget {
               width: 150,
               height: 150,
               child: splashController.obx(
-                  (state) => Rive(
-                        artboard: splashController.birdArtboard,
+                  (state) => Hero(
+                        tag: 'logo',
+                        child: Rive(
+                          artboard: splashController.birdArtboard,
+                        ),
                       ),
                   onLoading: const Center(
                     child: CircularProgressIndicator(),
