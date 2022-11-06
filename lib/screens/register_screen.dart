@@ -18,7 +18,7 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: MunchColors.primaryLight,
+        backgroundColor: MunchColors.primaryDark,
         body: Center(
             child: SingleChildScrollView(
           child:
@@ -49,36 +49,67 @@ class RegisterScreen extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: 300,
-                    height: 75,
+                    height: 50,
                     child: TextFormField(
                         validator: ((value) {
                           if (value == null ||
                               value.isEmpty ||
                               !GetUtils.isEmail(value)) {
-                            return "nope";
+                            return "Invalid Email";
                           }
                           return null;
                         }),
                         decoration: const InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: MunchColors.primaryLight)),
                             label: Text(
-                          "Username",
-                          style: TextStyle(color: MunchColors.primaryDark),
-                        ))),
+                              "Email Address",
+                              style: TextStyle(color: MunchColors.primaryLight),
+                            ))),
                   ),
+                  const SizedBox(
+                    height: 25,
+                  ), //padding box
                   SizedBox(
                     width: 300,
                     height: 50,
                     child: TextFormField(
+                      obscureText: true,
                       decoration: const InputDecoration(
-                          label: Text("Password",
-                              style:
-                                  TextStyle(color: MunchColors.primaryDark))),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: MunchColors.primaryLight)),
+                          iconColor: MunchColors.primaryLight,
+                          label: Text(
+                            "Password",
+                            style: TextStyle(color: MunchColors.primaryLight),
+                          )),
                     ),
                   ),
-                  const SizedBox(height: 60), // padding box
+                  const SizedBox(
+                    height: 25,
+                  ), // padding box
+                  SizedBox(
+                    width: 300,
+                    height: 50,
+                    child: TextFormField(
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: MunchColors.primaryLight)),
+                          iconColor: MunchColors.primaryLight,
+                          label: Text(
+                            "Confirm Password",
+                            style: TextStyle(color: MunchColors.primaryLight),
+                          )),
+                    ),
+                  ),
+                  const SizedBox(height: 100),
                   MunchButton(
                       buttonType: MunchButtonType.filled,
-                      child: const Text("hello"),
+                      child: const Text("Sign Up"),
                       onPressed: () {
                         _formKey.currentState!.validate();
                       }),
