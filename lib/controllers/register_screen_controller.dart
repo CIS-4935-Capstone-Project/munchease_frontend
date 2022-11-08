@@ -1,17 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import '../utils/login_provider.dart';
 
 class RegisterScreenController extends GetxController with StateMixin {
   // When the controller get initialized
-  String? _email;
   TextEditingController passController = TextEditingController();
   TextEditingController confirmController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   RxBool checkboxValue = false.obs;
+  bool passValidated = false; // passwords match
+  bool emailValidated = false;
+  RxDouble formOpacity = 0.0.obs;
+  RxDouble headerOpacity = 0.0.obs;
 
   @override
   void onInit() {
     super.onInit();
-    //passcontroller.text
+    Future.delayed(const Duration(milliseconds: 1500)).then((value) {
+      headerOpacity.value = 1.0;
+    });
+    Future.delayed(const Duration(milliseconds: 2500)).then((value) {
+      formOpacity.value = 1.0;
+    });
   }
 
   void rememberMe() {
@@ -23,14 +33,53 @@ class RegisterScreenController extends GetxController with StateMixin {
     } else {}
   }
 
-  String passwordValidator() {
+  String? passwordValidator() {
+    /*
+    Check if password and confirm password fields match.  If they do, 
+    toggle the control variable for sending the validated fields.
+    Returns a string to the text field to display the error message
+    */
     if (passController.value == confirmController.value) {
-      return 'Passwords Match';
+      passValidated = true;
+      return null;
     } else {
-      return 'They do not match...';
+      passValidated = false;
+      return 'Passwords must match';
     }
   }
   //TODO: add validation function for passwords
   //TODO: onchanged to true.obs
   //TODO: add backend post request function
+
+  String? emailValidator() {
+    /*
+    Check if the email is empty and validate if it is formatted,
+    if neither are true, it will set the control variable to true, otherwise,
+    displays an error message
+    */
+    if (emailController.text == '' || !GetUtils.isEmail(emailController.text)) {
+      emailValidated = false;
+      return "Please enter a valid email address";
+    } else {
+      emailValidated = true;
+      return null;
+    }
+  }
+
+  void submitForm() {
+    LoginProvider loginprovider = LoginProvider();
+    if (!passValidated || !emailValidated) {
+      Get.defaultDialog(
+        title: 'Invalid Credentials',
+        textConfirm: 'OK',
+        titleStyle: const TextStyle(
+            fontFamily: 'Quicksand',
+            fontSize: 18.0,
+            fontWeight: FontWeight.w700),
+        middleText: 'Please submit only valid credentials',
+        middleTextStyle: const TextStyle(fontFamily: 'Quicksand', fontSize: 12),
+        onConfirm: () => Get.back(),
+      );
+    } else {}
+  }
 }

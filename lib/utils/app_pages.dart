@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:munchease/screens/signin_screen.dart';
 import '../screens/login_screen.dart';
 import '../screens/register_screen.dart';
 import '../screens/splash_screen.dart';
@@ -11,5 +12,6 @@ abstract class AppPages {
     GetPage(name: Routes.INITIAL, page: () => SplashScreen()),
     GetPage(name: Routes.REGISTER, page: () => RegisterScreen()),
     GetPage(name: Routes.LOGIN, page: () => LoginScreen()),
+    GetPage(name: Routes.SIGNIN, page: () => SigninScreen())
   ];
 }

@@ -10,7 +10,7 @@ class AppBinding implements Bindings {
   void dependencies() {
     log('Loading Controllers', name: '${this.runtimeType}');
     Get.put(SplashScreenController());
-    Get.put(RegisterScreenController());
+    // Get.put(RegisterScreenController());
     Get.put(LoginScreenController());
   }
 }
