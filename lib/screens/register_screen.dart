@@ -18,105 +18,123 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: MunchColors.primaryDark,
         body: Center(
             child: SingleChildScrollView(
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            const SizedBox(
-              // top padding box
-              height: 60,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        const SizedBox(
+          // top padding box
+          height: 60,
+        ),
+        SizedBox(
+          // logo
+          width: 100,
+          height: 100,
+          child: Hero(
+              tag: 'logo',
+              child: Rive(
+                artboard: splashController.birdArtboard,
+              )),
+        ),
+        const SizedBox(
+          // below logo padding
+          height: 100,
+          child: Center(
+            child: Text(
+              'Register',
+              style: TextStyle(
+                  fontFamily: 'Quicksand',
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.w700),
             ),
-            SizedBox(
-              // logo
-              width: 100,
-              height: 100,
-              child: Hero(
-                  tag: 'logo',
-                  child: Rive(
-                    artboard: splashController.birdArtboard,
-                  )),
-            ),
-            const SizedBox(
-              // below logo padding
-              height: 60,
-            ),
-            Form(
-              key: _formKey,
-              autovalidateMode: AutovalidateMode.always,
-              onChanged: () {},
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: 300,
-                    height: 50,
-                    child: TextFormField(
-                        validator: ((value) {
-                          if (value == null ||
-                              value.isEmpty ||
-                              !GetUtils.isEmail(value)) {
-                            return "Invalid Email";
-                          }
-                          return null;
-                        }),
-                        decoration: const InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: MunchColors.primaryLight)),
-                            label: Text(
-                              "Email Address",
-                              style: TextStyle(color: MunchColors.primaryLight),
-                            ))),
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ), //padding box
-                  SizedBox(
-                    width: 300,
-                    height: 50,
-                    child: TextFormField(
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: MunchColors.primaryLight)),
-                          iconColor: MunchColors.primaryLight,
-                          label: Text(
-                            "Password",
-                            style: TextStyle(color: MunchColors.primaryLight),
-                          )),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ), // padding box
-                  SizedBox(
-                    width: 300,
-                    height: 50,
-                    child: TextFormField(
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: MunchColors.primaryLight)),
-                          iconColor: MunchColors.primaryLight,
-                          label: Text(
-                            "Confirm Password",
-                            style: TextStyle(color: MunchColors.primaryLight),
-                          )),
-                    ),
-                  ),
-                  const SizedBox(height: 100),
-                  MunchButton(
-                      buttonType: MunchButtonType.filled,
-                      child: const Text("Sign Up"),
-                      onPressed: () {
-                        _formKey.currentState!.validate();
-                      }),
-                ],
+          ),
+        ),
+        Form(
+          key: _formKey,
+          autovalidateMode: AutovalidateMode.always,
+          child: Column(
+            children: [
+              SizedBox(
+                width: 300,
+                height: 50,
+                child: TextFormField(
+                    validator: ((value) {
+                      if (value == null ||
+                          value.isEmpty ||
+                          !GetUtils.isEmail(value)) {
+                        return "Invalid Email";
+                      }
+                      return null;
+                    }),
+                    decoration: const InputDecoration(
+                        label: Text(
+                      "Email Address",
+                    ))),
               ),
-            ),
-          ]),
-        )));
+              const SizedBox(
+                height: 25,
+              ), //padding box
+              SizedBox(
+                width: 300,
+                height: 50,
+                child: TextFormField(
+                  controller: registerController.passController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                      label: Text(
+                    "Password",
+                  )),
+                ),
+              ),
+              const SizedBox(
+                height: 25,
+              ), // padding box
+              SizedBox(
+                width: 300,
+                height: 50,
+                child: TextFormField(
+                  validator: (value) {
+                    registerController.passwordValidator();
+                  },
+                  controller: registerController.confirmController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                      label: Text(
+                    "Confirm Password",
+                  )),
+                ),
+              ),
+              SizedBox(
+                width: 330,
+                child: Row(
+                  children: [
+                    Obx((() => Checkbox(
+                        activeColor: MunchColors.primaryColor,
+                        checkColor: MunchColors.primaryDark,
+                        value: registerController.checkboxValue.value,
+                        onChanged: (val) {
+                          registerController.checkboxValue.toggle();
+                        }))),
+                    const Text('Remember Me'),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 100),
+              MunchButton(
+                  buttonType: MunchButtonType.filled,
+                  child: const Text(
+                    "Sign Up",
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  onPressed: () {
+                    _formKey.currentState!.validate();
+                  }),
+            ],
+          ),
+        ),
+      ]),
+    )));
   }
 }
