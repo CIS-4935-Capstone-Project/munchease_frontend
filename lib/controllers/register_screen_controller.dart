@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:munchease/utils/theme_utils.dart';
 import '../utils/login_provider.dart';
 
 class RegisterScreenController extends GetxController with StateMixin {
@@ -66,7 +67,7 @@ class RegisterScreenController extends GetxController with StateMixin {
     }
   }
 
-  void submitForm() {
+  Future<void> submitForm() async {
     LoginProvider loginprovider = LoginProvider();
     if (!passValidated || !emailValidated) {
       Get.defaultDialog(
@@ -76,8 +77,10 @@ class RegisterScreenController extends GetxController with StateMixin {
             fontFamily: 'Quicksand',
             fontSize: 18.0,
             fontWeight: FontWeight.w700),
-        middleText: 'Please submit only valid credentials',
+        middleText:
+            'Ensure Email is properly formatted and both passwords match',
         middleTextStyle: const TextStyle(fontFamily: 'Quicksand', fontSize: 12),
+        buttonColor: MunchColors.primaryColor,
         onConfirm: () => Get.back(),
       );
     } else {}
