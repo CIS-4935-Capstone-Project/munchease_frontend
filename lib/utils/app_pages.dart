@@ -10,8 +10,16 @@ abstract class AppPages {
   static final pages = [
     // TODO: add new GetPages by typing getpageroute
     GetPage(name: Routes.INITIAL, page: () => SplashScreen()),
-    GetPage(name: Routes.REGISTER, page: () => RegisterScreen()),
+    GetPage(
+        name: Routes.REGISTER,
+        page: () => RegisterScreen(),
+        transitionDuration: const Duration(milliseconds: 300),
+        transition: Transition.rightToLeft),
     GetPage(name: Routes.LOGIN, page: () => LoginScreen()),
-    GetPage(name: Routes.SIGNIN, page: () => SigninScreen())
+    GetPage(
+        name: Routes.SIGNIN,
+        page: () => SigninScreen(),
+        transitionDuration: const Duration(milliseconds: 300),
+        transition: Transition.rightToLeft)
   ];
 }

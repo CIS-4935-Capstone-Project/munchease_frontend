@@ -8,6 +8,7 @@ enum SplashScreenStates { none, loading, success, error, empty }
 
 class SplashScreenController extends GetxController
     with StateMixin<SplashScreenStates> {
+  RxDouble textOpacity = 1.0.obs;
   late Artboard birdArtboard;
   SMIInput<bool>? trigger;
   StateMachineController? stateMachineController;
@@ -27,9 +28,11 @@ class SplashScreenController extends GetxController
         }
         birdArtboard = artboard;
         change(SplashScreenStates.success, status: RxStatus.success());
-        await Future.delayed(const Duration(seconds: 2))
-            .then((value) => trigger?.value = true);
-        Future.delayed(const Duration(seconds: 2))
+        await Future.delayed(const Duration(milliseconds: 1750)).then((value) {
+          trigger?.value = true;
+          textOpacity.value = 0.0;
+        });
+        Future.delayed(const Duration(milliseconds: 2000))
             .then((value) => Get.toNamed('/register'));
       },
     );

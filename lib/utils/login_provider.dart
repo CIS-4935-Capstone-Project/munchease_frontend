@@ -12,13 +12,12 @@ class LoginProvider extends GetConnect {
 
   Future<Response> signIn(Map data) => post('signinURL', data);
 
-  // Future<Response> getBeer() async {
-  //   await get('https://random-data-api.com/api/v2/beer').then((response) {
-  //     if (response.status.hasError) {
-  //       return Future.error(Exception(response.statusText));
-  //     } else {
-  //       return response.body;
-  //     }
-  //   });
-  // }
+  Future<Response> getBeer() async {
+    final response = await get('https://random-data-api.com/api/v2/beer');
+    if (response.status.hasError) {
+      return Future.error(Exception(response.statusText));
+    } else {
+      return response.body;
+    }
+  }
 }

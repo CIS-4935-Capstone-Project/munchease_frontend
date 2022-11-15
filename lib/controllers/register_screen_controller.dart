@@ -17,10 +17,10 @@ class RegisterScreenController extends GetxController with StateMixin {
   @override
   void onInit() {
     super.onInit();
-    Future.delayed(const Duration(milliseconds: 1500)).then((value) {
+    Future.delayed(const Duration(milliseconds: 1000)).then((value) {
       headerOpacity.value = 1.0;
     });
-    Future.delayed(const Duration(milliseconds: 2500)).then((value) {
+    Future.delayed(const Duration(milliseconds: 1500)).then((value) {
       formOpacity.value = 1.0;
     });
   }
@@ -68,21 +68,35 @@ class RegisterScreenController extends GetxController with StateMixin {
   }
 
   Future<void> submitForm() async {
+    /* 
+    Pop up with a dialog if the email is not validated or passwords don't match.
+    Passwords are assumed to be fine as the account is already created.
+    TODO: add password complexity validation as well
+    If both those cases are fine, submit the form
+    */
     LoginProvider loginprovider = LoginProvider();
+    dynamic res = loginprovider.getBeer();
     if (!passValidated || !emailValidated) {
       Get.defaultDialog(
         title: 'Invalid Credentials',
         textConfirm: 'OK',
         titleStyle: const TextStyle(
-            fontFamily: 'Quicksand',
-            fontSize: 18.0,
-            fontWeight: FontWeight.w700),
-        middleText:
-            'Ensure Email is properly formatted and both passwords match',
-        middleTextStyle: const TextStyle(fontFamily: 'Quicksand', fontSize: 12),
+            fontFamily: 'Inter', fontSize: 18.0, fontWeight: FontWeight.w700),
+        middleText: res.toString(),
+        middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
         buttonColor: MunchColors.primaryColor,
         onConfirm: () => Get.back(),
       );
     } else {}
+  }
+
+  void toSignin() {
+    /*
+    Reset the opacity of the form/header elements so when the user comes back
+    to the page it will redo the transition.
+    */
+    // formOpacity.value = 0.0;
+    // headerOpacity.value = 0.0;
+    Get.toNamed('/signin');
   }
 }

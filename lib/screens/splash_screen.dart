@@ -16,8 +16,8 @@ class SplashScreen extends StatelessWidget {
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           SizedBox(
-              width: 150,
-              height: 150,
+              width: 160,
+              height: 160,
               child: splashController.obx(
                   (state) => Hero(
                         tag: 'logo',
@@ -28,13 +28,20 @@ class SplashScreen extends StatelessWidget {
                   onLoading: const Center(
                     child: CircularProgressIndicator(),
                   ))),
-          Text(
-            'MunchEase',
-            style: TextStyle(
-              color: MunchColors.primaryColor,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.w700,
-              fontSize: 42.0,
+          Obx(
+            () => AnimatedOpacity(
+              opacity: splashController.textOpacity.value,
+              duration: const Duration(milliseconds: 1100),
+              curve: Curves.linear,
+              child: Text(
+                'MunchEase',
+                style: TextStyle(
+                  color: MunchColors.primaryColor,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 42.0,
+                ),
+              ),
             ),
           )
         ]),
