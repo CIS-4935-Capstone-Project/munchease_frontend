@@ -17,10 +17,10 @@ class SigninScreenController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    Future.delayed(const Duration(milliseconds: 800)).then((value) {
+    Future.delayed(const Duration(milliseconds: 1000)).then((value) {
       headerOpacity.value = 1.0;
     });
-    Future.delayed(const Duration(milliseconds: 1000)).then((value) {
+    Future.delayed(const Duration(milliseconds: 1500)).then((value) {
       formOpacity.value = 1.0;
     });
   }

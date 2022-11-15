@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:munchease/utils/theme_utils.dart';
 import '../utils/login_provider.dart';
+import 'dart:convert';
 
 class RegisterScreenController extends GetxController with StateMixin {
   // When the controller get initialized
@@ -40,7 +41,10 @@ class RegisterScreenController extends GetxController with StateMixin {
     toggle the control variable for sending the validated fields.
     Returns a string to the text field to display the error message
     */
-    if (passController.value == confirmController.value) {
+    if (passController.text.length < 9) {
+      passValidated = false;
+      return 'Password length must be greater than 8';
+    } else if (passController.value == confirmController.value) {
       passValidated = true;
       return null;
     } else {
@@ -67,27 +71,54 @@ class RegisterScreenController extends GetxController with StateMixin {
     }
   }
 
-  Future<void> submitForm() async {
+  Future<void> submitForm(username, password) async {
     /* 
     Pop up with a dialog if the email is not validated or passwords don't match.
     Passwords are assumed to be fine as the account is already created.
     TODO: add password complexity validation as well
     If both those cases are fine, submit the form
+    if successful, message/id/rfrshTkn returned
+    if fail, only "message" field returned
     */
     LoginProvider loginprovider = LoginProvider();
-    dynamic res = loginprovider.getBeer();
     if (!passValidated || !emailValidated) {
       Get.defaultDialog(
         title: 'Invalid Credentials',
         textConfirm: 'OK',
         titleStyle: const TextStyle(
             fontFamily: 'Inter', fontSize: 18.0, fontWeight: FontWeight.w700),
-        middleText: res.toString(),
+        middleText: 'Ensure your email is valid and passwords match',
         middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
         buttonColor: MunchColors.primaryColor,
         onConfirm: () => Get.back(),
       );
-    } else {}
+    } else {
+      dynamic res =
+          loginprovider.registerUser({'email': username, 'password': password});
+      if (res.body['message'] == 'success') {
+        Get.defaultDialog(
+          title: 'Sign Up Worked',
+          textConfirm: 'OK',
+          titleStyle: const TextStyle(
+              fontFamily: 'Inter', fontSize: 18.0, fontWeight: FontWeight.w700),
+          middleText: res.body.toString(),
+          middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
+          buttonColor: MunchColors.primaryColor,
+          onConfirm: () => Get.back(),
+        );
+      } else {
+        Get.defaultDialog(
+          title: 'Sign Up Failed',
+          textConfirm: 'OK',
+          titleStyle: const TextStyle(
+              fontFamily: 'Inter', fontSize: 18.0, fontWeight: FontWeight.w700),
+          middleText: res.body['message'],
+          middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
+          buttonColor: MunchColors.primaryColor,
+          onConfirm: () => Get.back(),
+        );
+      }
+    }
   }
 
   void toSignin() {
