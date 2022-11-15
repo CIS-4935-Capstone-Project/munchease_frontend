@@ -10,6 +10,8 @@ abstract class Routes {
   static const HOME = '/home';
   static const REGISTER = '/register';
   static const SPLASH = '/splash';
+  static const COMPARE = '/compare';
+  static const FINAL = '/final';
 
   // ONBOARDING RELATED
   static const CUISINE = '/cuisine';

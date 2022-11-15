@@ -24,13 +24,28 @@ mixin CuisineBox {
   }
 }
 
+mixin FavoriteBox {
+  final _boxName = "user_favorites";
+
+  List? getFavorites() {
+    return MunchBox.favRepo.get(_boxName);
+  }
+
+  Future putFavorites(value) {
+    return MunchBox.favRepo.put(_boxName, [...getFavorites() ?? [], value]);
+  }
+}
+
 abstract class MunchBox {
   static const _USR_PRF = 'user_prefs';
+  static const _USR_FAV = 'user_favorites';
 
   static openBoxes() async {
     await Hive.openBox(_USR_PRF);
+    await Hive.openBox(_USR_FAV);
   }
 
   static var prefRepo = Hive.box(_USR_PRF);
+  static var favRepo = Hive.box(_USR_FAV);
 // TODO: login box
 }
