@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
 class LoginProvider extends GetConnect {
-  Future<Map<String, String>> registerUser(Map data) async {
-    final response = await post('https://5cswfu.deta.dev/register', data);
+  Future registerUser(Map data) async {
+    final response = await post('http://10.0.2.2:3000/register', data);
     if (response.status.hasError) {
       return Future.error(Exception(response.statusText));
     } else {
@@ -10,18 +10,18 @@ class LoginProvider extends GetConnect {
     }
   }
 
-  Future<Response> signIn(Map data) => post('signinURL', data);
+  Future<Response<dynamic>> signIn(Map data) => post('signinURL', data);
 
-  Future<Map<String, String>> getLandingPage() async {
+  Future<Response<dynamic>> getLandingPage() async {
     try {
       final response = await get('https://5cswfu.deta.dev/');
       if (response.status.hasError) {
         return Future.error(Exception(response.statusText));
       } else {
-        return {"response": response.body.toString()};
+        return response.body;
       }
     } catch (e) {
-      return {'error': e.toString()};
+      return Future.error(Exception(e));
     }
   }
 }

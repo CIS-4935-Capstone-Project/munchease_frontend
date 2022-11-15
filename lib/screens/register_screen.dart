@@ -129,8 +129,8 @@ class RegisterScreen extends StatelessWidget {
                       ),
                       onPressed: () {
                         registerController.submitForm(
-                            registerController.emailController.value,
-                            registerController.passController.value);
+                            registerController.emailController.text,
+                            registerController.passController.text);
                       }),
                   const SizedBox(height: 10), // padding box
                   MunchButton(

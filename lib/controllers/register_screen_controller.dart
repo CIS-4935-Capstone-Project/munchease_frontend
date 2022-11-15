@@ -93,15 +93,15 @@ class RegisterScreenController extends GetxController with StateMixin {
         onConfirm: () => Get.back(),
       );
     } else {
-      dynamic res =
-          loginprovider.registerUser({'email': username, 'password': password});
-      if (res.body['message'] == 'success') {
+      dynamic res = await loginprovider
+          .registerUser({"email": username, "password": password});
+      if (res['message'] == 'success') {
         Get.defaultDialog(
           title: 'Sign Up Worked',
           textConfirm: 'OK',
           titleStyle: const TextStyle(
               fontFamily: 'Inter', fontSize: 18.0, fontWeight: FontWeight.w700),
-          middleText: res.body.toString(),
+          middleText: res.toString(),
           middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
           buttonColor: MunchColors.primaryColor,
           onConfirm: () => Get.back(),
@@ -112,7 +112,7 @@ class RegisterScreenController extends GetxController with StateMixin {
           textConfirm: 'OK',
           titleStyle: const TextStyle(
               fontFamily: 'Inter', fontSize: 18.0, fontWeight: FontWeight.w700),
-          middleText: res.body['message'],
+          middleText: res['message'],
           middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
           buttonColor: MunchColors.primaryColor,
           onConfirm: () => Get.back(),
