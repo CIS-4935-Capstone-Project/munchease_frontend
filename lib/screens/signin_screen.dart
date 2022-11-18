@@ -101,7 +101,7 @@ class SigninScreen extends StatelessWidget {
                         const Text('Remember Me'),
                       ],
                     ),
-                  ),
+                  ), //TODO add link to forgot password screen with lock icon
                   const SizedBox(
                     height: 140,
                   ),

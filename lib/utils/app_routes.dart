@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 part of 'app_pages.dart';
 
 // Define the strings for the routes here
@@ -8,5 +10,9 @@ abstract class Routes {
   static const HOME = '/home';
   static const REGISTER = '/register';
   static const SPLASH = '/splash';
+
+  // ONBOARDING RELATED
+  static const CUISINE = '/cuisine';
+  static const DIET = '/diet';
   static const SIGNIN = '/signin';
 }
