@@ -15,87 +15,89 @@ class ResetScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                // top padding box
-                height: 40,
-              ),
-              SizedBox(
-                // logo
-                width: 100,
-                height: 100,
-                child: Hero(
-                    tag: 'logo',
-                    child: Rive(
-                      artboard: splashController.birdArtboard,
-                    )),
-              ),
-              Form(
-                key: _formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      // below logo padding
-                      height: 60,
-                      child: Center(
-                        child: Text(
-                          'Reset Password',
-                          style: TextStyle(
-                              fontFamily: 'Quicksand',
-                              fontSize: 28.0,
-                              fontWeight: FontWeight.w700),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              // top padding box
+              height: 40,
+            ),
+            SizedBox(
+              // logo
+              width: 100,
+              height: 100,
+              child: Hero(
+                  tag: 'logo',
+                  child: Rive(
+                    artboard: splashController.birdArtboard,
+                  )),
+            ),
+            Form(
+              key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    // below logo padding
+                    height: 60,
+                    child: Center(
+                      child: Text(
+                        'Reset Password',
+                        style: TextStyle(
+                            fontFamily: 'Quicksand',
+                            fontSize: 28.0,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 80,
+                  ),
+                  SizedBox(
+                    width: 300,
+                    height: 80,
+                    child: TextFormField(
+                      validator: ((value) {
+                        return resetController.emailValidator();
+                      }),
+                      controller: resetController.emailController,
+                      decoration: const InputDecoration(
+                        label: Text(
+                          "Email Address",
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 300,
-                      height: 80,
-                      child: TextFormField(
-                        validator: ((value) {
-                          return resetController.emailValidator();
-                        }),
-                        controller: resetController.emailController,
-                        decoration: const InputDecoration(
-                          label: Text(
-                            "Email Address",
-                          ),
+                  ),
+                  MunchButton(
+                      buttonType: MunchButtonType.filled,
+                      child: const Text(
+                        "Send Request",
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
-                    ),
-                    MunchButton(
-                        buttonType: MunchButtonType.filled,
-                        child: const Text(
-                          "Send Request",
-                          style: TextStyle(
-                            fontSize: 18.0,
-                          ),
+                      onPressed: () {
+                        resetController
+                            .submitForm(resetController.emailController.text);
+                      }),
+                  const SizedBox(height: 10),
+                  MunchButton(
+                      buttonType: MunchButtonType.line,
+                      child: const Text(
+                        "Back to Sign In",
+                        style: TextStyle(
+                          fontSize: 18.0,
                         ),
-                        onPressed: () {
-                          resetController
-                              .submitForm(resetController.emailController.text);
-                        }),
-                    const SizedBox(height: 10),
-                    MunchButton(
-                        buttonType: MunchButtonType.line,
-                        child: const Text(
-                          "Back to Sign In",
-                          style: TextStyle(
-                            fontSize: 18.0,
-                          ),
-                        ),
-                        onPressed: () {
-                          Get.toNamed('/signin');
-                        }),
-                  ],
-                ),
+                      ),
+                      onPressed: () {
+                        Get.toNamed('/signin');
+                      }),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

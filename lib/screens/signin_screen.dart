@@ -124,11 +124,15 @@ class SigninScreen extends StatelessWidget {
                                   Icons.lock_reset,
                                   size: 28.0,
                                 ),
-                                Text(
-                                  '  Forgot your password?',
-                                  style: TextStyle(
-                                    fontFamily: 'Quicksand',
-                                    fontSize: 15.0,
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(11.5, 0, 0, 0),
+                                  child: Text(
+                                    'Forgot your password?',
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      fontFamily: 'Quicksand',
+                                      fontSize: 15.0,
+                                    ),
                                   ),
                                 )
                               ]),
