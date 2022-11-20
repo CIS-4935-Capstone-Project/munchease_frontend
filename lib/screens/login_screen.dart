@@ -35,9 +35,9 @@ class LoginScreen extends GetView<LoginScreenController> {
                       }
                       return null;
                     }),
-                    decoration: InputDecoration(hintText: "Hello"))),
-            Text('LoginScreenController'),
-            MunchChip(
+                    decoration: const InputDecoration(hintText: "Hello"))),
+            const Text('LoginScreenController'),
+            const MunchChip(
               label: "Hello",
             ),
             MunchButton(
@@ -45,7 +45,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                 child: const Text("hello"),
                 onPressed: () {}),
             TextFormField(
-              decoration: InputDecoration(label: Text("Password")),
+              decoration: const InputDecoration(label: Text("Password")),
             )
           ],
         )));

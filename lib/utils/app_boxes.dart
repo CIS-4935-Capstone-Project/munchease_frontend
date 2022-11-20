@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:hive/hive.dart';
 
 mixin DietBox {
@@ -24,13 +26,46 @@ mixin CuisineBox {
   }
 }
 
-abstract class MunchBox {
-  static const _USR_PRF = 'user_prefs';
+mixin FavoriteBox {
+  final _boxName = "user_favorites";
 
-  static openBoxes() async {
-    await Hive.openBox(_USR_PRF);
+  List? getFavorites() {
+    return MunchBox.favRepo.get(_boxName);
   }
 
-  static var prefRepo = Hive.box(_USR_PRF);
+  Future putFavorites(value) {
+    return MunchBox.favRepo.put(_boxName, [...getFavorites() ?? [], value]);
+  }
+}
+
+class MunchBox {
+  static const _USR_PRF = 'user_prefs';
+  static const _USR_FAV = 'user_favorites';
+  Box? _userPrefs;
+  Box? _userFavorites;
+  Future openBoxes() async {
+    _userPrefs = await Hive.openBox(_USR_PRF);
+    _userFavorites = await Hive.openBox(_USR_FAV);
+  }
+
+  Future deteleBoxes() async {
+    _userPrefs?.deleteFromDisk();
+    _userFavorites?.deleteFromDisk();
+  }
+
+  static Box prefRepo = Hive.box(_USR_PRF);
+  static Box favRepo = Hive.box(_USR_FAV);
 // TODO: login box
+}
+
+class TestDiet with DietBox {
+  Future testPut(value) {
+    return putDiet(value);
+  }
+}
+
+class TestCuisine with CuisineBox {
+  Future testPut(value) {
+    return putCuisine(value);
+  }
 }

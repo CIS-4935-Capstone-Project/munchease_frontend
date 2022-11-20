@@ -32,7 +32,7 @@ class Recipe {
     if (json['extendedIngredients'] != null) {
       extendedIngredients = <ExtendedIngredients>[];
       json['extendedIngredients'].forEach((v) {
-        extendedIngredients!.add(new ExtendedIngredients.fromJson(v));
+        extendedIngredients!.add(ExtendedIngredients.fromJson(v));
       });
     }
     id = json['id'];
@@ -42,59 +42,31 @@ class Recipe {
     sourceUrl = json['sourceUrl'];
     image = json['image'];
     summary = json['summary'];
-    cuisines = json['cuisines'].cast<String>();
-    diets = json['diets'].cast<String>();
+    cuisines = json['cuisines'].cast<String>() ?? [];
+    diets = json['diets'].cast<String>() ?? [];
     if (json['analyzedInstructions'] != null) {
       analyzedInstructions = <Steps>[];
-      json['analyzedInstructions'].first["steps"].forEach((v) {
-        analyzedInstructions!.add(Steps.fromJson(v));
-      });
+      if (json['analyzedInstructions'].isNotEmpty) {
+        json['analyzedInstructions'].forEach((v) {
+          analyzedInstructions!.add(Steps.fromJson(v));
+        });
+      }
     }
     spoonacularSourceUrl = json['spoonacularSourceUrl'];
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toHiveMap() {
     return {
-      'extendedIngredients':
-          extendedIngredients?.map((x) => x.toMap()).toList(),
       'id': id,
       'title': title,
-      'readyInMinutes': readyInMinutes,
-      'servings': servings,
-      'sourceUrl': sourceUrl,
       'image': image,
-      'summary': summary,
-      'cuisines': cuisines,
-      'diets': diets,
-      'analyzedInstructions':
-          analyzedInstructions?.map((x) => x.toMap()).toList(),
-      'spoonacularSourceUrl': spoonacularSourceUrl,
     };
   }
 
-  String toJson() => json.encode(toMap());
+  String toJson() => json.encode(toHiveMap());
 
   factory Recipe.fromMap(Map<String, dynamic> map) {
-    return Recipe(
-      extendedIngredients: map['extendedIngredients'] != null
-          ? List<ExtendedIngredients>.from(map['extendedIngredients']
-              ?.map((x) => ExtendedIngredients.fromMap(x)))
-          : null,
-      id: map['id']?.toInt(),
-      title: map['title'],
-      readyInMinutes: map['readyInMinutes']?.toInt(),
-      servings: map['servings']?.toInt(),
-      sourceUrl: map['sourceUrl'],
-      image: map['image'],
-      summary: map['summary'],
-      cuisines: List<String>.from(map['cuisines']),
-      diets: List<String>.from(map['diets']),
-      analyzedInstructions: map['analyzedInstructions'] != null
-          ? List<Steps>.from(
-              map['analyzedInstructions']?.map((x) => Steps.fromMap(x)))
-          : null,
-      spoonacularSourceUrl: map['spoonacularSourceUrl'],
-    );
+    return Recipe(id: map['id'], image: map['image'], title: map['title']);
   }
 
   factory Recipe.fromHive(String source) => Recipe.fromMap(json.decode(source));
@@ -157,7 +129,7 @@ class AnalyzedInstructions {
     if (json['steps'] != null) {
       steps = <Steps>[];
       json['steps'].forEach((v) {
-        steps!.add(new Steps.fromJson(v));
+        steps!.add(Steps.fromJson(v));
       });
     }
   }

@@ -7,24 +7,27 @@ class MunchButton extends StatelessWidget {
   final MunchButtonType buttonType;
   final Widget child;
   final VoidCallback? onPressed;
-  final double _buttonW = 280;
-  final double _buttonH = 40;
+  final double buttonW = 280;
+  final double buttonH = 40;
   final double? height;
   final double? width;
+  final double radius;
 
-  const MunchButton(
-      {super.key,
-      required this.buttonType,
-      required this.child,
-      required this.onPressed,
-      this.height,
-      this.width});
+  const MunchButton({
+    super.key,
+    required this.buttonType,
+    required this.child,
+    required this.onPressed,
+    this.height,
+    this.width,
+    this.radius = 50,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: width ?? _buttonW,
-        height: height ?? _buttonH,
+        width: width ?? buttonW,
+        height: height ?? buttonH,
         child: DefaultTextStyle(
           style: TextStyle(
               color: buttonType == MunchButtonType.filled
@@ -32,7 +35,7 @@ class MunchButton extends StatelessWidget {
                   : Theme.of(context).colorScheme.onBackground),
           child: InkWell(
             splashColor: MunchColors.primaryColor,
-            borderRadius: const BorderRadius.all(Radius.circular(50)),
+            borderRadius: BorderRadius.all(Radius.circular(radius)),
             onTap: onPressed,
             child: AnimatedContainer(
               curve: Curves.fastOutSlowIn,
@@ -46,7 +49,7 @@ class MunchButton extends StatelessWidget {
                   color: buttonType == MunchButtonType.filled
                       ? Theme.of(context).colorScheme.onBackground
                       : MunchColors.transparent,
-                  borderRadius: const BorderRadius.all(Radius.circular(50))),
+                  borderRadius: BorderRadius.all(Radius.circular(radius))),
               child: Center(child: child),
             ),
           ),

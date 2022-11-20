@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:munchease/controllers/onboarding_diet_controller.dart';
-import 'package:munchease/utils/app_boxes.dart';
+import 'package:munchease/widgets/global_widgets.dart';
 import 'package:munchease/widgets/me_filterchip.dart';
 import 'package:munchease/widgets/me_text_button.dart';
 
@@ -13,18 +13,7 @@ class OnboardingDietScreen extends GetView<OnboardingDietController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        title: const Text(
-          'Diets',
-          style: TextStyle(
-            fontFamily: 'Quicksand',
-            fontWeight: FontWeight.w700,
-            fontSize: 36.0,
-          ),
-        ),
-      ),
+      appBar: buildTitleAppBar('Diets'),
       body: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
           child:

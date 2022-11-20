@@ -39,11 +39,19 @@ class MunchScheme {
 
 class MunchTheme {
   static final lightTheme = ThemeData(
+    expansionTileTheme: ExpansionTileThemeData(
+      childrenPadding: const EdgeInsets.all(10),
+      textColor: MunchScheme.lightColorScheme.onBackground,
+      iconColor: MunchScheme.lightColorScheme.onBackground,
+    ),
+    fontFamily: 'Quicksand',
     drawerTheme: const DrawerThemeData(scrimColor: Colors.transparent),
     canvasColor: MunchColors.primaryLight,
     radioTheme: const RadioThemeData(
         fillColor: MaterialStatePropertyAll(MunchColors.primaryColor)),
     appBarTheme: const AppBarTheme(
+        centerTitle: false,
+        elevation: 0,
         titleTextStyle: TextStyle(color: MunchColors.primaryDark),
         backgroundColor: MunchColors.primaryLight),
     inputDecorationTheme:
@@ -55,9 +63,17 @@ class MunchTheme {
     colorScheme: MunchScheme.lightColorScheme,
   );
   static final darkTheme = ThemeData(
+    expansionTileTheme: ExpansionTileThemeData(
+      childrenPadding: const EdgeInsets.all(10),
+      textColor: MunchScheme.darkColorScheme.onBackground,
+      iconColor: MunchScheme.darkColorScheme.onBackground,
+    ),
+    fontFamily: 'Quicksand',
     drawerTheme: const DrawerThemeData(scrimColor: Colors.transparent),
     canvasColor: MunchColors.primaryDark,
     appBarTheme: const AppBarTheme(
+        centerTitle: false,
+        elevation: 0,
         titleTextStyle: TextStyle(color: MunchColors.primaryLight),
         backgroundColor: MunchColors.primaryDark),
     radioTheme: const RadioThemeData(
