@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';
-import 'package:munchease/controllers/onboarding_cuisine_controller.dart';
-import 'package:munchease/controllers/onboarding_diet_controller.dart';
 import 'package:munchease/main.dart';
-import 'package:munchease/screens/onboarding_cuisine_screen.dart';
 import 'package:munchease/utils/app_boxes.dart';
 
 void main() {

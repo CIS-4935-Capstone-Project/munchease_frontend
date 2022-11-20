@@ -8,7 +8,6 @@ import 'package:tinycolor2/tinycolor2.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../models/recipe_model.dart';
-import '../utils/theme_utils.dart';
 
 class MunchDetailedRecipe extends StatelessWidget {
   final Recipe recipe;
@@ -247,14 +246,11 @@ class MunchDetailedRecipe extends StatelessWidget {
                         width: 150,
                         child: MunchButton(
                             buttonType: MunchButtonType.filled,
+                            onPressed: launchSourceURL,
                             child: const Text(
                               "View Here",
                               textAlign: TextAlign.center,
-                            ),
-                            onPressed: () async {
-                              if (!await launchUrl(Uri.parse(recipe.sourceUrl ??
-                                  recipe.spoonacularSourceUrl!))) {}
-                            }),
+                            )),
                       )
                     else
                       ...recipe.analyzedInstructions!
@@ -278,5 +274,17 @@ class MunchDetailedRecipe extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void launchSourceURL() async {
+    if (await canLaunchUrl(Uri.parse(recipe.sourceUrl!))) {
+      await launchUrl(Uri.parse(recipe.sourceUrl!),
+          mode: LaunchMode.inAppWebView); //forceWebView is true now
+    } else {
+      if (await canLaunchUrl(Uri.parse(recipe.spoonacularSourceUrl!))) {
+        await launchUrl(Uri.parse(recipe.spoonacularSourceUrl!),
+            mode: LaunchMode.inAppWebView); //f
+      }
+    }
   }
 }

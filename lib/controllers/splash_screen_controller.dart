@@ -26,7 +26,7 @@ class SplashScreenController extends GetxController
         }
         birdArtboard = artboard;
         change(SplashScreenStates.success, status: RxStatus.success());
-        Future.delayed(Duration(seconds: 3))
+        Future.delayed(const Duration(seconds: 3))
             .then((value) => trigger?.value = true);
       },
     );

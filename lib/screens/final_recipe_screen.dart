@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:munchease/utils/app_boxes.dart';
 import 'package:munchease/widgets/me_detailed_recipe.dart';
+import 'package:munchease/widgets/me_text_button.dart';
 
 import '../controllers/final_recipe_screen_controller.dart';
-import '../models/recipe_model.dart';
 
 class FinalRecipeScreen extends StatelessWidget {
   const FinalRecipeScreen({super.key});
@@ -21,8 +18,20 @@ class FinalRecipeScreen extends StatelessWidget {
         appBar: AppBar(),
         body: SafeArea(
           child: controller.obx(
-              (state) => MunchDetailedRecipe(
-                    recipe: state!,
+              (state) => SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        MunchDetailedRecipe(
+                          recipe: state!,
+                        ),
+                        MunchButton(
+                            buttonType: MunchButtonType.filled,
+                            child: const Text("Search Near You"),
+                            onPressed: () async {
+                              controller.launchMapURL();
+                            })
+                      ],
+                    ),
                   ),
               onLoading: const Center(child: CircularProgressIndicator())),
         ));

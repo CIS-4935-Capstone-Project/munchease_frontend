@@ -24,7 +24,7 @@ class SplashScreen extends StatelessWidget {
                   onLoading: const Center(
                     child: CircularProgressIndicator(),
                   ))),
-          Text(
+          const Text(
             'MunchEase',
             style: TextStyle(
               color: MunchColors.primaryColor,

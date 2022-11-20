@@ -32,7 +32,7 @@ class Recipe {
     if (json['extendedIngredients'] != null) {
       extendedIngredients = <ExtendedIngredients>[];
       json['extendedIngredients'].forEach((v) {
-        extendedIngredients!.add(new ExtendedIngredients.fromJson(v));
+        extendedIngredients!.add(ExtendedIngredients.fromJson(v));
       });
     }
     id = json['id'];
@@ -47,7 +47,6 @@ class Recipe {
     if (json['analyzedInstructions'] != null) {
       analyzedInstructions = <Steps>[];
       if (json['analyzedInstructions'].isNotEmpty) {
-        print(json['analyzedInstructions']);
         json['analyzedInstructions'].forEach((v) {
           analyzedInstructions!.add(Steps.fromJson(v));
         });
@@ -130,7 +129,7 @@ class AnalyzedInstructions {
     if (json['steps'] != null) {
       steps = <Steps>[];
       json['steps'].forEach((v) {
-        steps!.add(new Steps.fromJson(v));
+        steps!.add(Steps.fromJson(v));
       });
     }
   }

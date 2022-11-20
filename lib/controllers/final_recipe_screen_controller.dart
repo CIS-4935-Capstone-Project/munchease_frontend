@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
-import 'package:munchease/utils/app_boxes.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:munchease/utils/server_helper.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../models/recipe_model.dart';
 
 class FinalRecipeScreenController extends GetxController
@@ -9,7 +8,6 @@ class FinalRecipeScreenController extends GetxController
   Server server;
 
   FinalRecipeScreenController({required Recipe recipe, required this.server}) {
-    print(recipe);
     change(recipe);
   }
 
@@ -29,6 +27,17 @@ class FinalRecipeScreenController extends GetxController
       var serverRecipe = await server.getRecipeFromId(state!.id);
 
       change(serverRecipe, status: RxStatus.success());
+    }
+  }
+
+  launchMapURL() async {
+    if (await canLaunchUrl(
+        Uri.parse("https://google.com/maps/search/${state!.title}"))) {
+      await launchUrl(
+          Uri.parse("https://google.com/maps/search/${state!.title}"),
+          mode: LaunchMode.inAppWebView); //forceWebView is true now
+    } else {
+      throw 'Could not launch ${Uri.parse("https://google.com/maps/search/${state!.title}")}';
     }
   }
 }

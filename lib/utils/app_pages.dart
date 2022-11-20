@@ -1,16 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:munchease/models/recipe_model.dart';
 import 'package:munchease/screens/compare_recipe_screen.dart';
 import 'package:munchease/screens/final_recipe_screen.dart';
 import 'package:munchease/screens/onboarding_cuisine_screen.dart';
 import 'package:munchease/screens/onboarding_diet_screen.dart';
 import 'package:munchease/screens/saved_recipe_screen.dart';
 import 'package:munchease/screens/splash_screen.dart';
-import 'package:munchease/utils/app_boxes.dart';
 import 'package:munchease/utils/sample_models.dart';
 import 'package:munchease/widgets/image_popup.dart';
-import 'package:munchease/widgets/me_detailed_recipe.dart';
 
 part 'app_routes.dart';
 
@@ -27,7 +23,7 @@ abstract class AppPages {
         page: (() => CompareRecipeScreen(
               compareList: recipeModelSample,
             ))),
-    GetPage(name: Routes.FINAL, page: (() => FinalRecipeScreen())),
+    GetPage(name: Routes.FINAL, page: (() => const FinalRecipeScreen())),
     GetPage(name: Routes.SAVED, page: (() => const SavedRecipeScreen())),
 
     GetPage(
