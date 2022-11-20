@@ -17,139 +17,152 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        const SizedBox(
-          // top padding box
-          height: 40,
-        ),
-        SizedBox(
-          // logo
-          width: 100,
-          height: 100,
-          child: Hero(
-              tag: 'logo',
-              child: Rive(
-                artboard: splashController.birdArtboard,
-              )),
-        ),
-        Obx(
-          () => AnimatedOpacity(
-            opacity: registerController.headerOpacity.value,
-            duration: const Duration(milliseconds: 1000),
-            curve: Curves.easeIn,
-            child: const SizedBox(
-              // below logo padding
-              height: 60,
-              child: Center(
-                child: Text(
-                  'Register',
-                  style: TextStyle(
-                      fontFamily: 'Quicksand',
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.w700),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              // top padding box
+              height: 40,
+            ),
+            SizedBox(
+              // logo
+              width: 100,
+              height: 100,
+              child: Hero(
+                  tag: 'logo',
+                  child: Rive(
+                    artboard: splashController.birdArtboard,
+                  )),
+            ),
+            Obx(
+              () => AnimatedOpacity(
+                opacity: registerController.headerOpacity.value,
+                duration: const Duration(milliseconds: 1000),
+                curve: Curves.easeIn,
+                child: const SizedBox(
+                  // below logo padding
+                  height: 60,
+                  child: Center(
+                    child: Text(
+                      'Register',
+                      style: TextStyle(
+                          fontFamily: 'Quicksand',
+                          fontSize: 28.0,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-        Obx(
-          () => AnimatedOpacity(
-            opacity: registerController.formOpacity.value,
-            duration: const Duration(milliseconds: 1500),
-            curve: Curves.easeIn,
-            child: Form(
-              key: _formKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: 300,
-                    height: 80,
-                    child: TextFormField(
-                        validator: ((value) {
-                          return registerController.emailValidator();
-                        }),
-                        controller: registerController.emailController,
-                        decoration: const InputDecoration(
+            Obx(
+              () => AnimatedOpacity(
+                opacity: registerController.formOpacity.value,
+                duration: const Duration(milliseconds: 1500),
+                curve: Curves.easeIn,
+                child: Form(
+                  key: _formKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: 300,
+                        height: 80,
+                        child: TextFormField(
+                          validator: ((value) {
+                            return registerController.emailValidator();
+                          }),
+                          controller: registerController.emailController,
+                          decoration: const InputDecoration(
                             label: Text(
-                          "Email Address",
-                        ))),
-                  ),
-                  SizedBox(
-                    width: 300,
-                    height: 80,
-                    child: TextFormField(
-                      controller: registerController.passController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                          label: Text(
-                        "Password",
-                      )),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 300,
-                    height: 80,
-                    child: TextFormField(
-                      validator: (value) {
-                        return registerController.passwordValidator();
-                      },
-                      controller: registerController.confirmController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                          label: Text(
-                        "Confirm Password",
-                      )),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 325,
-                    child: Row(
-                      children: [
-                        Obx((() => Checkbox(
-                            activeColor: MunchColors.primaryColor,
-                            checkColor: MunchColors.primaryDark,
-                            value: registerController.checkboxValue.value,
-                            onChanged: (val) {
-                              registerController.checkboxValue.toggle();
-                            }))),
-                        const Text('Remember Me'),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 60),
-                  MunchButton(
-                      buttonType: MunchButtonType.filled,
-                      child: const Text(
-                        "Sign Up",
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w700,
+                              "Email Address",
+                            ),
+                          ),
                         ),
                       ),
-                      onPressed: () {
-                        registerController.submitForm(
-                            registerController.emailController.text,
-                            registerController.passController.text);
-                      }),
-                  const SizedBox(height: 10), // padding box
-                  MunchButton(
-                      buttonType: MunchButtonType.line,
-                      child: const Text(
-                        "Have an Account?",
-                        style: TextStyle(
-                          fontSize: 18.0,
+                      SizedBox(
+                        width: 300,
+                        height: 80,
+                        child: TextFormField(
+                          controller: registerController.passController,
+                          obscureText: true,
+                          decoration: const InputDecoration(
+                              label: Text(
+                            "Password",
+                          )),
                         ),
                       ),
-                      onPressed: () {
-                        registerController.toSignin();
-                      }),
-                ],
+                      SizedBox(
+                        width: 300,
+                        height: 80,
+                        child: TextFormField(
+                          validator: (value) {
+                            return registerController.passwordValidator();
+                          },
+                          controller: registerController.confirmController,
+                          obscureText: true,
+                          decoration: const InputDecoration(
+                              label: Text(
+                            "Confirm Password",
+                          )),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 325,
+                        child: Row(
+                          children: [
+                            Obx((() => Checkbox(
+                                activeColor: MunchColors.primaryColor,
+                                checkColor: MunchColors.primaryDark,
+                                value: registerController.checkboxValue.value,
+                                onChanged: (val) {
+                                  registerController.checkboxValue.toggle();
+                                }))),
+                            const Text(
+                              'Remember Me',
+                              style: TextStyle(
+                                fontFamily: 'Quicksand',
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 60),
+                      MunchButton(
+                          buttonType: MunchButtonType.filled,
+                          child: const Text(
+                            "Sign Up",
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          onPressed: () {
+                            registerController.submitForm(
+                                registerController.emailController.text,
+                                registerController.passController.text);
+                          }),
+                      const SizedBox(height: 10), // padding box
+                      MunchButton(
+                          buttonType: MunchButtonType.line,
+                          child: const Text(
+                            "Have an Account?",
+                            style: TextStyle(
+                              fontSize: 18.0,
+                            ),
+                          ),
+                          onPressed: () {
+                            registerController.toSignin();
+                          }),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
+          ],
         ),
-      ]),
+      ),
     );
   }
 }

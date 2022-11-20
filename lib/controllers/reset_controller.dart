@@ -4,57 +4,15 @@ import 'package:munchease/utils/theme_utils.dart';
 import '../utils/login_provider.dart';
 import 'dart:convert';
 
-class RegisterScreenController extends GetxController with StateMixin {
+// Controlls the login screen interactions
+class ResetController extends GetxController {
   // When the controller get initialized
-  TextEditingController passController = TextEditingController();
-  TextEditingController confirmController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  RxBool checkboxValue = false.obs;
-  bool passValidated = false; // passwords match
   bool emailValidated = false;
-  RxDouble formOpacity = 0.0.obs;
-  RxDouble headerOpacity = 0.0.obs;
-
   @override
   void onInit() {
     super.onInit();
-    Future.delayed(const Duration(milliseconds: 1000)).then((value) {
-      headerOpacity.value = 1.0;
-    });
-    Future.delayed(const Duration(milliseconds: 1500)).then((value) {
-      formOpacity.value = 1.0;
-    });
   }
-
-  void rememberMe() {
-    if (checkboxValue.isTrue) {
-      /*
-      when they hit submit, if they checked the box then store in the local DB
-      their choice and save their login
-      */
-    } else {}
-  }
-
-  String? passwordValidator() {
-    /*
-    Check if password and confirm password fields match.  If they do, 
-    toggle the control variable for sending the validated fields.
-    Returns a string to the text field to display the error message
-    */
-    if (passController.text.length < 9) {
-      passValidated = false;
-      return 'Password length must be greater than 8';
-    } else if (passController.value == confirmController.value) {
-      passValidated = true;
-      return null;
-    } else {
-      passValidated = false;
-      return 'Passwords must match';
-    }
-  }
-  //TODO: add validation function for passwords
-  //TODO: onchanged to true.obs
-  //TODO: add backend post request function
 
   String? emailValidator() {
     /*
@@ -71,7 +29,7 @@ class RegisterScreenController extends GetxController with StateMixin {
     }
   }
 
-  Future<void> submitForm(email, password) async {
+  Future<void> submitForm(email) async {
     /* 
     Pop up with a dialog if the email is not validated or passwords don't match.
     Passwords are assumed to be fine as the account is already created.
@@ -81,30 +39,30 @@ class RegisterScreenController extends GetxController with StateMixin {
     if fail, only "message" field returned
     */
     LoginProvider loginprovider = LoginProvider();
-    if (!passValidated || !emailValidated) {
+    if (!emailValidated) {
       Get.defaultDialog(
         title: 'Invalid Credentials',
         textConfirm: 'OK',
         titleStyle: const TextStyle(
             fontFamily: 'Inter', fontSize: 18.0, fontWeight: FontWeight.w700),
-        middleText: 'Ensure your email is valid and passwords match',
+        middleText: 'Ensure your email is valid',
         middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
         buttonColor: MunchColors.primaryColor,
         onConfirm: () => Get.back(),
       );
     } else {
-      dynamic res = await loginprovider
-          .registerUser({"email": email, "password": password});
-      if (res['message'] == 'success') {
+      dynamic res = await loginprovider.resetPassword({"email": email});
+      if (res['email']) {
         Get.defaultDialog(
-          title: 'Sign Up Worked',
-          textConfirm: 'OK',
+          title: 'Request Sent',
+          textConfirm: 'Sign In',
           titleStyle: const TextStyle(
               fontFamily: 'Inter', fontSize: 18.0, fontWeight: FontWeight.w700),
-          middleText: res.toString(),
+          middleText:
+              'Check your email\n${emailController.text}\nfor your password reset email',
           middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
           buttonColor: MunchColors.primaryColor,
-          onConfirm: () => Get.back(),
+          onConfirm: () => Get.toNamed('/signin'),
         );
       } else {
         Get.defaultDialog(
@@ -112,7 +70,8 @@ class RegisterScreenController extends GetxController with StateMixin {
           textConfirm: 'OK',
           titleStyle: const TextStyle(
               fontFamily: 'Inter', fontSize: 18.0, fontWeight: FontWeight.w700),
-          middleText: res['message'],
+          middleText:
+              'Failure during password reset.\nPlease try again or sign in',
           middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
           buttonColor: MunchColors.primaryColor,
           onConfirm: () => Get.back(),

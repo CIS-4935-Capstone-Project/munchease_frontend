@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:munchease/screens/reset_screen.dart';
 import 'package:munchease/screens/signin_screen.dart';
 import '../screens/login_screen.dart';
 import '../screens/register_screen.dart';
@@ -14,12 +15,18 @@ abstract class AppPages {
         name: Routes.REGISTER,
         page: () => RegisterScreen(),
         transitionDuration: const Duration(milliseconds: 300),
-        transition: Transition.rightToLeft),
+        transition: Transition.cupertino),
     GetPage(name: Routes.LOGIN, page: () => LoginScreen()),
     GetPage(
         name: Routes.SIGNIN,
         page: () => SigninScreen(),
         transitionDuration: const Duration(milliseconds: 300),
-        transition: Transition.rightToLeft)
+        transition: Transition.cupertino),
+    GetPage(
+      name: Routes.RESET,
+      page: () => ResetScreen(),
+      transitionDuration: const Duration(milliseconds: 300),
+      transition: Transition.cupertino,
+    )
   ];
 }
