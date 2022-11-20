@@ -36,6 +36,8 @@ dependencies:
   rive: 
   google_fonts:
   flutter_svg: 
+  hive:
+  hive_flutter: 
 
 
   # The following adds the Cupertino Icons font to your application.

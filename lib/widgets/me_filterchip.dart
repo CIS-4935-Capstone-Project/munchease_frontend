@@ -6,7 +6,7 @@ class MunchChip extends StatefulWidget {
   final String label;
   final TextStyle? labelStyle;
   final EdgeInsetsGeometry? labelPadding;
-  final bool selected;
+  final bool? selected;
   final void Function(bool)? onSelected;
   final double? pressElevation;
   final Color? disabledColor;
@@ -36,7 +36,7 @@ class MunchChip extends StatefulWidget {
       required this.label,
       this.labelStyle,
       this.labelPadding,
-      this.selected = false,
+      this.selected,
       this.onSelected,
       this.pressElevation,
       this.disabledColor,
@@ -69,27 +69,34 @@ class _MunchChipState extends State<MunchChip> {
   @override
   void initState() {
     super.initState();
-    isSelected = widget.selected;
+    isSelected = widget.selected ?? false;
   }
 
   void changeSelection(data) {
     setState(() {
-      var x = widget.onSelected ?? (data) {};
-      x(data);
+      var callback = widget.onSelected ?? (data) {};
+      callback(data);
       isSelected = data;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return FilterChip(
-        labelStyle: Theme.of(context)
-            .textTheme
-            .labelLarge
-            ?.copyWith(color: isSelected ? MunchColors.primaryDark : null),
-        shape: const StadiumBorder(),
+    return RawChip(
+        showCheckmark: false,
+        backgroundColor: MunchColors.transparent,
+        selectedColor: MunchColors.primaryColor,
+        labelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+            color:
+                widget.selected ?? isSelected ? MunchColors.primaryDark : null),
+        shape: StadiumBorder(
+            side: BorderSide(
+                width: 2,
+                color: widget.selected ?? isSelected
+                    ? MunchColors.transparent
+                    : Theme.of(context).colorScheme.onBackground)),
         label: Text(widget.label),
-        selected: isSelected,
+        selected: widget.selected ?? isSelected,
         onSelected: changeSelection);
   }
 }

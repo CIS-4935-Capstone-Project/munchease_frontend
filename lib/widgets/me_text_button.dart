@@ -31,6 +31,7 @@ class MunchButton extends StatelessWidget {
                   ? Theme.of(context).colorScheme.background
                   : Theme.of(context).colorScheme.onBackground),
           child: InkWell(
+            splashColor: MunchColors.primaryColor,
             borderRadius: const BorderRadius.all(Radius.circular(50)),
             onTap: onPressed,
             child: AnimatedContainer(
@@ -39,7 +40,7 @@ class MunchButton extends StatelessWidget {
               decoration: BoxDecoration(
                   border: buttonType == MunchButtonType.line
                       ? Border.all(
-                          width: 1.0,
+                          width: 2.0,
                           color: Theme.of(context).colorScheme.onBackground)
                       : null,
                   color: buttonType == MunchButtonType.filled
