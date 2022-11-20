@@ -108,21 +108,30 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 325,
+                        width: 300,
                         child: Row(
                           children: [
-                            Obx((() => Checkbox(
-                                activeColor: MunchColors.primaryColor,
-                                checkColor: MunchColors.primaryDark,
-                                value: registerController.checkboxValue.value,
-                                onChanged: (val) {
-                                  registerController.checkboxValue.toggle();
-                                }))),
-                            const Text(
-                              'Remember Me',
-                              style: TextStyle(
-                                fontFamily: 'Quicksand',
-                                fontSize: 15,
+                            Obx((() => SizedBox(
+                                  height: 24,
+                                  width: 24,
+                                  child: Checkbox(
+                                      activeColor: MunchColors.primaryColor,
+                                      checkColor: MunchColors.primaryDark,
+                                      value: registerController
+                                          .checkboxValue.value,
+                                      onChanged: (val) {
+                                        registerController.checkboxValue
+                                            .toggle();
+                                      }),
+                                ))),
+                            const Padding(
+                              padding: EdgeInsets.fromLTRB(11.5, 0, 0, 0),
+                              child: Text(
+                                'Remember Me',
+                                style: TextStyle(
+                                  fontFamily: 'Quicksand',
+                                  fontSize: 15,
+                                ),
                               ),
                             ),
                           ],
