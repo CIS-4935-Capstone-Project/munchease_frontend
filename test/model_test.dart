@@ -1,50 +1,49 @@
+// This is a basic Flutter widget test.
+//
+// To perform an interaction with a widget in your test, use the WidgetTester
+// utility in the flutter_test package. For example, you can send tap and scroll
+// gestures. You can also use WidgetTester to find child widgets in the widget
+// tree, read text, and verify that the values of widget properties are correct.
+
 import 'package:flutter_test/flutter_test.dart';
-import 'package:munchease/models/recipe_model.dart';
+import 'package:hive_test/hive_test.dart';
+import 'package:munchease/controllers/onboarding_cuisine_controller.dart';
+import 'package:munchease/controllers/onboarding_diet_controller.dart';
+import 'package:munchease/utils/app_boxes.dart';
 
 void main() {
-  var sample = {
-    "extendedIngredients": [
-      {
-        "id": 11090,
-        "image": "broccoli.jpg",
-        "name": "broccoli",
-        "original": "2 cups cooked broccoli, chopped small",
-        "amount": 2,
-        "unit": "cups"
-      }
-    ],
-    "id": 716426,
-    "title": "Cauliflower, Brown Rice, and Vegetable Fried Rice",
-    "readyInMinutes": 30,
-    "servings": 8,
-    "sourceUrl":
-        "http://fullbellysisters.blogspot.com/2012/01/cauliflower-fried-rice-more-veggies.html",
-    "image": "https://spoonacular.com/recipeImages/716426-312x231.jpg",
-    "summary":
-        "Cauliflower, Brown Rice, and Vegetable Fried Rice might be a good recipe to expand your side dish recipe box. Watching your figure? This gluten free, dairy free, lacto ovo vegetarian, and vegan recipe has <b>192 calories</b>, <b>7g of protein</b>, and <b>6g of fat</b> per serving. For <b>\$1.12 per serving</b>, this recipe <b>covers 19%</b> of your daily requirements of vitamins and minerals. This recipe serves 8. This recipe from fullbellysisters.blogspot.com has 3689 fans. This recipe is typical of Chinese cuisine. From preparation to the plate, this recipe takes about <b>30 minutes</b>. Head to the store and pick up peas, broccoli, salt, and a few other things to make it today. Overall, this recipe earns an <b>awesome spoonacular score of 100%</b>. Users who liked this recipe also liked <a href=\"https://spoonacular.com/recipes/vegetable-fried-brown-rice-36199\">Vegetable Fried Brown Rice</a>, <a href=\"https://spoonacular.com/recipes/vegetable-fried-cauliflower-rice-933261\">Vegetable Fried Cauliflower Rice</a>, and <a href=\"https://spoonacular.com/recipes/easy-vegetable-fried-brown-rice-with-egg-802042\">Easy Vegetable Fried Brown Rice with Egg</a>.",
-    "cuisines": ["Chinese", "Asian"],
-    "diets": ["gluten free", "dairy free", "lacto ovo vegetarian", "vegan"],
-    "analyzedInstructions": [
-      {
-        "steps": [
-          {
-            "number": 1,
-            "step":
-                "Remove the cauliflower's tough stem and reserve for another use. Using a food processor, pulse cauliflower florets until they resemble rice or couscous. You should end up with around four cups of \"cauliflower rice.\""
-          }
-        ]
-      }
-    ],
-    "spoonacularSourceUrl":
-        "https://spoonacular.com/cauliflower-brown-rice-and-vegetable-fried-rice-716426"
-  };
+  setUp(() async {
+    await setUpTestHive();
+    await MunchBox().openBoxes();
+  });
+  group('Onboarding Diet', () {
+    test('Onboarding Diet Integration', () async {
+      // Build our app and trigger a frame.
+      // await tester.pumpWidget(const MainApp());
 
-  var r = Recipe.fromJson(sample);
+      OnboardingDietController d = OnboardingDietController();
+      d.onInit();
+      TestDiet().putDiet(0);
+      // Verify that our counter starts at 0.
+      expect(d.selectedIndex, 0);
+      d.changeIndex(1);
+      expect(d.selectedIndex, 1);
+    });
+  });
 
-  print(r);
-  group("Types", () {
-    test('Check Types', () {
-      expect(r.analyzedInstructions is List<Steps>, true);
+  group('Onboarding Cuisine', () {
+    test('Onboarding Cuisine', () async {
+      // Build our app and trigger a frame.
+      // await tester.pumpWidget(const MainApp());
+      var d = OnboardingCuisineController();
+      d.onInit();
+      TestCuisine().testPut(List<String>.empty());
+      // Verify that our counter starts at 0.
+      expect(d.selectedCuisines, []);
+
+      d.handleMunchchip(cuisine: "Indian", isSelected: true);
+
+      expect(d.selectedCuisines[0], "Indian");
     });
   });
 }

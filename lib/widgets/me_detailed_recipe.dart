@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:munchease/utils/app_pages.dart';
+import 'package:munchease/widgets/me_text_button.dart';
 import 'package:selectable/selectable.dart';
 import 'package:tinycolor2/tinycolor2.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/recipe_model.dart';
 import '../utils/theme_utils.dart';
 
 class MunchDetailedRecipe extends StatelessWidget {
-  final Recipe? recipe;
-  const MunchDetailedRecipe({this.recipe, super.key});
+  final Recipe recipe;
+  const MunchDetailedRecipe({required this.recipe, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,23 +32,28 @@ class MunchDetailedRecipe extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(
-                        PageRouteBuilder(
-                          opaque: false,
-                          pageBuilder: (_, __, ___) =>
-                              ImagePopup(recipe: recipe!),
-                        ),
-                      );
+                      Get.toNamed(Routes.IMAGE, arguments: recipe);
                     },
                     child: Hero(
-                      tag: "${recipe!.id}",
+                      tag: "${recipe.id}",
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.network(
-                          recipe?.image ??
-                              "https://dummyimage.com/640x360/fff/aaa",
+                          recipe.image ?? "",
                           fit: BoxFit.cover,
                           width: 150,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Image.asset("./assets/images/error.png");
+                          },
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return const SizedBox(
+                              width: 150,
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ),
@@ -59,7 +67,7 @@ class MunchDetailedRecipe extends StatelessWidget {
                       SizedBox(
                         width: 190,
                         child: Text(
-                          recipe!.title ?? "Error",
+                          recipe.title ?? "Error",
                           style: const TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 20),
                         ),
@@ -72,7 +80,7 @@ class MunchDetailedRecipe extends StatelessWidget {
                         const SizedBox(
                           width: 10,
                         ),
-                        Text(recipe!.cuisines!.join(' | '))
+                        Text(recipe.cuisines!.join(' | '))
                       ]),
                       const SizedBox(height: 5),
                       Row(children: [
@@ -85,7 +93,7 @@ class MunchDetailedRecipe extends StatelessWidget {
                         const SizedBox(
                           width: 10,
                         ),
-                        Text('${recipe!.readyInMinutes} mins'),
+                        Text('${recipe.readyInMinutes} mins'),
                         const SizedBox(
                           width: 10,
                         ),
@@ -98,7 +106,7 @@ class MunchDetailedRecipe extends StatelessWidget {
                         const SizedBox(
                           width: 10,
                         ),
-                        Text('${recipe!.servings} servings')
+                        Text('${recipe.servings} servings')
                       ])
                     ],
                   )
@@ -110,7 +118,7 @@ class MunchDetailedRecipe extends StatelessWidget {
               initiallyExpanded: true,
               title: const Text("Ingredients"),
               children: [
-                ...recipe!.extendedIngredients!
+                ...recipe.extendedIngredients!
                     .map((e) => Material(
                           child: InkWell(
                             splashColor: Theme.of(context).colorScheme.primary,
@@ -136,6 +144,24 @@ class MunchDetailedRecipe extends StatelessWidget {
                                             child: Image.network(
                                               e.image!,
                                               fit: BoxFit.cover,
+                                              errorBuilder:
+                                                  (context, error, stackTrace) {
+                                                return Image.asset(
+                                                    "./assets/images/error.png");
+                                              },
+                                              loadingBuilder: (context, child,
+                                                  loadingProgress) {
+                                                if (loadingProgress == null) {
+                                                  return child;
+                                                }
+                                                return const SizedBox(
+                                                  width: 300,
+                                                  child: Center(
+                                                    child:
+                                                        CircularProgressIndicator(),
+                                                  ),
+                                                );
+                                              },
                                             ),
                                           ),
                                         ),
@@ -147,7 +173,7 @@ class MunchDetailedRecipe extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
                                       height: 50,
@@ -172,10 +198,32 @@ class MunchDetailedRecipe extends StatelessWidget {
                                         child: Image.network(
                                           e.image!,
                                           fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return Image.asset(
+                                                "./assets/images/error.png");
+                                          },
+                                          loadingBuilder: (context, child,
+                                              loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            }
+                                            return const SizedBox(
+                                              width: 50,
+                                              child: Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              ),
+                                            );
+                                          },
                                         ),
                                       )),
-                                  Text("${e.name}"),
-                                  Text("${e.amount} ${e.unit}")
+                                  const SizedBox(width: 50),
+                                  Expanded(
+                                      child: Text("${e.name}",
+                                          textAlign: TextAlign.start)),
+                                  const Spacer(),
+                                  Expanded(child: Text("${e.amount} ${e.unit}"))
                                 ],
                               ),
                             ),
@@ -194,51 +242,39 @@ class MunchDetailedRecipe extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
-                    ...recipe!.analyzedInstructions!
-                        .map((e) => Container(
-                              margin: const EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: ExpansionTile(
-                                initiallyExpanded: true,
-                                title: Text("Step ${e.number}"),
-                                children: [Text(e.step!)],
-                              ),
-                            ))
-                        .toList(),
+                    if (recipe.analyzedInstructions!.isEmpty)
+                      SizedBox(
+                        width: 150,
+                        child: MunchButton(
+                            buttonType: MunchButtonType.filled,
+                            child: const Text(
+                              "View Here",
+                              textAlign: TextAlign.center,
+                            ),
+                            onPressed: () async {
+                              if (!await launchUrl(Uri.parse(recipe.sourceUrl ??
+                                  recipe.spoonacularSourceUrl!))) {}
+                            }),
+                      )
+                    else
+                      ...recipe.analyzedInstructions!
+                          .map((e) => Container(
+                                margin: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: ExpansionTile(
+                                  initiallyExpanded: true,
+                                  title: Text("Step ${e.number}"),
+                                  children: [Text(e.step!)],
+                                ),
+                              ))
+                          .toList(),
                   ]),
                 )
               ],
             ),
           ]),
-        ),
-      ),
-    );
-  }
-}
-
-class ImagePopup extends StatelessWidget {
-  final Recipe recipe;
-  const ImagePopup({required this.recipe, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black54,
-      body: GestureDetector(
-        onTap: () {
-          Get.back();
-        },
-        child: Container(
-          height: double.infinity,
-          width: double.infinity,
-          child: Hero(
-              tag: "${recipe.id}",
-              child: InteractiveViewer(
-                child: Image.network(
-                    recipe.image ?? "https://dummyimage.com/640x360/fff/aaa"),
-              )),
         ),
       ),
     );

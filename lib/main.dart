@@ -9,7 +9,8 @@ import 'utils/app_pages.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  await MunchBox.openBoxes();
+  MunchBox boxInterface = MunchBox();
+  await boxInterface.openBoxes();
   runApp(const MainApp());
 }
 
@@ -27,7 +28,7 @@ class MainApp extends StatelessWidget {
         initialBinding: AppBinding(),
         // The initial route this can be changed to the splash screen route as well.
         // TODO:change back to home route
-        initialRoute: Routes.DIET,
+        initialRoute: Routes.SAVED,
         // Predefined pages.
         getPages: AppPages.pages);
   }

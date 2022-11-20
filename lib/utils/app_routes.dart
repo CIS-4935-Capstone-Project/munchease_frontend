@@ -12,8 +12,11 @@ abstract class Routes {
   static const SPLASH = '/splash';
   static const COMPARE = '/compare';
   static const FINAL = '/final';
+  static const SAVED = '/saved';
 
   // ONBOARDING RELATED
   static const CUISINE = '/cuisine';
   static const DIET = '/diet';
+
+  static const IMAGE = '/image';
 }

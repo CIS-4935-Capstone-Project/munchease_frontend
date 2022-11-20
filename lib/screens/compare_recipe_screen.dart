@@ -22,97 +22,108 @@ class CompareRecipeScreen extends StatelessWidget {
         Get.put(CompareRecipeScreenController(recipeList: compareList));
 
     return Scaffold(
-        bottomNavigationBar: SizedBox(
-            height: 60,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                MunchArrowButton(
-                  child: Transform.scale(
-                      scaleX: -1,
-                      child: Icon(Icons.play_arrow,
-                          color: Theme.of(context).colorScheme.background)),
-                  onPressed: () {
-                    controller.previousPage();
-                  },
-                ),
-                SizedBox(
-                  width: 130,
-                  child: MunchButton(
-                      radius: 10,
-                      buttonType: MunchButtonType.line,
-                      child: const Text("Pick"),
-                      onPressed: () {
-                        controller.addToFavorites();
-                      }),
-                ),
-                MunchArrowButton(
-                  child: Icon(
-                    Icons.play_arrow,
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-                  onPressed: () {
-                    controller.nextPage();
-                  },
-                ),
-              ],
-            )),
+        bottomNavigationBar: buildBottomNavigationBar(context, controller),
         body: SafeArea(
           child: Column(
             children: [
               Obx(
                 () => Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ...compareList.asMap().entries.map((e) {
-                      return GestureDetector(
-                        onTap: () {
-                          controller.goToIndex(e.key);
-                        },
-                        child: AnimatedContainer(
-                          curve: Curves.easeInOut,
-                          duration: const Duration(milliseconds: 300),
-                          decoration: BoxDecoration(
-                              color: e.key == controller.index
-                                  ? Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black
-                                  : const Color.fromARGB(255, 78, 78, 78),
-                              borderRadius: BorderRadius.circular(10)),
-                          margin: const EdgeInsets.all(10),
-                          width: 40,
-                          height: 10,
-                        ),
-                      );
-                    }).toList()
-                  ],
+                  children: [...buildPageIndicator(controller, context)],
                 ),
               ),
               const SizedBox(
                 height: 10,
               ),
-              Expanded(
-                child: ScrollConfiguration(
-                  behavior: MouseDraggableScrollBehavior(),
-                  child: PageView(
-                    controller: controller.pageController,
-                    onPageChanged: (value) {
-                      controller.index = value;
-                    },
-                    children: [
-                      ...compareList.asMap().entries.map((e) {
-                        return MunchDetailedRecipe(
-                          recipe: e.value,
-                        );
-                      }).toList()
-                    ],
-                  ),
-                ),
-              ),
+              buildPageView(controller),
             ],
           ),
+        ));
+  }
+
+  Expanded buildPageView(CompareRecipeScreenController controller) {
+    return Expanded(
+      child: ScrollConfiguration(
+        behavior: MouseDraggableScrollBehavior(),
+        child: PageView(
+          controller: controller.pageController,
+          onPageChanged: (value) {
+            controller.index = value;
+          },
+          children: [
+            ...compareList.asMap().entries.map((e) {
+              return MunchDetailedRecipe(
+                recipe: e.value,
+              );
+            }).toList()
+          ],
+        ),
+      ),
+    );
+  }
+
+  List<GestureDetector> buildPageIndicator(
+      CompareRecipeScreenController controller, BuildContext context) {
+    return compareList.asMap().entries.map((e) {
+      return GestureDetector(
+        onTap: () {
+          controller.goToIndex(e.key);
+        },
+        child: AnimatedContainer(
+          curve: Curves.easeInOut,
+          duration: const Duration(milliseconds: 300),
+          decoration: BoxDecoration(
+              color: e.key == controller.index
+                  ? Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black
+                  : const Color.fromARGB(255, 78, 78, 78),
+              borderRadius: BorderRadius.circular(10)),
+          margin: const EdgeInsets.all(10),
+          width: 40,
+          height: 10,
+        ),
+      );
+    }).toList();
+  }
+
+  SizedBox buildBottomNavigationBar(
+      BuildContext context, CompareRecipeScreenController controller) {
+    return SizedBox(
+        height: 60,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            MunchArrowButton(
+              child: Transform.scale(
+                  scaleX: -1,
+                  child: Icon(Icons.play_arrow,
+                      color: Theme.of(context).colorScheme.background)),
+              onPressed: () {
+                controller.previousPage();
+              },
+            ),
+            SizedBox(
+              width: 130,
+              child: MunchButton(
+                  radius: 10,
+                  buttonType: MunchButtonType.line,
+                  child: const Text("Pick"),
+                  onPressed: () {
+                    controller.addToFavorites();
+                  }),
+            ),
+            MunchArrowButton(
+              child: Icon(
+                Icons.play_arrow,
+                color: Theme.of(context).colorScheme.background,
+              ),
+              onPressed: () {
+                controller.nextPage();
+              },
+            ),
+          ],
         ));
   }
 }

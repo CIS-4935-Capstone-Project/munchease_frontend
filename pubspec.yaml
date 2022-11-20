@@ -40,11 +40,13 @@ dependencies:
   tinycolor2: ^3.0.1
   flutter_svg:
   selectable: ^0.2.7
+  url_launcher: ^6.1.6
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
+  hive_test: ^1.0.1
   flutter_test:
     sdk: flutter
 
@@ -71,6 +73,7 @@ flutter:
    - assets/images/bowl.svg
    - assets/images/logo.png
    - assets/images/logo_text.png
+   - assets/images/error.png
    - assets/animations/splashanimation.riv
    - assets/google_fonts/
 

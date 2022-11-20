@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:munchease/utils/app_pages.dart';
 
 import '../models/recipe_model.dart';
 import '../utils/app_boxes.dart';
@@ -38,8 +39,7 @@ class CompareRecipeScreenController extends GetxController with FavoriteBox {
   }
 
   void addToFavorites() async {
-    print('GET: ${getFavorites()!.last}');
     await putFavorites(recipeList[index].toJson());
-    print('AFTER PUT: ${getFavorites()!.length}');
+    Get.toNamed(Routes.FINAL, arguments: {"recipe": recipeList[index]});
   }
 }

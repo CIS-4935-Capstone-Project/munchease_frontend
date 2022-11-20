@@ -1,13 +1,17 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:munchease/models/recipe_model.dart';
+import 'package:munchease/screens/compare_recipe_screen.dart';
 import 'package:munchease/screens/final_recipe_screen.dart';
+import 'package:munchease/screens/onboarding_cuisine_screen.dart';
 import 'package:munchease/screens/onboarding_diet_screen.dart';
+import 'package:munchease/screens/saved_recipe_screen.dart';
+import 'package:munchease/screens/splash_screen.dart';
 import 'package:munchease/utils/app_boxes.dart';
 import 'package:munchease/utils/sample_models.dart';
-import '../screens/compare_recipe_screen.dart';
-import '../screens/login_screen.dart';
-import '../screens/onboarding_cuisine_screen.dart';
-import '../screens/splash_screen.dart';
+import 'package:munchease/widgets/image_popup.dart';
+import 'package:munchease/widgets/me_detailed_recipe.dart';
+
 part 'app_routes.dart';
 
 // Define pages here
@@ -23,11 +27,14 @@ abstract class AppPages {
         page: (() => CompareRecipeScreen(
               compareList: recipeModelSample,
             ))),
+    GetPage(name: Routes.FINAL, page: (() => FinalRecipeScreen())),
+    GetPage(name: Routes.SAVED, page: (() => const SavedRecipeScreen())),
+
     GetPage(
-        name: Routes.FINAL,
-        page: (() => FinalRecipeScreen(
-              recipe:
-                  Recipe.fromHive(MunchBox.favRepo.get('user_favorites')[1]),
-            )))
+        name: Routes.IMAGE,
+        page: (() => ImagePopup()),
+        opaque: false,
+        showCupertinoParallax: false,
+        transition: Transition.fade)
   ];
 }

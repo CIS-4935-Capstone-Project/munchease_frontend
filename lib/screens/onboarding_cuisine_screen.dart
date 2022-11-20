@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:munchease/controllers/onboarding_cuisine_controller.dart';
+import 'package:munchease/widgets/global_widgets.dart';
 import 'package:munchease/widgets/me_filterchip.dart';
 
 import '../utils/app_pages.dart';
@@ -19,18 +20,7 @@ class OnboardingCuisineScreen extends GetView<OnboardingCuisineController> {
               : ThemeMode.dark);
         },
       ),
-      appBar: AppBar(
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        title: const Text(
-          'Cuisines',
-          style: TextStyle(
-            fontFamily: 'Quicksand',
-            fontWeight: FontWeight.w700,
-            fontSize: 36.0,
-          ),
-        ),
-      ),
+      appBar: buildTitleAppBar('Cuisine'),
       body: Center(
         child: Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),

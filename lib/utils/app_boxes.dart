@@ -36,16 +36,34 @@ mixin FavoriteBox {
   }
 }
 
-abstract class MunchBox {
+class MunchBox {
   static const _USR_PRF = 'user_prefs';
   static const _USR_FAV = 'user_favorites';
-
-  static openBoxes() async {
-    await Hive.openBox(_USR_PRF);
-    await Hive.openBox(_USR_FAV);
+  Box? _userPrefs;
+  Box? _userFavorites;
+  Future openBoxes() async {
+    _userPrefs = await Hive.openBox(_USR_PRF);
+    _userFavorites = await Hive.openBox(_USR_FAV);
   }
 
-  static var prefRepo = Hive.box(_USR_PRF);
-  static var favRepo = Hive.box(_USR_FAV);
+  Future deteleBoxes() async {
+    _userPrefs?.deleteFromDisk();
+    _userFavorites?.deleteFromDisk();
+  }
+
+  static Box prefRepo = Hive.box(_USR_PRF);
+  static Box favRepo = Hive.box(_USR_FAV);
 // TODO: login box
+}
+
+class TestDiet with DietBox {
+  Future testPut(value) {
+    return putDiet(value);
+  }
+}
+
+class TestCuisine with CuisineBox {
+  Future testPut(value) {
+    return putCuisine(value);
+  }
 }

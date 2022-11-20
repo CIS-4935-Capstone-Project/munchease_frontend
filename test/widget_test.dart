@@ -1,25 +1,40 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:hive_test/hive_test.dart';
+import 'package:munchease/controllers/onboarding_cuisine_controller.dart';
+import 'package:munchease/controllers/onboarding_diet_controller.dart';
+import 'package:munchease/main.dart';
+import 'package:munchease/screens/onboarding_cuisine_screen.dart';
+import 'package:munchease/utils/app_boxes.dart';
 
 void main() {
-//   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-//     // Build our app and trigger a frame.
-//     await tester.pumpWidget(const MainApp());
+  setUp(() async {
+    await setUpTestHive();
+    await MunchBox().openBoxes();
+    WidgetsFlutterBinding.ensureInitialized();
+  });
+  group('Onboarding Diet', () {
+    testWidgets('Test if button shows on screen', (WidgetTester tester) async {
+      await tester.runAsync(
+        () async {
+          await tester.pumpWidget(const MainApp());
+          await tester.pumpAndSettle();
+          final indianButton = find.text("Indian");
+          expect(indianButton, findsOneWidget);
+        },
+      );
+    });
 
-//     // Verify that our counter starts at 0.
-//     expect(find.text('0'), findsOneWidget);
-//     expect(find.text('1'), findsNothing);
-
-//     // Tap the '+' icon and trigger a frame.
-//     await tester.tap(find.byIcon(Icons.add));
-//     await tester.pump();
-
-//     // Verify that our counter has incremented.
-//     expect(find.text('0'), findsNothing);
-//     expect(find.text('1'), findsOneWidget);
-//   });
+    testWidgets('Test if clicking on the button adds to the ',
+        (WidgetTester tester) async {
+      await tester.runAsync(
+        () async {
+          await tester.pumpWidget(const MainApp());
+          await tester.pumpAndSettle();
+          final indianButton = find.text("Indian");
+          expect(indianButton, findsOneWidget);
+        },
+      );
+    });
+  });
 }

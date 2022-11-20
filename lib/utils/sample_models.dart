@@ -24,21 +24,13 @@ var sample = {
   "diets": ["gluten free", "dairy free", "lacto ovo vegetarian", "vegan"],
   "analyzedInstructions": [
     {
-      "steps": [
-        {
-          "number": 1,
-          "step":
-              "Remove the cauliflower's tough stem and reserve for another use. Using a food processor, pulse cauliflower florets until they resemble rice or couscous. You should end up with around four cups of \"cauliflower rice.\""
-        }
-      ]
+      "number": 1,
+      "step":
+          "Remove the cauliflower's tough stem and reserve for another use. Using a food processor, pulse cauliflower florets until they resemble rice or couscous. You should end up with around four cups of \"cauliflower rice.\""
     }
   ],
   "spoonacularSourceUrl":
       "https://spoonacular.com/cauliflower-brown-rice-and-vegetable-fried-rice-716426"
 };
-
-var recipeModelSample = [
-  Recipe.fromJson(sample),
-  Recipe.fromJson(sample),
-  Recipe.fromJson(sample)
-];
+var _wihtoutInstructions = Recipe.fromJson(sample)..analyzedInstructions = [];
+var recipeModelSample = [_wihtoutInstructions, Recipe.fromJson(sample)];

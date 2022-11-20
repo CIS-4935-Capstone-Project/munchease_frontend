@@ -42,13 +42,16 @@ class Recipe {
     sourceUrl = json['sourceUrl'];
     image = json['image'];
     summary = json['summary'];
-    cuisines = json['cuisines'].cast<String>();
-    diets = json['diets'].cast<String>();
+    cuisines = json['cuisines'].cast<String>() ?? [];
+    diets = json['diets'].cast<String>() ?? [];
     if (json['analyzedInstructions'] != null) {
       analyzedInstructions = <Steps>[];
-      json['analyzedInstructions'].first["steps"].forEach((v) {
-        analyzedInstructions!.add(Steps.fromJson(v));
-      });
+      if (json['analyzedInstructions'].isNotEmpty) {
+        print(json['analyzedInstructions']);
+        json['analyzedInstructions'].forEach((v) {
+          analyzedInstructions!.add(Steps.fromJson(v));
+        });
+      }
     }
     spoonacularSourceUrl = json['spoonacularSourceUrl'];
   }

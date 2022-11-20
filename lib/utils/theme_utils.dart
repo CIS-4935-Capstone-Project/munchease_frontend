@@ -50,6 +50,8 @@ class MunchTheme {
     radioTheme: const RadioThemeData(
         fillColor: MaterialStatePropertyAll(MunchColors.primaryColor)),
     appBarTheme: const AppBarTheme(
+        centerTitle: false,
+        elevation: 0,
         titleTextStyle: TextStyle(color: MunchColors.primaryDark),
         backgroundColor: MunchColors.primaryLight),
     inputDecorationTheme:
@@ -70,6 +72,8 @@ class MunchTheme {
     drawerTheme: const DrawerThemeData(scrimColor: Colors.transparent),
     canvasColor: MunchColors.primaryDark,
     appBarTheme: const AppBarTheme(
+        centerTitle: false,
+        elevation: 0,
         titleTextStyle: TextStyle(color: MunchColors.primaryLight),
         backgroundColor: MunchColors.primaryDark),
     radioTheme: const RadioThemeData(
