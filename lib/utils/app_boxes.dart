@@ -48,7 +48,7 @@ class MunchBox {
     _userFavorites = await Hive.openBox(_USR_FAV);
   }
 
-  Future deteleBoxes() async {
+  Future deleteBoxes() async {
     _userPrefs?.deleteFromDisk();
     _userFavorites?.deleteFromDisk();
   }

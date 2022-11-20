@@ -39,7 +39,6 @@ dependencies:
   hive:
   hive_flutter: 
   tinycolor2: ^3.0.1
-  flutter_svg:
   selectable: ^0.2.7
   url_launcher: ^6.1.6
   # The following adds the Cupertino Icons font to your application.
