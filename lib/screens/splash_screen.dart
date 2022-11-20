@@ -32,7 +32,7 @@ class SplashScreen extends StatelessWidget {
               opacity: splashController.textOpacity.value,
               duration: const Duration(milliseconds: 1100),
               curve: Curves.linear,
-              child: Text(
+              child: const Text(
                 'MunchEase',
                 style: TextStyle(
                   color: MunchColors.primaryColor,
