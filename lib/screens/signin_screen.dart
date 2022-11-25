@@ -162,7 +162,9 @@ class SigninScreen extends StatelessWidget {
                               ),
                             ),
                             onPressed: () {
-                              signinController.submitForm();
+                              signinController.submitForm(
+                                  signinController.emailController.text,
+                                  signinController.passController.text);
                             }),
                         const SizedBox(height: 10),
                         MunchButton(
@@ -174,7 +176,7 @@ class SigninScreen extends StatelessWidget {
                               ),
                             ),
                             onPressed: () {
-                              signinController.toRegister();
+                              Get.toNamed('/register');
                             }),
                       ],
                     ),

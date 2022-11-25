@@ -79,7 +79,8 @@ class OnboardingCuisineScreen extends GetView<OnboardingCuisineController> {
                         buttonType: MunchButtonType.filled,
                         child: const Text("Next"),
                         onPressed: () {
-                          Get.toNamed(Routes.DIET);
+                          Get.toNamed(Routes.DIET,
+                              arguments: controller.selectedCuisines);
                         }))
               ],
             )),

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:munchease/utils/app_boxes.dart';
 
 class OnboardingDietController extends GetxController with DietBox {
+  var cuisine = Get.arguments;
   var diets = [
     "None",
     "Lacto-Ovo-Vegetarian",

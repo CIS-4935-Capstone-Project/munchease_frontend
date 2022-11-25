@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:munchease/utils/app_boxes.dart';
 import 'package:munchease/utils/theme_utils.dart';
 import '../utils/login_provider.dart';
 import 'dart:convert';
+import '../utils/app_boxes.dart';
 
-class RegisterScreenController extends GetxController with StateMixin {
+class RegisterScreenController extends GetxController with RememberUser {
   // When the controller get initialized
   TextEditingController passController = TextEditingController();
   TextEditingController confirmController = TextEditingController();
@@ -26,13 +28,14 @@ class RegisterScreenController extends GetxController with StateMixin {
     });
   }
 
-  void rememberMe() {
+  void rememberMe(String email, String password) {
     if (checkboxValue.isTrue) {
       /*
       when they hit submit, if they checked the box then store in the local DB
       their choice and save their login
       */
-    } else {}
+      putUser({"email": email, "password": password});
+    }
   }
 
   String? passwordValidator() {
@@ -71,7 +74,7 @@ class RegisterScreenController extends GetxController with StateMixin {
     }
   }
 
-  Future<void> submitForm(email, password) async {
+  Future<void> submitForm(String email, String password) async {
     /* 
     Pop up with a dialog if the email is not validated or passwords don't match.
     Passwords are assumed to be fine as the account is already created.
@@ -80,7 +83,7 @@ class RegisterScreenController extends GetxController with StateMixin {
     if successful, message/id/rfrshTkn returned
     if fail, only "message" field returned
     */
-    LoginProvider loginprovider = LoginProvider();
+    LoginProvider loginProvider = LoginProvider();
     if (!passValidated || !emailValidated) {
       Get.defaultDialog(
         title: 'Invalid Credentials',
@@ -93,18 +96,23 @@ class RegisterScreenController extends GetxController with StateMixin {
         onConfirm: () => Get.back(),
       );
     } else {
-      dynamic res = await loginprovider
+      dynamic res = await loginProvider
           .registerUser({"email": email, "password": password});
       if (res['message'] == 'success') {
         Get.defaultDialog(
-          title: 'Sign Up Worked',
-          textConfirm: 'OK',
+          title: 'Registration Complete',
+          textConfirm: 'Let\'s Go!',
           titleStyle: const TextStyle(
-              fontFamily: 'Inter', fontSize: 18.0, fontWeight: FontWeight.w700),
-          middleText: res.toString(),
+              fontFamily: 'Inter',
+              fontSize: 18.0,
+              fontWeight: FontWeight.w700,
+              color: MunchColors.primaryLight),
+          middleText: '',
           middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
           buttonColor: MunchColors.primaryColor,
-          onConfirm: () => Get.back(),
+          onConfirm: () {
+            newUserSignin(loginProvider, email, password);
+          },
         );
       } else {
         Get.defaultDialog(
@@ -115,19 +123,33 @@ class RegisterScreenController extends GetxController with StateMixin {
           middleText: res['message'],
           middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
           buttonColor: MunchColors.primaryColor,
-          onConfirm: () => Get.back(),
+          onConfirm: () {
+            Get.back();
+          },
         );
       }
     }
   }
 
-  void toSignin() {
-    /*
-    Reset the opacity of the form/header elements so when the user comes back
-    to the page it will redo the transition.
-    */
-    // formOpacity.value = 0.0;
-    // headerOpacity.value = 0.0;
-    Get.toNamed('/signin');
+  Future<void>? newUserSignin(
+      LoginProvider loginProvider, String email, String password) async {
+    dynamic res = loginProvider.signIn({"email": email, "password": password});
+    if (res['message'] == 'success') {
+      rememberMe(email, password);
+      Get.toNamed('/cuisine');
+    } else {
+      Get.defaultDialog(
+        title: 'Sign In Failed',
+        textConfirm: 'Sign In',
+        titleStyle: const TextStyle(
+            fontFamily: 'Inter', fontSize: 18.0, fontWeight: FontWeight.w700),
+        middleText: 'Something went wrong 😬\nTry signing in again.',
+        middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
+        buttonColor: MunchColors.primaryColor,
+        onConfirm: () {
+          Get.back();
+        },
+      );
+    }
   }
 }

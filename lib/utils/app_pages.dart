@@ -4,6 +4,7 @@ import 'package:munchease/screens/final_recipe_screen.dart';
 import 'package:munchease/screens/onboarding_cuisine_screen.dart';
 import 'package:munchease/screens/reset_screen.dart';
 import 'package:munchease/screens/signin_screen.dart';
+import '../screens/home_screen.dart';
 import '../screens/login_screen.dart';
 import '../screens/register_screen.dart';
 import 'package:munchease/screens/onboarding_diet_screen.dart';
@@ -52,6 +53,7 @@ abstract class AppPages {
         page: (() => ImagePopup()),
         opaque: false,
         showCupertinoParallax: false,
-        transition: Transition.fade)
+        transition: Transition.fade),
+    GetPage(name: Routes.HOME, page: (() => HomeScreen())),
   ];
 }

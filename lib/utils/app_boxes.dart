@@ -14,6 +14,18 @@ mixin DietBox {
   }
 }
 
+mixin RememberUser {
+  final _boxName = "remember_user";
+
+  Map<String, String>? getUser() {
+    return MunchBox.prefRepo.get(_boxName);
+  }
+
+  Future putUser(Map<String, String> userInfo) async {
+    return MunchBox.prefRepo.put(_boxName, userInfo);
+  }
+}
+
 mixin CuisineBox {
   final _boxName = "user_cuisine";
 

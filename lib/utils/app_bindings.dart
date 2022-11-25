@@ -4,6 +4,7 @@ import 'package:munchease/controllers/login_screen_controller.dart';
 import 'package:munchease/controllers/onboarding_cuisine_controller.dart';
 import 'package:munchease/controllers/onboarding_diet_controller.dart';
 import 'package:munchease/controllers/splash_screen_controller.dart';
+import '../controllers/home_screen_controller.dart';
 import '../controllers/register_screen_controller.dart';
 import 'package:munchease/utils/server_helper.dart';
 
@@ -14,7 +15,6 @@ class AppBinding implements Bindings {
     Get.put(Server(), permanent: true);
     log('Loading Controllers', name: '$runtimeType');
     Get.put(LoginScreenController());
-    Get.put(SplashScreenController());
     Get.put(OnboardingCuisineController());
     Get.put(OnboardingDietController());
   }

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:munchease/screens/register_screen.dart';
+import 'package:munchease/utils/app_boxes.dart';
 import 'package:rive/rive.dart';
 import 'package:flutter/services.dart';
 
@@ -7,14 +8,19 @@ import 'package:flutter/services.dart';
 enum SplashScreenStates { none, loading, success, error, empty }
 
 class SplashScreenController extends GetxController
-    with StateMixin<SplashScreenStates> {
+    with StateMixin<SplashScreenStates>, RememberUser {
   RxDouble textOpacity = 1.0.obs;
   late Artboard birdArtboard;
   SMIInput<bool>? trigger;
   StateMachineController? stateMachineController;
+  Map<String, String>? storedInfo;
   @override
   void onInit() {
     super.onInit();
+    storedInfo = {
+      "email": getUser()?['email'] ?? '',
+      "password": getUser()?['email'] ?? ''
+    };
     change(SplashScreenStates.loading, status: RxStatus.loading());
     rootBundle.load('assets/animations/splashanimation.riv').then(
       (data) async {
@@ -32,8 +38,19 @@ class SplashScreenController extends GetxController
           trigger?.value = true;
           textOpacity.value = 0.0;
         });
-        Future.delayed(const Duration(milliseconds: 2000))
-            .then((value) => Get.toNamed('/register'));
+        Future.delayed(const Duration(milliseconds: 2000)).then((value) {
+          if (storedInfo?['email'] != '' && storedInfo?['password'] != '') {
+            Get.toNamed(
+              '/signin',
+              arguments: {
+                "email": storedInfo?['email'],
+                "password": storedInfo?['password']
+              },
+            );
+          } else {
+            Get.toNamed('/register');
+          }
+        });
       },
     );
   }
