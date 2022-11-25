@@ -5,15 +5,14 @@ import '../models/recipe_model.dart';
 
 class FinalRecipeScreenController extends GetxController
     with StateMixin<Recipe> {
-  Server server;
+  Server server = Get.find();
 
-  FinalRecipeScreenController({required Recipe recipe, required this.server}) {
+  FinalRecipeScreenController({required Recipe recipe}) {
     change(recipe);
   }
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     handleLoading();
   }
@@ -23,21 +22,18 @@ class FinalRecipeScreenController extends GetxController
       change(state, status: RxStatus.success());
     } else {
       change(state, status: RxStatus.loading());
-      // TODO: try catch get recipe from server using the id
       var serverRecipe = await server.getRecipeFromId(state!.id);
-
       change(serverRecipe, status: RxStatus.success());
     }
   }
 
   launchMapURL() async {
-    if (await canLaunchUrl(
-        Uri.parse("https://google.com/maps/search/${state!.title}"))) {
-      await launchUrl(
-          Uri.parse("https://google.com/maps/search/${state!.title}"),
+    Uri googleUri = Uri.parse("https://google.com/maps/search/${state!.title}");
+    if (await canLaunchUrl(googleUri)) {
+      await launchUrl(googleUri,
           mode: LaunchMode.inAppWebView); //forceWebView is true now
     } else {
-      throw 'Could not launch ${Uri.parse("https://google.com/maps/search/${state!.title}")}';
+      throw 'Could not launch $googleUri")}';
     }
   }
 }

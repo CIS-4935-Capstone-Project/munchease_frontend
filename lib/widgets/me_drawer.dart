@@ -32,8 +32,38 @@ class MunchDrawer extends StatelessWidget {
               ),
             ),
           ),
-          Column(
-            children: [],
+          DefaultTextStyle(
+            style: TextStyle(color: Colors.red),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ListTile(
+                  onTap: () {
+                    print("f");
+                  },
+                  title: Text("Home"),
+                ),
+                ListTile(
+                  onTap: () {
+                    print("f");
+                  },
+                  title: Text("Saved Recipes"),
+                ),
+                ListTile(
+                  onTap: () {
+                    print("f");
+                  },
+                  title: Text("Profile"),
+                ),
+                ListTile(
+                  onTap: () {
+                    print("f");
+                  },
+                  title: Text("Settings"),
+                )
+              ],
+            ),
           ),
         ],
       ),

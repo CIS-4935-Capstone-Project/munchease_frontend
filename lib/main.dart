@@ -28,7 +28,7 @@ class MainApp extends StatelessWidget {
         initialBinding: AppBinding(),
         // The initial route this can be changed to the splash screen route as well.
         // TODO:change back to home route
-        initialRoute: Routes.COMPARE,
+        initialRoute: Routes.CUISINE,
         // Predefined pages.
         getPages: AppPages.pages);
   }

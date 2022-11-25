@@ -14,7 +14,6 @@ class AppBinding implements Bindings {
     Get.put(Server(), permanent: true);
     log('Loading Controllers', name: '$runtimeType');
     Get.put(LoginScreenController());
-    Get.put(SplashScreenController());
     Get.put(OnboardingCuisineController());
     Get.put(OnboardingDietController());
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:munchease/controllers/onboarding_cuisine_controller.dart';
 import 'package:munchease/widgets/global_widgets.dart';
+import 'package:munchease/widgets/me_drawer.dart';
 import 'package:munchease/widgets/me_filterchip.dart';
 
 import '../utils/app_pages.dart';
@@ -13,6 +14,7 @@ class OnboardingCuisineScreen extends GetView<OnboardingCuisineController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const MunchDrawer(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.changeThemeMode(Get.theme.brightness == Brightness.dark
@@ -80,7 +82,8 @@ class OnboardingCuisineScreen extends GetView<OnboardingCuisineController> {
                         child: const Text("Next"),
                         onPressed: () {
                           Get.toNamed(Routes.DIET);
-                        }))
+                        })),
+                const SizedBox(height: 10)
               ],
             )),
       ),

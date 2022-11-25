@@ -89,7 +89,7 @@ class CompareRecipeScreen extends StatelessWidget {
   SizedBox buildBottomNavigationBar(
       BuildContext context, CompareRecipeScreenController controller) {
     return SizedBox(
-        height: 60,
+        height: 75,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

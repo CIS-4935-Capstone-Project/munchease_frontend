@@ -79,7 +79,8 @@ class OnboardingDietScreen extends GetView<OnboardingDietController> {
                             child: const Text("Finish"),
                             onPressed: () {})),
                   ],
-                ))
+                )),
+            const SizedBox(height: 10)
           ])),
     );
   }
