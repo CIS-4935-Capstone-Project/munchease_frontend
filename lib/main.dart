@@ -21,6 +21,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
         defaultTransition: Transition.rightToLeft,
+        transitionDuration: const Duration(milliseconds: 150),
         themeMode: ThemeMode.dark,
         theme: MunchTheme.lightTheme,
         darkTheme: MunchTheme.darkTheme,
