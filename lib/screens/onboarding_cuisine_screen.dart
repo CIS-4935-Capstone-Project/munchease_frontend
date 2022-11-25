@@ -15,9 +15,6 @@ class OnboardingCuisineScreen extends GetView<OnboardingCuisineController> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const MunchDrawer(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-      ),
       appBar: buildTitleAppBar('Cuisine'),
       body: Center(
         child: Padding(
