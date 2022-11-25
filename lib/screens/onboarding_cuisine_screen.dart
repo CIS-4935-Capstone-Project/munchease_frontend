@@ -16,11 +16,7 @@ class OnboardingCuisineScreen extends GetView<OnboardingCuisineController> {
     return Scaffold(
       drawer: const MunchDrawer(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.changeThemeMode(Get.theme.brightness == Brightness.dark
-              ? ThemeMode.light
-              : ThemeMode.dark);
-        },
+        onPressed: () {},
       ),
       appBar: buildTitleAppBar('Cuisine'),
       body: Center(

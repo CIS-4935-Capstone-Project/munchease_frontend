@@ -40,20 +40,18 @@ class OnboardingDietScreen extends GetView<OnboardingDietController> {
                         primary: true,
                         child: Column(children: [
                           Obx(() => Wrap(
+                              spacing: 10,
+                              runSpacing: 10,
                               children: controller.diets
                                   .asMap()
                                   .entries
-                                  .map((entry) => Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 2, horizontal: 5),
-                                        child: MunchChip(
-                                            onSelected: (_) {
-                                              controller.changeIndex(entry.key);
-                                            },
-                                            label: entry.value,
-                                            selected: entry.key ==
-                                                controller.selectedIndex),
-                                      ))
+                                  .map((entry) => MunchChip(
+                                      onSelected: (_) {
+                                        controller.changeIndex(entry.key);
+                                      },
+                                      label: entry.value,
+                                      selected: entry.key ==
+                                          controller.selectedIndex))
                                   .toList()))
                         ])))),
             const SizedBox(
