@@ -133,7 +133,8 @@ class RegisterScreenController extends GetxController with RememberUser {
 
   Future<void>? newUserSignin(
       LoginProvider loginProvider, String email, String password) async {
-    dynamic res = loginProvider.signIn({"email": email, "password": password});
+    dynamic res =
+        await loginProvider.signIn({"email": email, "password": password});
     if (res['message'] == 'success') {
       rememberMe(email, password);
       Get.toNamed('/cuisine');

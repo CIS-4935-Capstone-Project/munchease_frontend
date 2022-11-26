@@ -14,4 +14,10 @@ class Server extends GetConnect {
     print(res.body.runtimeType);
     return Recipe.fromJson(res.body.first);
   }
+
+  Future<List<Recipe>> getRecipes(dietID) async {
+    var res = await get('/getRecipes/$dietID');
+    print(res.body.runtimeType);
+    return res.body.map((e) => Recipe.fromJson(e)).toList();
+  }
 }

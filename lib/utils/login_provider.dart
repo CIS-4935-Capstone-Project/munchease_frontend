@@ -10,8 +10,8 @@ class LoginProvider extends GetConnect {
     }
   }
 
-  Future<Response<dynamic>> signIn(Map data) async {
-    final response = await post('https://munchease.deta.dev/login', data);
+  Future signIn(Map data) async {
+    final response = await post('https://munchease.deta.dev/signin', data);
     if (response.status.hasError) {
       return Future.error(Exception(response.statusText));
     } else {

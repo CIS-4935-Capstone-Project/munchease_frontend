@@ -53,6 +53,11 @@ abstract class AppPages {
         page: (() => ImagePopup()),
         opaque: false,
         showCupertinoParallax: false,
-        transition: Transition.fade)
+        transition: Transition.fade),
+    GetPage(
+      name: Routes.HOME,
+      page: () => HomeScreen(),
+      transitionDuration: const Duration(milliseconds: 400),
+    ),
   ];
 }

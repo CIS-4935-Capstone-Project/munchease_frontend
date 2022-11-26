@@ -3,38 +3,50 @@
 import 'package:hive/hive.dart';
 
 mixin DietBox {
-  final _boxName = "user_diet";
+  final _boxDietName = "user_diet";
 
   int? getDiet() {
-    return MunchBox.prefRepo.get(_boxName);
+    return MunchBox.prefRepo.get(_boxDietName);
   }
 
   Future putDiet(int value) async {
-    return MunchBox.prefRepo.put(_boxName, value);
+    return MunchBox.prefRepo.put(_boxDietName, value);
+  }
+}
+
+mixin UserInfo {
+  final _boxUserInfo = "user_info";
+
+  Map? getToken() {
+    return MunchBox.prefRepo.get(_boxUserInfo);
+  }
+
+  Future putToken(Map userInfo) async {
+    return MunchBox.prefRepo.put(_boxUserInfo, userInfo);
   }
 }
 
 mixin RememberUser {
   final _boxName = "remember_user";
 
-  Map<String, String>? getUser() {
+  Map? getUser() {
     return MunchBox.prefRepo.get(_boxName);
   }
 
-  Future putUser(Map<String, String> userInfo) async {
+  Future putUser(Map userInfo) async {
     return MunchBox.prefRepo.put(_boxName, userInfo);
   }
 }
 
 mixin CuisineBox {
-  final _boxName = "user_cuisine";
+  final _boxCuisineName = "user_cuisine";
 
   List<String>? getCuisine() {
-    return MunchBox.prefRepo.get(_boxName);
+    return MunchBox.prefRepo.get(_boxCuisineName);
   }
 
   Future putCuisine(List<String> value) async {
-    return MunchBox.prefRepo.put(_boxName, value);
+    return MunchBox.prefRepo.put(_boxCuisineName, value);
   }
 }
 

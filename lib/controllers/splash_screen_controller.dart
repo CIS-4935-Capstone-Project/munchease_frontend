@@ -19,7 +19,7 @@ class SplashScreenController extends GetxController
     super.onInit();
     storedInfo = {
       "email": getUser()?['email'] ?? '',
-      "password": getUser()?['email'] ?? ''
+      "password": getUser()?['password'] ?? ''
     };
     change(SplashScreenStates.loading, status: RxStatus.loading());
     rootBundle.load('assets/animations/splashanimation.riv').then(

@@ -66,8 +66,8 @@ class SigninScreenController extends GetxController with RememberUser {
         onConfirm: () => Get.back(),
       );
     } else {
-      dynamic res = await loginProvider
-          .registerUser({"email": email, "password": password});
+      dynamic res =
+          await loginProvider.signIn({"email": email, "password": password});
       if (res['message'] == 'success') {
         Get.toNamed('/home');
       } else {

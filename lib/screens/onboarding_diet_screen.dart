@@ -55,7 +55,9 @@ class OnboardingDietScreen extends StatelessWidget {
                         child: MunchButton(
                             buttonType: MunchButtonType.filled,
                             child: const Text("Finish"),
-                            onPressed: () {})),
+                            onPressed: () {
+                              Get.toNamed('/home');
+                            })),
                   ],
                 )),
             const SizedBox(height: 10)
