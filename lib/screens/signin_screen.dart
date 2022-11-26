@@ -22,15 +22,18 @@ class SigninScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                // logo
-                width: 100,
-                height: 100,
-                child: Hero(
-                    tag: 'logo',
-                    child: Rive(
-                      artboard: splashController.birdArtboard,
-                    )),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: SizedBox(
+                  // logo
+                  width: 100,
+                  height: 100,
+                  child: Hero(
+                      tag: 'logo',
+                      child: Rive(
+                        artboard: splashController.birdArtboard,
+                      )),
+                ),
               ),
               Obx(
                 () => AnimatedOpacity(

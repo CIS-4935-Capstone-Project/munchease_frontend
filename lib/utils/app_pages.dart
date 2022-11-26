@@ -23,7 +23,7 @@ abstract class AppPages {
     GetPage(
         name: Routes.REGISTER,
         page: () => RegisterScreen(),
-        transitionDuration: const Duration(milliseconds: 300),
+        transitionDuration: const Duration(milliseconds: 400),
         transition: Transition.cupertino),
     GetPage(name: Routes.LOGIN, page: () => LoginScreen()),
     GetPage(
@@ -54,6 +54,10 @@ abstract class AppPages {
         opaque: false,
         showCupertinoParallax: false,
         transition: Transition.fade),
-    GetPage(name: Routes.HOME, page: (() => HomeScreen())),
+    GetPage(
+      name: Routes.HOME,
+      page: (() => HomeScreen()),
+      transitionDuration: const Duration(milliseconds: 400),
+    ),
   ];
 }

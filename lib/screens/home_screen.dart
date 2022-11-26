@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:munchease/controllers/home_screen_controller.dart';
 import 'package:munchease/controllers/splash_screen_controller.dart';
+import 'package:munchease/widgets/me_text_button.dart';
 import 'package:rive/rive.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -20,13 +21,13 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Hamburger Icon
-              GestureDetector(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: GestureDetector(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -74,20 +75,20 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ],
                         ),
+                        onTap: () => {
+                          Get.defaultDialog(
+                            title: 'Test',
+                            onCancel: () => Get.back(),
+                          )
+                        },
+                        onTapCancel: () => {},
                       ),
                     ),
-                  ],
-                ),
-                onTap: () => {null},
-                onTapCancel: () => {null},
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
+                  ),
                   SizedBox(
                     // logo
-                    width: 100,
-                    height: 100,
+                    width: 51,
+                    height: 51,
                     child: Hero(
                       tag: 'logo',
                       child: Rive(
@@ -98,11 +99,14 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               controller.obx(
-                (state) => const SizedBox(
-                  height: 60,
-                  width: 60,
-                  child: Text('Hello'),
-                ),
+                (state) => (MunchButton(
+                    buttonType: MunchButtonType.filled,
+                    onPressed: () => Get.toNamed('/register'),
+                    child: const Text(
+                      'Register',
+                      style: TextStyle(
+                          fontFamily: 'Quicksand', fontWeight: FontWeight.w700),
+                    ))),
                 onLoading: const CircularProgressIndicator(),
               ),
             ],
