@@ -6,7 +6,7 @@ Widget buildProgressIndicator() => const Center(
 
 AppBar buildTitleAppBar(String title) {
   return AppBar(
-    automaticallyImplyLeading: false,
+    // automaticallyImplyLeading: false,
     title: Text(
       title,
       style: const TextStyle(

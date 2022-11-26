@@ -6,10 +6,11 @@ import 'package:munchease/widgets/me_filterchip.dart';
 import 'package:munchease/widgets/me_text_button.dart';
 
 import '../utils/app_pages.dart';
+import '../widgets/diet_filter_grid.dart';
 
-class OnboardingDietScreen extends GetView<OnboardingDietController> {
-  const OnboardingDietScreen({super.key});
-
+class OnboardingDietScreen extends StatelessWidget {
+  OnboardingDietScreen({super.key});
+  OnboardingDietController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,30 +33,7 @@ class OnboardingDietScreen extends GetView<OnboardingDietController> {
             const SizedBox(
               height: 35,
             ),
-            Expanded(
-                child: Scrollbar(
-                    radius: const Radius.circular(10),
-                    thumbVisibility: true,
-                    child: SingleChildScrollView(
-                        primary: true,
-                        child: Column(children: [
-                          Obx(() => Wrap(
-                              children: controller.diets
-                                  .asMap()
-                                  .entries
-                                  .map((entry) => Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 2, horizontal: 5),
-                                        child: MunchChip(
-                                            onSelected: (_) {
-                                              controller.changeIndex(entry.key);
-                                            },
-                                            label: entry.value,
-                                            selected: entry.key ==
-                                                controller.selectedIndex),
-                                      ))
-                                  .toList()))
-                        ])))),
+            Expanded(child: DietFilterGrid(controller: controller)),
             const SizedBox(
               height: 10,
             ),
@@ -79,7 +57,8 @@ class OnboardingDietScreen extends GetView<OnboardingDietController> {
                             child: const Text("Finish"),
                             onPressed: () {})),
                   ],
-                ))
+                )),
+            const SizedBox(height: 10)
           ])),
     );
   }

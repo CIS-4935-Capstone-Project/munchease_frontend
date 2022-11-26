@@ -278,8 +278,10 @@ class MunchDetailedRecipe extends StatelessWidget {
 
   void launchSourceURL() async {
     if (await canLaunchUrl(Uri.parse(recipe.sourceUrl!))) {
-      await launchUrl(Uri.parse(recipe.sourceUrl!),
-          mode: LaunchMode.inAppWebView); //forceWebView is true now
+      await launchUrl(
+        Uri.parse(recipe.sourceUrl!),
+        mode: LaunchMode.inAppWebView,
+      ); //forceWebView is true now
     } else {
       if (await canLaunchUrl(Uri.parse(recipe.spoonacularSourceUrl!))) {
         await launchUrl(Uri.parse(recipe.spoonacularSourceUrl!),

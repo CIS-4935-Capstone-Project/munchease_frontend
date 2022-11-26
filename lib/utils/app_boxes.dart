@@ -60,9 +60,15 @@ class MunchBox {
     _userFavorites = await Hive.openBox(_USR_FAV);
   }
 
+  Future<bool> boxExists() async {
+    bool x = await Hive.boxExists(_USR_PRF);
+    bool j = await Hive.boxExists(_USR_FAV);
+    return x & j;
+  }
+
   Future deleteBoxes() async {
-    _userPrefs?.deleteFromDisk();
-    _userFavorites?.deleteFromDisk();
+    await _userPrefs?.deleteFromDisk();
+    await _userFavorites?.deleteFromDisk();
   }
 
   static Box prefRepo = Hive.box(_USR_PRF);

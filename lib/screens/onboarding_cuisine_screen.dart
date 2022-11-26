@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:munchease/controllers/onboarding_cuisine_controller.dart';
+import 'package:munchease/widgets/cuisine_filter_grid.dart';
 import 'package:munchease/widgets/global_widgets.dart';
+import 'package:munchease/widgets/me_drawer.dart';
 import 'package:munchease/widgets/me_filterchip.dart';
 
 import '../utils/app_pages.dart';
@@ -13,13 +15,7 @@ class OnboardingCuisineScreen extends GetView<OnboardingCuisineController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.changeThemeMode(Get.theme.brightness == Brightness.dark
-              ? ThemeMode.light
-              : ThemeMode.dark);
-        },
-      ),
+      drawer: const MunchDrawer(),
       appBar: buildTitleAppBar('Cuisine'),
       body: Center(
         child: Padding(
@@ -42,32 +38,8 @@ class OnboardingCuisineScreen extends GetView<OnboardingCuisineController> {
                   height: 35,
                 ),
                 Expanded(
-                  child: Scrollbar(
-                    radius: const Radius.circular(10),
-                    thumbVisibility: true,
-                    child: SingleChildScrollView(
-                      primary: true,
-                      child: Column(children: [
-                        Obx(
-                          () => Wrap(
-                            spacing: 10,
-                            runSpacing: 10,
-                            alignment: WrapAlignment.start,
-                            children: controller.availableCuisines
-                                .map((cuisine) => MunchChip(
-                                    selected: controller.selectedCuisines
-                                        .contains(cuisine),
-                                    label: cuisine,
-                                    onSelected: (isSelected) {
-                                      controller.handleMunchchip(
-                                          cuisine: cuisine,
-                                          isSelected: isSelected);
-                                    }))
-                                .toList(),
-                          ),
-                        ),
-                      ]),
-                    ),
+                  child: CuisineFilterGrid(
+                    controller: controller,
                   ),
                 ),
                 const SizedBox(
@@ -81,7 +53,8 @@ class OnboardingCuisineScreen extends GetView<OnboardingCuisineController> {
                         onPressed: () {
                           Get.toNamed(Routes.DIET,
                               arguments: controller.selectedCuisines);
-                        }))
+                        })),
+                const SizedBox(height: 10),
               ],
             )),
       ),

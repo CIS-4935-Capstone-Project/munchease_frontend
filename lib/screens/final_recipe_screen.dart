@@ -12,8 +12,9 @@ class FinalRecipeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     FinalRecipeScreenController controller = Get.put(
         FinalRecipeScreenController(
-            recipe: Get.arguments['recipe'], server: Get.find()),
-        tag: Get.arguments['recipe'].id.toString());
+          recipe: Get.arguments['recipe'],
+        ),
+        tag: '${Get.arguments['recipe'].id}');
     return Scaffold(
         appBar: AppBar(),
         body: SafeArea(
@@ -24,6 +25,7 @@ class FinalRecipeScreen extends StatelessWidget {
                         MunchDetailedRecipe(
                           recipe: state!,
                         ),
+                        const SizedBox(height: 20),
                         MunchButton(
                             buttonType: MunchButtonType.filled,
                             child: const Text("Search Near You"),

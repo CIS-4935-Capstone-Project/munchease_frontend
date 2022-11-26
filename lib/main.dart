@@ -20,7 +20,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        defaultTransition: Transition.cupertino,
+        defaultTransition: Transition.rightToLeft,
+        transitionDuration: const Duration(milliseconds: 150),
         themeMode: ThemeMode.dark,
         theme: MunchTheme.lightTheme,
         darkTheme: MunchTheme.darkTheme,
