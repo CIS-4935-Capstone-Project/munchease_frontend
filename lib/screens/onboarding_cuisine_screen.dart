@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:munchease/controllers/onboarding_cuisine_controller.dart';
+import 'package:munchease/widgets/cuisine_filter_grid.dart';
 import 'package:munchease/widgets/global_widgets.dart';
 import 'package:munchease/widgets/me_drawer.dart';
 import 'package:munchease/widgets/me_filterchip.dart';
@@ -37,32 +38,8 @@ class OnboardingCuisineScreen extends GetView<OnboardingCuisineController> {
                   height: 35,
                 ),
                 Expanded(
-                  child: Scrollbar(
-                    radius: const Radius.circular(10),
-                    thumbVisibility: true,
-                    child: SingleChildScrollView(
-                      primary: true,
-                      child: Column(children: [
-                        Obx(
-                          () => Wrap(
-                            spacing: 10,
-                            runSpacing: 10,
-                            alignment: WrapAlignment.start,
-                            children: controller.availableCuisines
-                                .map((cuisine) => MunchChip(
-                                    selected: controller.selectedCuisines
-                                        .contains(cuisine),
-                                    label: cuisine,
-                                    onSelected: (isSelected) {
-                                      controller.handleMunchchip(
-                                          cuisine: cuisine,
-                                          isSelected: isSelected);
-                                    }))
-                                .toList(),
-                          ),
-                        ),
-                      ]),
-                    ),
+                  child: CuisineFilterGrid(
+                    controller: controller,
                   ),
                 ),
                 const SizedBox(

@@ -14,6 +14,7 @@ abstract class Routes {
   static const COMPARE = '/compare';
   static const FINAL = '/final';
   static const SAVED = '/saved';
+  static const PROFILE = '/profile';
 
   // ONBOARDING RELATED
   static const CUISINE = '/cuisine';

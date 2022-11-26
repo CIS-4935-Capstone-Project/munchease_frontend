@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:munchease/screens/compare_recipe_screen.dart';
 import 'package:munchease/screens/final_recipe_screen.dart';
 import 'package:munchease/screens/onboarding_cuisine_screen.dart';
+import 'package:munchease/screens/profile_screen.dart';
 import 'package:munchease/screens/reset_screen.dart';
 import 'package:munchease/screens/signin_screen.dart';
 import '../screens/login_screen.dart';
@@ -37,7 +38,7 @@ abstract class AppPages {
     ),
     GetPage(
         name: Routes.CUISINE, page: (() => const OnboardingCuisineScreen())),
-    GetPage(name: Routes.DIET, page: (() => const OnboardingDietScreen())),
+    GetPage(name: Routes.DIET, page: (() => OnboardingDietScreen())),
     GetPage(
         name: Routes.COMPARE,
         page: (() => CompareRecipeScreen(
@@ -51,6 +52,8 @@ abstract class AppPages {
         page: (() => ImagePopup()),
         opaque: false,
         showCupertinoParallax: false,
-        transition: Transition.fade)
+        transition: Transition.fade),
+
+    GetPage(name: Routes.PROFILE, page: (() => ProfileScreen())),
   ];
 }
