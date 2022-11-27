@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:munchease/utils/app_boxes.dart';
 
-class ThemeToggle extends StatelessWidget {
-  const ThemeToggle({super.key});
+class ThemeToggle extends StatelessWidget with ThemeBox {
+  ThemeToggle({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,6 +11,9 @@ class ThemeToggle extends StatelessWidget {
       width: double.infinity,
       child: IconButton(
           onPressed: () {
+            Get.theme.brightness == Brightness.dark
+                ? putTheme('light')
+                : putTheme('dark');
             Get.changeThemeMode(Get.theme.brightness == Brightness.dark
                 ? ThemeMode.light
                 : ThemeMode.dark);

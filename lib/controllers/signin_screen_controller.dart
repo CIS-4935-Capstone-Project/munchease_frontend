@@ -6,7 +6,8 @@ import '../utils/login_provider.dart';
 import '../utils/theme_utils.dart';
 
 // Controlls the login screen interactions
-class SigninScreenController extends GetxController with RememberUser {
+class SigninScreenController extends GetxController
+    with StateMixin, RememberUser, UserToken {
   // When the controller get initialized
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
@@ -19,6 +20,7 @@ class SigninScreenController extends GetxController with RememberUser {
   @override
   void onInit() {
     super.onInit();
+    change(null, status: RxStatus.success());
     if (args != null) {
       emailController.text = args['email'];
       passController.text = args['password'];
@@ -30,6 +32,16 @@ class SigninScreenController extends GetxController with RememberUser {
     Future.delayed(const Duration(milliseconds: 1500)).then((value) {
       formOpacity.value = 1.0;
     });
+  }
+
+  void rememberMe(String email, String password) {
+    if (checkboxValue.isTrue) {
+      /*
+      when they hit submit, if they checked the box then store in the local DB
+      their choice and save their login
+      */
+      putUser({"email": email, "password": password});
+    }
   }
 
   String? emailValidator() {
@@ -53,22 +65,27 @@ class SigninScreenController extends GetxController with RememberUser {
     Passwords are assumed to be fine as the account is already created.
     If both those cases are fine, submit the form
     */
-    LoginProvider loginProvider = LoginProvider();
+    LoginProvider loginProvider = Get.find();
     if (!emailValidated) {
       Get.defaultDialog(
         title: 'Login Error',
         textConfirm: 'OK',
         titleStyle: const TextStyle(
             fontFamily: 'Inter', fontSize: 18.0, fontWeight: FontWeight.w700),
-        middleText: 'Please submit only a valid email address',
+        middleText: 'Make sure the provided email is a valid email address',
         middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
         buttonColor: MunchColors.primaryColor,
+        confirmTextColor: MunchColors.primaryLight,
         onConfirm: () => Get.back(),
       );
     } else {
-      dynamic res =
+      change(null, status: RxStatus.loading());
+      Map res =
           await loginProvider.signIn({"email": email, "password": password});
+      change(null, status: RxStatus.success());
       if (res['message'] == 'success') {
+        rememberMe(email, password);
+        putToken({"id": res['id'], "rfrshTkn": res['rfrshTkn']});
         Get.toNamed('/home');
       } else {
         Get.defaultDialog(
@@ -76,9 +93,11 @@ class SigninScreenController extends GetxController with RememberUser {
           textConfirm: 'OK',
           titleStyle: const TextStyle(
               fontFamily: 'Inter', fontSize: 18.0, fontWeight: FontWeight.w700),
-          middleText: res['message'],
+          middleText:
+              'Something went wrong... 😬\nPlease check your info and try again.',
           middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
           buttonColor: MunchColors.primaryColor,
+          confirmTextColor: MunchColors.primaryLight,
           onConfirm: () {
             Get.back();
           },

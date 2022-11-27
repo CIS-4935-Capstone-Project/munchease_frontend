@@ -40,11 +40,7 @@ abstract class AppPages {
     GetPage(
         name: Routes.CUISINE, page: (() => const OnboardingCuisineScreen())),
     GetPage(name: Routes.DIET, page: (() => OnboardingDietScreen())),
-    GetPage(
-        name: Routes.COMPARE,
-        page: (() => CompareRecipeScreen(
-              compareList: recipeModelSample,
-            ))),
+    GetPage(name: Routes.COMPARE, page: (() => const CompareRecipeScreen())),
     GetPage(name: Routes.FINAL, page: (() => const FinalRecipeScreen())),
     GetPage(name: Routes.SAVED, page: (() => const SavedRecipeScreen())),
 

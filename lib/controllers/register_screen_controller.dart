@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:munchease/utils/app_boxes.dart';
 import 'package:munchease/utils/theme_utils.dart';
+import '../utils/app_pages.dart';
 import '../utils/login_provider.dart';
 import 'dart:convert';
 import '../utils/app_boxes.dart';
 
-class RegisterScreenController extends GetxController with RememberUser {
+class RegisterScreenController extends GetxController
+    with StateMixin, RememberUser, UserToken {
   // When the controller get initialized
   TextEditingController passController = TextEditingController();
   TextEditingController confirmController = TextEditingController();
@@ -20,6 +22,7 @@ class RegisterScreenController extends GetxController with RememberUser {
   @override
   void onInit() {
     super.onInit();
+    change(null, status: RxStatus.success());
     Future.delayed(const Duration(milliseconds: 1000)).then((value) {
       headerOpacity.value = 1.0;
     });
@@ -83,7 +86,7 @@ class RegisterScreenController extends GetxController with RememberUser {
     if successful, message/id/rfrshTkn returned
     if fail, only "message" field returned
     */
-    LoginProvider loginProvider = LoginProvider();
+    LoginProvider loginProvider = Get.find();
     if (!passValidated || !emailValidated) {
       Get.defaultDialog(
         title: 'Invalid Credentials',
@@ -93,11 +96,14 @@ class RegisterScreenController extends GetxController with RememberUser {
         middleText: 'Ensure your email is valid and passwords match',
         middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
         buttonColor: MunchColors.primaryColor,
+        confirmTextColor: MunchColors.primaryLight,
         onConfirm: () => Get.back(),
       );
     } else {
-      dynamic res = await loginProvider
+      change(null, status: RxStatus.loading());
+      Map res = await loginProvider
           .registerUser({"email": email, "password": password});
+      change(null, status: RxStatus.success());
       if (res['message'] == 'success') {
         Get.defaultDialog(
           title: 'Registration Complete',
@@ -110,6 +116,7 @@ class RegisterScreenController extends GetxController with RememberUser {
           middleText: '',
           middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
           buttonColor: MunchColors.primaryColor,
+          confirmTextColor: MunchColors.primaryLight,
           onConfirm: () {
             newUserSignin(loginProvider, email, password);
           },
@@ -120,9 +127,10 @@ class RegisterScreenController extends GetxController with RememberUser {
           textConfirm: 'OK',
           titleStyle: const TextStyle(
               fontFamily: 'Inter', fontSize: 18.0, fontWeight: FontWeight.w700),
-          middleText: res['message'],
+          middleText: 'Something went wrong... 😬\nPlease try again.',
           middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
           buttonColor: MunchColors.primaryColor,
+          confirmTextColor: MunchColors.primaryLight,
           onConfirm: () {
             Get.back();
           },
@@ -133,20 +141,24 @@ class RegisterScreenController extends GetxController with RememberUser {
 
   Future<void>? newUserSignin(
       LoginProvider loginProvider, String email, String password) async {
-    dynamic res =
+    change(null, status: RxStatus.loading());
+    Map res =
         await loginProvider.signIn({"email": email, "password": password});
+    change(null, status: RxStatus.success());
     if (res['message'] == 'success') {
       rememberMe(email, password);
-      Get.toNamed('/cuisine');
+      putToken({"id": res['id'], "rfrshTkn": res['rfrshTkn']});
+      Get.toNamed(Routes.CUISINE);
     } else {
       Get.defaultDialog(
         title: 'Sign In Failed',
         textConfirm: 'Sign In',
         titleStyle: const TextStyle(
             fontFamily: 'Inter', fontSize: 18.0, fontWeight: FontWeight.w700),
-        middleText: 'Something went wrong 😬\nTry signing in again.',
+        middleText: 'Something went wrong... 😬\nTry signing in again.',
         middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
         buttonColor: MunchColors.primaryColor,
+        confirmTextColor: MunchColors.primaryLight,
         onConfirm: () {
           Get.back();
         },

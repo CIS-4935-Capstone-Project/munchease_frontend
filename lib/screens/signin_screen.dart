@@ -155,20 +155,23 @@ class SigninScreen extends StatelessWidget {
                         const SizedBox(
                           height: 120,
                         ),
-                        MunchButton(
-                            buttonType: MunchButtonType.filled,
-                            child: const Text(
-                              "Sign In",
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w700,
+                        signinController.obx(
+                          (state) => (MunchButton(
+                              buttonType: MunchButtonType.filled,
+                              child: const Text(
+                                "Sign In",
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
-                            ),
-                            onPressed: () {
-                              signinController.submitForm(
-                                  signinController.emailController.text,
-                                  signinController.passController.text);
-                            }),
+                              onPressed: () {
+                                signinController.submitForm(
+                                    signinController.emailController.text,
+                                    signinController.passController.text);
+                              })),
+                          onLoading: const CircularProgressIndicator(),
+                        ),
                         const SizedBox(height: 10),
                         MunchButton(
                             buttonType: MunchButtonType.line,

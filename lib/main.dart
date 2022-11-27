@@ -22,7 +22,7 @@ class MainApp extends StatelessWidget {
     return GetMaterialApp(
         defaultTransition: Transition.rightToLeft,
         transitionDuration: const Duration(milliseconds: 150),
-        themeMode: ThemeMode.dark,
+        themeMode: MunchBox().getUserTheme(),
         theme: MunchTheme.lightTheme,
         darkTheme: MunchTheme.darkTheme,
         // Run some initial bindings for controllers.

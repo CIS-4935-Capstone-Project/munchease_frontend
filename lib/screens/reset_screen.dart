@@ -20,15 +20,18 @@ class ResetScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                // logo
-                width: 100,
-                height: 100,
-                child: Hero(
-                    tag: 'logo',
-                    child: Rive(
-                      artboard: splashController.birdArtboard,
-                    )),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: SizedBox(
+                  // logo
+                  width: 100,
+                  height: 100,
+                  child: Hero(
+                      tag: 'logo',
+                      child: Rive(
+                        artboard: splashController.birdArtboard,
+                      )),
+                ),
               ),
               Form(
                 key: _formKey,
@@ -69,19 +72,22 @@ class ResetScreen extends StatelessWidget {
                     const SizedBox(
                       height: 60,
                     ),
-                    MunchButton(
-                        buttonType: MunchButtonType.filled,
-                        child: const Text(
-                          "Send Request",
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w700,
+                    resetController.obx(
+                      (state) => (MunchButton(
+                          buttonType: MunchButtonType.filled,
+                          child: const Text(
+                            "Send Request",
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
-                        ),
-                        onPressed: () {
-                          resetController
-                              .submitForm(resetController.emailController.text);
-                        }),
+                          onPressed: () {
+                            resetController.submitForm(
+                                resetController.emailController.text);
+                          })),
+                      onLoading: const CircularProgressIndicator(),
+                    ),
                     const SizedBox(height: 10),
                     MunchButton(
                         buttonType: MunchButtonType.line,

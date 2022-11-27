@@ -138,20 +138,23 @@ class RegisterScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 60),
-                        MunchButton(
-                            buttonType: MunchButtonType.filled,
-                            child: const Text(
-                              "Sign Up",
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w700,
+                        registerController.obx(
+                          (state) => (MunchButton(
+                              buttonType: MunchButtonType.filled,
+                              child: const Text(
+                                "Sign Up",
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
-                            ),
-                            onPressed: () {
-                              registerController.submitForm(
-                                  registerController.emailController.text,
-                                  registerController.passController.text);
-                            }),
+                              onPressed: () {
+                                registerController.submitForm(
+                                    registerController.emailController.text,
+                                    registerController.passController.text);
+                              })),
+                          onLoading: const CircularProgressIndicator(),
+                        ),
                         const SizedBox(height: 10), // padding box
                         MunchButton(
                             buttonType: MunchButtonType.line,

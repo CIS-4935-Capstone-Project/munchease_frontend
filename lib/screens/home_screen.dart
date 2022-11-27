@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:munchease/controllers/home_screen_controller.dart';
 import 'package:munchease/controllers/splash_screen_controller.dart';
 import 'package:munchease/utils/app_boxes.dart';
+import 'package:munchease/widgets/global_widgets.dart';
 import 'package:munchease/widgets/me_drawer.dart';
 import 'package:munchease/widgets/me_text_button.dart';
 import 'package:rive/rive.dart';
+import 'package:swipeable_card_stack/swipeable_card_stack.dart';
+import 'package:munchease/widgets/me_card.dart';
 
-class HomeScreen extends StatelessWidget with CuisineBox, DietBox {
+class HomeScreen extends StatelessWidget with CuisineBox, DietBox, UserToken {
   HomeScreen({super.key});
   final controller = Get.put(HomeScreenController());
-  SplashScreenController splashController = Get.find();
+  final SplashScreenController splashController = Get.find();
   final GlobalKey<ScaffoldState> _key = GlobalKey();
+  final SwipeableCardSectionController _cardController =
+      SwipeableCardSectionController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,25 +39,65 @@ class HomeScreen extends StatelessWidget with CuisineBox, DietBox {
       key: _key,
       drawer: const MunchDrawer(),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Center(
+        child: Center(
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 controller.obx(
-                  (state) => (MunchButton(
-                      buttonType: MunchButtonType.filled,
-                      onPressed: () => Get.toNamed('/register'),
-                      child: const Text(
-                        'Register',
-                        style: TextStyle(
-                          fontFamily: 'Quicksand',
-                          fontWeight: FontWeight.w700,
-                          fontSize: 20,
-                        ),
-                      ))),
-                  onLoading: const CircularProgressIndicator(),
+                  (state) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: 550,
+                      child: (SwipeableCardsSection(
+                        enableSwipeUp: true,
+                        cardController: _cardController,
+                        context: context,
+                        items: [
+                          ...controller.recipes
+                              .sublist(0, 3)
+                              .map((r) => CardView(
+                                    recipe: r,
+                                  ))
+                              .toList()
+                        ],
+                        onCardSwiped: (dir, index, widget) {
+                          if (dir == Direction.up) {
+                            controller.addToFavorites(index);
+                          } else if (dir == Direction.right) {
+                            controller.addToCompare(index);
+                          }
+                          if (index + 3 <= 9) {
+                            _cardController.addItem(CardView(
+                              recipe: controller.recipes[index + 3],
+                            ));
+                          }
+                        },
+                      )),
+                    ),
+                  ),
+                  onLoading: buildProgressIndicator(),
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SwipeButton(
+                      icon: Icons.crop_square_sharp,
+                      onTap: () {},
+                      color: Colors.red,
+                    ),
+                    SwipeButton(
+                      icon: Icons.local_fire_department,
+                      onTap: () {},
+                      color: Colors.orange[600]!,
+                    ),
+                    SwipeButton(
+                      icon: Icons.check,
+                      onTap: () {},
+                      color: Colors.lightGreen,
+                    ),
+                  ],
+                )
               ],
             ),
           ),
@@ -108,6 +151,35 @@ class HomeScreen extends StatelessWidget with CuisineBox, DietBox {
         _key.currentState!.openDrawer();
       },
       onTapCancel: () => {},
+    );
+  }
+}
+
+class SwipeButton extends StatelessWidget {
+  final IconData icon;
+  final void Function() onTap;
+  final Color color;
+  const SwipeButton(
+      {Key? key,
+      required this.icon,
+      required this.onTap,
+      this.color = Colors.red})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+          height: 50,
+          width: 50,
+          decoration: const BoxDecoration(
+              shape: BoxShape.circle, color: Color(0xFF323232)),
+          child: Icon(
+            icon,
+            color: color,
+            size: 40,
+          )),
     );
   }
 }

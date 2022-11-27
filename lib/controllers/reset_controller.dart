@@ -5,13 +5,14 @@ import '../utils/login_provider.dart';
 import 'dart:convert';
 
 // Controlls the login screen interactions
-class ResetController extends GetxController {
+class ResetController extends GetxController with StateMixin {
   // When the controller get initialized
   TextEditingController emailController = TextEditingController();
   bool emailValidated = false;
   @override
   void onInit() {
     super.onInit();
+    change(null, status: RxStatus.success());
   }
 
   String? emailValidator() {
@@ -38,8 +39,9 @@ class ResetController extends GetxController {
     if successful, message/id/rfrshTkn returned
     if fail, only "message" field returned
     */
-    LoginProvider loginprovider = LoginProvider();
+    LoginProvider loginprovider = Get.find();
     if (!emailValidated) {
+      change(null, status: RxStatus.success());
       Get.defaultDialog(
         title: 'Invalid Credentials',
         textConfirm: 'OK',
@@ -48,11 +50,14 @@ class ResetController extends GetxController {
         middleText: 'Ensure your email is valid',
         middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
         buttonColor: MunchColors.primaryColor,
+        confirmTextColor: MunchColors.primaryLight,
         onConfirm: () => Get.back(),
       );
     } else {
-      dynamic res = await loginprovider.resetPassword({"email": email});
-      if (res['email']) {
+      change(null, status: RxStatus.loading());
+      Map res = await loginprovider.resetPassword({"email": email});
+      change(null, status: RxStatus.success());
+      if (res.containsKey('email')) {
         Get.defaultDialog(
           title: 'Request Sent',
           textConfirm: 'Sign In',
@@ -62,6 +67,7 @@ class ResetController extends GetxController {
               'Check your email\n${emailController.text}\nfor your password reset email',
           middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
           buttonColor: MunchColors.primaryColor,
+          confirmTextColor: MunchColors.primaryLight,
           onConfirm: () => Get.toNamed('/signin'),
         );
       } else {
@@ -74,6 +80,7 @@ class ResetController extends GetxController {
               'Failure during password reset.\nPlease try again or sign in',
           middleTextStyle: const TextStyle(fontFamily: 'Inter', fontSize: 14),
           buttonColor: MunchColors.primaryColor,
+          confirmTextColor: MunchColors.primaryLight,
           onConfirm: () => Get.back(),
         );
       }

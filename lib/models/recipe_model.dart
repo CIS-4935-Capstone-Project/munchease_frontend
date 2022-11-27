@@ -77,7 +77,7 @@ class ExtendedIngredients {
   String? image;
   String? name;
   String? original;
-  int? amount;
+  num? amount;
   String? unit;
 
   ExtendedIngredients(

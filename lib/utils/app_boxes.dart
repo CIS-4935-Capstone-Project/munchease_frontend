@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 mixin DietBox {
@@ -14,15 +15,15 @@ mixin DietBox {
   }
 }
 
-mixin UserInfo {
-  final _boxUserInfo = "user_info";
+mixin UserToken {
+  final _boxUserToken = "user_token";
 
   Map? getToken() {
-    return MunchBox.prefRepo.get(_boxUserInfo);
+    return MunchBox.prefRepo.get(_boxUserToken);
   }
 
   Future putToken(Map userInfo) async {
-    return MunchBox.prefRepo.put(_boxUserInfo, userInfo);
+    return MunchBox.prefRepo.put(_boxUserToken, userInfo);
   }
 }
 
@@ -62,6 +63,18 @@ mixin FavoriteBox {
   }
 }
 
+mixin ThemeBox {
+  final _themeBoxName = "user_theme";
+
+  String? getTheme() {
+    return MunchBox.prefRepo.get(_themeBoxName);
+  }
+
+  Future putTheme(theme) {
+    return MunchBox.prefRepo.put(_themeBoxName, theme);
+  }
+}
+
 class MunchBox {
   static const _USR_PRF = 'user_prefs';
   static const _USR_FAV = 'user_favorites';
@@ -81,6 +94,17 @@ class MunchBox {
   Future deleteBoxes() async {
     await _userPrefs?.deleteFromDisk();
     await _userFavorites?.deleteFromDisk();
+  }
+
+  ThemeMode getUserTheme() {
+    String? t = prefRepo.get('user_theme');
+    if (t == null) {
+      return ThemeMode.system;
+    } else if (t == 'light') {
+      return ThemeMode.light;
+    } else {
+      return ThemeMode.dark;
+    }
   }
 
   static Box prefRepo = Hive.box(_USR_PRF);

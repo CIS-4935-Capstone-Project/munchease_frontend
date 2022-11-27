@@ -9,14 +9,13 @@ import '../widgets/me_detailed_recipe.dart';
 import '../widgets/me_text_button.dart';
 
 class CompareRecipeScreen extends StatelessWidget {
-  final List<Recipe> compareList;
   const CompareRecipeScreen({
-    required this.compareList,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    List<Recipe> compareList = Get.arguments['recipe'];
     final controller =
         Get.put(CompareRecipeScreenController(recipeList: compareList));
 
@@ -28,19 +27,22 @@ class CompareRecipeScreen extends StatelessWidget {
               Obx(
                 () => Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [...buildPageIndicator(controller, context)],
+                  children: [
+                    ...buildPageIndicator(controller, compareList, context)
+                  ],
                 ),
               ),
               const SizedBox(
                 height: 10,
               ),
-              buildPageView(controller),
+              buildPageView(controller, compareList),
             ],
           ),
         ));
   }
 
-  Expanded buildPageView(CompareRecipeScreenController controller) {
+  Expanded buildPageView(
+      CompareRecipeScreenController controller, compareList) {
     return Expanded(
       child: ScrollConfiguration(
         behavior: MouseDraggableScrollBehavior(),
@@ -62,7 +64,9 @@ class CompareRecipeScreen extends StatelessWidget {
   }
 
   List<GestureDetector> buildPageIndicator(
-      CompareRecipeScreenController controller, BuildContext context) {
+      CompareRecipeScreenController controller,
+      List<Recipe> compareList,
+      BuildContext context) {
     return compareList.asMap().entries.map((e) {
       return GestureDetector(
         onTap: () {

@@ -31,7 +31,7 @@ class FinalRecipeScreenController extends GetxController
     Uri googleUri = Uri.parse("https://google.com/maps/search/${state!.title}");
     if (await canLaunchUrl(googleUri)) {
       await launchUrl(googleUri,
-          mode: LaunchMode.inAppWebView); //forceWebView is true now
+          mode: LaunchMode.platformDefault); //forceWebView is true now
     } else {
       throw 'Could not launch $googleUri")}';
     }

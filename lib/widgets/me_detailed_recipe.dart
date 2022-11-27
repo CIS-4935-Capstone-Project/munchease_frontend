@@ -25,7 +25,7 @@ class MunchDetailedRecipe extends StatelessWidget {
           selectWordOnDoubleTap: true,
           child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             SizedBox(
-              height: 130,
+              height: 165,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
