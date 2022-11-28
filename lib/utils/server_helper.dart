@@ -16,6 +16,7 @@ class Server extends GetConnect {
   }
 
   Future getRecipes(int? dietID) async {
+    dietID = dietID ?? 0;
     var res = await get('/getRecipes/$dietID');
     print(res.body.runtimeType);
     if (res.status.hasError) {

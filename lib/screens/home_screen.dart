@@ -78,25 +78,28 @@ class HomeScreen extends StatelessWidget with CuisineBox, DietBox, UserToken {
                   ),
                   onLoading: buildProgressIndicator(),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SwipeButton(
-                      icon: Icons.crop_square_sharp,
-                      onTap: () {},
-                      color: Colors.red,
-                    ),
-                    SwipeButton(
-                      icon: Icons.local_fire_department,
-                      onTap: () {},
-                      color: Colors.orange[600]!,
-                    ),
-                    SwipeButton(
-                      icon: Icons.check,
-                      onTap: () {},
-                      color: Colors.lightGreen,
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(4.0, 8.0, 4.0, 0.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SwipeButton(
+                        icon: Icons.clear_outlined,
+                        onTap: () {},
+                        color: Colors.red,
+                      ),
+                      SwipeButton(
+                        icon: Icons.local_fire_department,
+                        onTap: () {},
+                        color: Colors.orange[600]!,
+                      ),
+                      SwipeButton(
+                        icon: Icons.check,
+                        onTap: () {},
+                        color: Colors.lightGreen,
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),
@@ -171,14 +174,14 @@ class SwipeButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-          height: 50,
-          width: 50,
+          height: 60,
+          width: 60,
           decoration: const BoxDecoration(
               shape: BoxShape.circle, color: Color(0xFF323232)),
           child: Icon(
             icon,
             color: color,
-            size: 40,
+            size: 50,
           )),
     );
   }

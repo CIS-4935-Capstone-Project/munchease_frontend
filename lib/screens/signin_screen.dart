@@ -170,7 +170,10 @@ class SigninScreen extends StatelessWidget {
                                     signinController.emailController.text,
                                     signinController.passController.text);
                               })),
-                          onLoading: const CircularProgressIndicator(),
+                          onLoading: const Padding(
+                            padding: EdgeInsets.all(2.0),
+                            child: CircularProgressIndicator(),
+                          ),
                         ),
                         const SizedBox(height: 10),
                         MunchButton(

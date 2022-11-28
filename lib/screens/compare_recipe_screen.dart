@@ -15,7 +15,7 @@ class CompareRecipeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Recipe> compareList = Get.arguments['recipe'];
+    List<Recipe> compareList = Get.arguments['recipeList'];
     final controller =
         Get.put(CompareRecipeScreenController(recipeList: compareList));
 

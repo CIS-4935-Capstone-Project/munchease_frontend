@@ -153,7 +153,10 @@ class RegisterScreen extends StatelessWidget {
                                     registerController.emailController.text,
                                     registerController.passController.text);
                               })),
-                          onLoading: const CircularProgressIndicator(),
+                          onLoading: const Padding(
+                            padding: EdgeInsets.all(2.0),
+                            child: CircularProgressIndicator(),
+                          ),
                         ),
                         const SizedBox(height: 10), // padding box
                         MunchButton(
@@ -166,7 +169,7 @@ class RegisterScreen extends StatelessWidget {
                             ),
                             onPressed: () {
                               Get.toNamed(
-                                  '/home'); //TODO change to signin when done testing
+                                  '/signin'); //TODO change to signin when done testing
                             }),
                       ],
                     ),

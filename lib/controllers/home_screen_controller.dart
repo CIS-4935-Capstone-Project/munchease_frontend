@@ -18,7 +18,7 @@ class HomeScreenController extends GetxController
     super.onInit();
     change(null, status: RxStatus.loading());
     // cuisines = getCuisine();
-    dietIndex = getDiet();
+    dietIndex = getDiet() ?? 0;
     getRandomRecipes(dietIndex);
   }
 
@@ -34,7 +34,7 @@ class HomeScreenController extends GetxController
     await putFavorites(recipes[index].toJson());
     comparedRecipes.add(recipes[index]);
     if (checkTotalRecipes(comparedRecipes, index)) {
-      Get.toNamed(Routes.COMPARE, arguments: {"recipe": comparedRecipes});
+      Get.toNamed(Routes.COMPARE, arguments: {"recipeList": comparedRecipes});
     }
   }
 
@@ -42,7 +42,7 @@ class HomeScreenController extends GetxController
     // add to compare only
     comparedRecipes.add(recipes[index]);
     if (checkTotalRecipes(comparedRecipes, index)) {
-      Get.toNamed(Routes.COMPARE, arguments: {"recipe": comparedRecipes});
+      Get.toNamed(Routes.COMPARE, arguments: {"recipeList": comparedRecipes});
     }
   }
 

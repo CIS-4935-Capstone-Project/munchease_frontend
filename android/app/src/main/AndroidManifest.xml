@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.munchease">
    <application
-        android:label="munchease"
+        android:label="@string/display_name"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

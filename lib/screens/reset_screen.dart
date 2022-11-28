@@ -86,7 +86,10 @@ class ResetScreen extends StatelessWidget {
                             resetController.submitForm(
                                 resetController.emailController.text);
                           })),
-                      onLoading: const CircularProgressIndicator(),
+                      onLoading: const Padding(
+                        padding: EdgeInsets.all(2.0),
+                        child: CircularProgressIndicator(),
+                      ),
                     ),
                     const SizedBox(height: 10),
                     MunchButton(
