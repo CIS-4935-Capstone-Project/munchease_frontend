@@ -40,43 +40,37 @@ class HomeScreen extends StatelessWidget with CuisineBox, DietBox, UserToken {
       drawer: const MunchDrawer(),
       body: SafeArea(
         child: Center(
-          child: SingleChildScrollView(
-            child: Column(
+          child: controller.obx(
+            (state) => Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                controller.obx(
-                  (state) => Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      height: 550,
-                      child: (SwipeableCardsSection(
-                        enableSwipeUp: true,
-                        cardController: _cardController,
-                        context: context,
-                        items: [
-                          ...controller.recipes
-                              .sublist(0, 3)
-                              .map((r) => CardView(
-                                    recipe: r,
-                                  ))
-                              .toList()
-                        ],
-                        onCardSwiped: (dir, index, widget) {
-                          if (dir == Direction.up) {
-                            controller.addToFavorites(index);
-                          } else if (dir == Direction.right) {
-                            controller.addToCompare(index);
-                          }
-                          if (index + 3 <= 9) {
-                            _cardController.addItem(CardView(
-                              recipe: controller.recipes[index + 3],
-                            ));
-                          }
-                        },
-                      )),
-                    ),
-                  ),
-                  onLoading: buildProgressIndicator(),
+                SwipeableCardsSection(
+                  enableSwipeUp: true,
+                  cardController: _cardController,
+                  context: context,
+                  items: [
+                    ...controller.recipes
+                        .sublist(0, 3)
+                        .map((r) => CardView(
+                              recipe: r,
+                            ))
+                        .toList()
+                  ],
+                  onCardSwiped: (dir, index, widget) {
+                    if (dir == Direction.up) {
+                      controller.addToFavorites(index);
+                    } else if (dir == Direction.right) {
+                      controller.addToCompare(index);
+                    }
+                    if (index + 3 <= 9) {
+                      _cardController.addItem(CardView(
+                        recipe: controller.recipes[index + 3],
+                      ));
+                    }
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(4.0, 8.0, 4.0, 0.0),
@@ -100,9 +94,13 @@ class HomeScreen extends StatelessWidget with CuisineBox, DietBox, UserToken {
                       ),
                     ],
                   ),
-                )
+                ),
+                const SizedBox(
+                  height: 80,
+                ),
               ],
             ),
+            onLoading: buildProgressIndicator(),
           ),
         ),
       ),

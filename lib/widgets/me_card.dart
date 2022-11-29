@@ -11,7 +11,9 @@ class CardView extends StatelessWidget {
     return Card(
       child: Stack(
         children: <Widget>[
-          SizedBox.expand(
+          SizedBox(
+            width: double.infinity,
+            height: double.infinity,
             child: Material(
               borderRadius: BorderRadius.circular(12.0),
               child: Image.network(
@@ -20,7 +22,9 @@ class CardView extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox.expand(
+          SizedBox(
+            width: double.infinity,
+            height: double.infinity,
             child: Container(
               decoration: const BoxDecoration(
                   gradient: LinearGradient(

@@ -31,6 +31,9 @@ class HomeScreenController extends GetxController
 
   void addToFavorites(index) async {
     // adds to favorites and compare
+    if (index >= recipes.length) {
+      Get.toNamed(Routes.COMPARE);
+    }
     await putFavorites(recipes[index].toJson());
     comparedRecipes.add(recipes[index]);
     if (checkTotalRecipes(comparedRecipes, index)) {
@@ -40,6 +43,9 @@ class HomeScreenController extends GetxController
 
   void addToCompare(index) {
     // add to compare only
+    if (index >= recipes.length) {
+      Get.toNamed(Routes.COMPARE);
+    }
     comparedRecipes.add(recipes[index]);
     if (checkTotalRecipes(comparedRecipes, index)) {
       Get.toNamed(Routes.COMPARE, arguments: {"recipeList": comparedRecipes});
