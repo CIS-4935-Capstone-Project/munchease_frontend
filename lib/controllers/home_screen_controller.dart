@@ -31,9 +31,6 @@ class HomeScreenController extends GetxController
 
   void addToFavorites(index) async {
     // adds to favorites and compare
-    if (index >= recipes.length) {
-      Get.toNamed(Routes.COMPARE);
-    }
     await putFavorites(recipes[index].toJson());
     comparedRecipes.add(recipes[index]);
     if (checkTotalRecipes(comparedRecipes, index)) {
@@ -43,9 +40,6 @@ class HomeScreenController extends GetxController
 
   void addToCompare(index) {
     // add to compare only
-    if (index >= recipes.length) {
-      Get.toNamed(Routes.COMPARE);
-    }
     comparedRecipes.add(recipes[index]);
     if (checkTotalRecipes(comparedRecipes, index)) {
       Get.toNamed(Routes.COMPARE, arguments: {"recipeList": comparedRecipes});
@@ -57,6 +51,13 @@ class HomeScreenController extends GetxController
       return true;
     } else {
       return false;
+    }
+  }
+
+  void checkListLength(index) {
+    if (index == recipes.length - 1 && comparedRecipes == []) {
+      change(null, status: RxStatus.loading());
+      getRandomRecipes(0);
     }
   }
 }

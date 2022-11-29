@@ -57,6 +57,7 @@ class HomeScreen extends StatelessWidget with CuisineBox, DietBox, UserToken {
                         .toList()
                   ],
                   onCardSwiped: (dir, index, widget) {
+                    controller.checkListLength(index);
                     if (dir == Direction.up) {
                       controller.addToFavorites(index);
                     } else if (dir == Direction.right) {
@@ -79,17 +80,23 @@ class HomeScreen extends StatelessWidget with CuisineBox, DietBox, UserToken {
                     children: [
                       SwipeButton(
                         icon: Icons.clear_outlined,
-                        onTap: () {},
+                        onTap: () {
+                          _cardController.triggerSwipeLeft();
+                        },
                         color: Colors.red,
                       ),
                       SwipeButton(
                         icon: Icons.local_fire_department,
-                        onTap: () {},
+                        onTap: () {
+                          _cardController.triggerSwipeUp();
+                        },
                         color: Colors.orange[600]!,
                       ),
                       SwipeButton(
                         icon: Icons.check,
-                        onTap: () {},
+                        onTap: () {
+                          _cardController.triggerSwipeRight();
+                        },
                         color: Colors.lightGreen,
                       ),
                     ],
@@ -160,10 +167,12 @@ class SwipeButton extends StatelessWidget {
   final IconData icon;
   final void Function() onTap;
   final Color color;
+  // final SwipeableCardSectionController controller;
   const SwipeButton(
       {Key? key,
       required this.icon,
       required this.onTap,
+      // required this.controller,
       this.color = Colors.red})
       : super(key: key);
 
