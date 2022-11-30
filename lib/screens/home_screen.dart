@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:munchease/controllers/home_screen_controller.dart';
 import 'package:munchease/controllers/splash_screen_controller.dart';
+import 'package:munchease/controllers/swipe_controller.dart';
 import 'package:munchease/utils/app_boxes.dart';
 import 'package:munchease/widgets/global_widgets.dart';
 import 'package:munchease/widgets/me_drawer.dart';
 import 'package:munchease/widgets/me_text_button.dart';
 import 'package:rive/rive.dart';
-import 'package:swipeable_card_stack/swipeable_card_stack.dart';
+import 'package:munchease/utils/swipeable_card_stack.dart';
 import 'package:munchease/widgets/me_card.dart';
 
 class HomeScreen extends StatelessWidget with CuisineBox, DietBox, UserToken {
