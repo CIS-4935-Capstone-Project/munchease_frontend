@@ -11,6 +11,7 @@ class HomeScreenController extends GetxController
   int? dietIndex;
   RxList recipes = RxList.empty();
   List<Recipe> comparedRecipes = [];
+  int counter = 0;
 
   // When the controller get initialized
   @override
@@ -30,33 +31,33 @@ class HomeScreenController extends GetxController
   }
 
   void addToFavorites(index) async {
+    index = index - counter * 10;
     // adds to favorites and compare
     await putFavorites(recipes[index].toJson());
     comparedRecipes.add(recipes[index]);
-    if (checkTotalRecipes(comparedRecipes, index)) {
-      Get.toNamed(Routes.COMPARE, arguments: {"recipeList": comparedRecipes});
-    }
+    checkTotalRecipes(comparedRecipes, index);
   }
 
   void addToCompare(index) {
+    index = index - counter * 10;
     // add to compare only
     comparedRecipes.add(recipes[index]);
-    if (checkTotalRecipes(comparedRecipes, index)) {
-      Get.toNamed(Routes.COMPARE, arguments: {"recipeList": comparedRecipes});
-    }
+    checkTotalRecipes(comparedRecipes, index);
   }
 
-  bool checkTotalRecipes(List comparedRecipes, index) {
-    if (comparedRecipes.length == 3 || index == recipes.length - 1) {
-      return true;
+  void checkTotalRecipes(List comparedRecipes, int index) {
+    if (comparedRecipes.length == 2) {
+      Get.toNamed(Routes.COMPARE, arguments: {"recipeList": comparedRecipes});
     } else {
-      return false;
+      checkListLength(index);
     }
   }
 
   void checkListLength(index) {
-    if (index == recipes.length - 1 && comparedRecipes == []) {
+    index = index - counter * 10;
+    if (index == recipes.length - 1 && comparedRecipes.length < 2) {
       change(null, status: RxStatus.loading());
+      counter++;
       getRandomRecipes(0);
     }
   }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:munchease/controllers/home_screen_controller.dart';
@@ -57,16 +59,19 @@ class HomeScreen extends StatelessWidget with CuisineBox, DietBox, UserToken {
                         .toList()
                   ],
                   onCardSwiped: (dir, index, widget) {
-                    controller.checkListLength(index);
                     if (dir == Direction.up) {
                       controller.addToFavorites(index);
                     } else if (dir == Direction.right) {
                       controller.addToCompare(index);
                     }
-                    if (index + 3 <= 9) {
+                    if (index - controller.counter * 10 + 3 <= 9) {
                       _cardController.addItem(CardView(
-                        recipe: controller.recipes[index + 3],
+                        recipe: controller
+                            .recipes[index - controller.counter * 10 + 3],
                       ));
+                    }
+                    if (index - controller.counter * 10 == 9) {
+                      controller.checkListLength(index);
                     }
                   },
                 ),

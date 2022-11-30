@@ -17,6 +17,7 @@ class CardView extends StatelessWidget {
             child: Material(
               borderRadius: BorderRadius.circular(12.0),
               child: Image.network(
+                //TODO add error builders
                 recipe.image!,
                 fit: BoxFit.cover,
               ),
@@ -34,7 +35,7 @@ class CardView extends StatelessWidget {
             ),
           ),
           Align(
-            alignment: Alignment.bottomLeft,
+            alignment: Alignment.bottomLeft, //TODO center left
             child: Container(
                 padding: const EdgeInsets.symmetric(
                     vertical: 16.0, horizontal: 16.0),
