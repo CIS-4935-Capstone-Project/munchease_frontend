@@ -41,8 +41,7 @@ class FinalRecipeScreenController extends GetxController
 
 //TODO fix home button function
   void reloadHome() {
-    change(null, status: RxStatus.loading());
-    hController.getRandomRecipes(0);
+    hController.backToHomeHelper();
     Get.toNamed(Routes.HOME);
   }
 }

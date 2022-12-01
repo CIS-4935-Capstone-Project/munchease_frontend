@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:munchease/utils/theme_utils.dart';
 import '../models/recipe_model.dart';
 
 class CardView extends StatelessWidget {
@@ -29,10 +30,10 @@ class CardView extends StatelessWidget {
             height: double.infinity,
             child: Container(
               decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [Colors.transparent, Colors.black54],
-                      begin: Alignment.center,
-                      end: Alignment.bottomCenter)),
+                  gradient: LinearGradient(colors: [
+                Colors.transparent,
+                Colors.black87,
+              ], begin: Alignment.center, end: Alignment.bottomCenter)),
             ),
           ),
           Align(
@@ -46,7 +47,9 @@ class CardView extends StatelessWidget {
                   children: <Widget>[
                     Text(recipe.title!,
                         style: const TextStyle(
-                            fontSize: 20.0, fontWeight: FontWeight.w700)),
+                            color: MunchColors.primaryLight,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.w700)),
                     const Padding(padding: EdgeInsets.only(bottom: 8.0)),
                   ],
                 )),

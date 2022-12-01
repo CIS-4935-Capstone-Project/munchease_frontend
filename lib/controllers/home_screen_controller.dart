@@ -64,4 +64,10 @@ class HomeScreenController extends GetxController
       getRandomRecipes(0);
     }
   }
+
+  void backToHomeHelper() {
+    change(null, status: RxStatus.loading());
+    comparedRecipes = [];
+    getRandomRecipes(0);
+  }
 }

@@ -40,7 +40,7 @@ class Recipe {
     readyInMinutes = json['readyInMinutes'];
     servings = json['servings'];
     sourceUrl = json['sourceUrl'];
-    image = json['image'];
+    image = 'https://spoonacular.com/recipeImages/${json['id']}-636x393.jpg';
     summary = json['summary'];
     cuisines = json['cuisines'].cast<String>() ?? [];
     diets = json['diets'].cast<String>() ?? [];

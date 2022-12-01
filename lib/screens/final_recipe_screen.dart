@@ -25,13 +25,13 @@ class FinalRecipeScreen extends StatelessWidget {
           appBar: AppBar(
             leading: GestureDetector(
               onTap: () {
-                //controller.reloadHome();
+                controller.reloadHome();
               },
               child: const Center(
                 child: Icon(
                   Icons.home_rounded,
                   color: MunchColors.primaryDark,
-                  size: 50,
+                  size: 30,
                 ),
               ),
             ),
