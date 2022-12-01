@@ -51,8 +51,7 @@ void main() {
       await tester.runAsync(
         () async {
           await tester.pumpWidget(GetMaterialApp(
-              initialBinding: AppBinding(),
-              home: const OnboardingDietScreen()));
+              initialBinding: AppBinding(), home: OnboardingDietScreen()));
           await tester.pumpAndSettle();
           final indianButton = find.text("None");
           expect(indianButton, findsOneWidget);
@@ -66,8 +65,7 @@ void main() {
       await tester.runAsync(
         () async {
           await tester.pumpWidget(GetMaterialApp(
-              initialBinding: AppBinding(),
-              home: const OnboardingDietScreen()));
+              initialBinding: AppBinding(), home: OnboardingDietScreen()));
           await tester.pumpAndSettle();
           var noneButton = find.widgetWithText(MunchChip, "None");
           await tester.pumpAndSettle();

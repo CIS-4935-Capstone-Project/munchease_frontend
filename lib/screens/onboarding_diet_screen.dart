@@ -8,6 +8,7 @@ import 'package:munchease/widgets/me_text_button.dart';
 import '../utils/app_pages.dart';
 import '../widgets/diet_filter_grid.dart';
 
+//ignore: must_be_immutable
 class OnboardingDietScreen extends StatelessWidget {
   OnboardingDietScreen({super.key});
   OnboardingDietController controller = Get.find();

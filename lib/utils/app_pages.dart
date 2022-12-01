@@ -37,11 +37,10 @@ abstract class AppPages {
       page: () => ResetScreen(),
       transitionDuration: const Duration(milliseconds: 300),
     ),
-    GetPage(
-        name: Routes.CUISINE, page: (() => const OnboardingCuisineScreen())),
+    GetPage(name: Routes.CUISINE, page: (() => OnboardingCuisineScreen())),
     GetPage(name: Routes.DIET, page: (() => OnboardingDietScreen())),
-    GetPage(name: Routes.COMPARE, page: (() => const CompareRecipeScreen())),
-    GetPage(name: Routes.FINAL, page: (() => const FinalRecipeScreen())),
+    GetPage(name: Routes.COMPARE, page: (() => CompareRecipeScreen())),
+    GetPage(name: Routes.FINAL, page: (() => FinalRecipeScreen())),
     GetPage(name: Routes.SAVED, page: (() => const SavedRecipeScreen())),
 
     GetPage(

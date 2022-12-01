@@ -11,7 +11,6 @@ class HomeScreenController extends GetxController
   int? dietIndex;
   RxList recipes = RxList.empty();
   List<Recipe> comparedRecipes = [];
-  int counter = 0;
 
   // When the controller get initialized
   @override
@@ -31,7 +30,10 @@ class HomeScreenController extends GetxController
   }
 
   void addToFavorites(index) async {
-    index = index - counter * 10;
+    if (comparedRecipes.length == 2) {
+      Get.toNamed(Routes.COMPARE, arguments: {"recipeList": comparedRecipes});
+      return;
+    }
     // adds to favorites and compare
     await putFavorites(recipes[index].toJson());
     comparedRecipes.add(recipes[index]);
@@ -39,7 +41,10 @@ class HomeScreenController extends GetxController
   }
 
   void addToCompare(index) {
-    index = index - counter * 10;
+    if (comparedRecipes.length == 2) {
+      Get.toNamed(Routes.COMPARE, arguments: {"recipeList": comparedRecipes});
+      return;
+    }
     // add to compare only
     comparedRecipes.add(recipes[index]);
     checkTotalRecipes(comparedRecipes, index);
@@ -54,10 +59,8 @@ class HomeScreenController extends GetxController
   }
 
   void checkListLength(index) {
-    index = index - counter * 10;
     if (index == recipes.length - 1 && comparedRecipes.length < 2) {
       change(null, status: RxStatus.loading());
-      counter++;
       getRandomRecipes(0);
     }
   }

@@ -6,6 +6,7 @@ import 'package:munchease/controllers/home_screen_controller.dart';
 import 'package:munchease/controllers/splash_screen_controller.dart';
 import 'package:munchease/controllers/swipe_controller.dart';
 import 'package:munchease/utils/app_boxes.dart';
+import 'package:munchease/utils/app_pages.dart';
 import 'package:munchease/widgets/global_widgets.dart';
 import 'package:munchease/widgets/me_drawer.dart';
 import 'package:munchease/widgets/me_text_button.dart';
@@ -13,6 +14,7 @@ import 'package:rive/rive.dart';
 import 'package:munchease/utils/swipeable_card_stack.dart';
 import 'package:munchease/widgets/me_card.dart';
 
+//ignore: must_be_immutable
 class HomeScreen extends StatelessWidget with CuisineBox, DietBox, UserToken {
   HomeScreen({super.key});
   final controller = Get.put(HomeScreenController());
@@ -20,100 +22,110 @@ class HomeScreen extends StatelessWidget with CuisineBox, DietBox, UserToken {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   final SwipeableCardSectionController _cardController =
       SwipeableCardSectionController();
+  bool shouldPop = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: Center(child: buildIcon()),
-        centerTitle: true,
-        title: SizedBox(
-          // logo
-          width: 51,
-          height: 51,
-          child: Hero(
-            tag: 'logo',
-            child: Rive(
-              artboard: splashController.birdArtboard,
+    return WillPopScope(
+      onWillPop: () async {
+        return shouldPop;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: Center(child: buildIcon()),
+          centerTitle: true,
+          title: SizedBox(
+            // logo
+            width: 51,
+            height: 51,
+            child: Hero(
+              tag: 'logo',
+              child: Rive(
+                artboard: splashController.birdArtboard,
+              ),
             ),
           ),
         ),
-      ),
-      key: _key,
-      drawer: const MunchDrawer(),
-      body: SafeArea(
-        child: Center(
-          child: controller.obx(
-            (state) => Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SwipeableCardsSection(
-                  enableSwipeUp: true,
-                  cardController: _cardController,
-                  context: context,
-                  items: [
-                    ...controller.recipes
-                        .sublist(0, 3)
-                        .map((r) => CardView(
-                              recipe: r,
-                            ))
-                        .toList()
-                  ],
-                  onCardSwiped: (dir, index, widget) {
-                    if (dir == Direction.up) {
-                      controller.addToFavorites(index);
-                    } else if (dir == Direction.right) {
-                      controller.addToCompare(index);
-                    }
-                    if (index - controller.counter * 10 + 3 <= 9) {
-                      _cardController.addItem(CardView(
-                        recipe: controller
-                            .recipes[index - controller.counter * 10 + 3],
-                      ));
-                    }
-                    if (index - controller.counter * 10 == 9) {
-                      controller.checkListLength(index);
-                    }
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(4.0, 8.0, 4.0, 0.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SwipeButton(
-                        icon: Icons.clear_outlined,
-                        onTap: () {
-                          _cardController.triggerSwipeLeft();
-                        },
-                        color: Colors.red,
-                      ),
-                      SwipeButton(
-                        icon: Icons.local_fire_department,
-                        onTap: () {
-                          _cardController.triggerSwipeUp();
-                        },
-                        color: Colors.orange[600]!,
-                      ),
-                      SwipeButton(
-                        icon: Icons.check,
-                        onTap: () {
-                          _cardController.triggerSwipeRight();
-                        },
-                        color: Colors.lightGreen,
-                      ),
+        key: _key,
+        drawer: const MunchDrawer(),
+        body: SafeArea(
+          child: Center(
+            child: controller.obx(
+              (state) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SwipeableCardsSection(
+                    enableSwipeUp: true,
+                    cardController: _cardController,
+                    context: context,
+                    items: [
+                      ...controller.recipes
+                          .sublist(0, 3)
+                          .map((r) => CardView(
+                                recipe: r,
+                              ))
+                          .toList()
                     ],
+                    onCardSwiped: (dir, index, widget) {
+                      if (dir == Direction.up) {
+                        controller.addToFavorites(index);
+                      } else if (dir == Direction.right) {
+                        controller.addToCompare(index);
+                      }
+                      if (index + 3 <= 9) {
+                        _cardController.addItem(CardView(
+                          recipe: controller.recipes[index + 3],
+                        ));
+                      }
+                      if (index == 9) {
+                        controller.checkListLength(index);
+                      }
+                      if (index > 9 || controller.comparedRecipes.length == 2) {
+                        Get.toNamed(Routes.COMPARE, arguments: {
+                          "recipeList": controller.comparedRecipes
+                        });
+                      }
+                    },
                   ),
-                ),
-                const SizedBox(
-                  height: 80,
-                ),
-              ],
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(4.0, 8.0, 4.0, 0.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SwipeButton(
+                          icon: Icons.clear_outlined,
+                          onTap: () {
+                            _cardController.triggerSwipeLeft();
+                          },
+                          color: Colors.red,
+                        ),
+                        SwipeButton(
+                          icon: Icons.local_fire_department,
+                          onTap: () {
+                            _cardController.triggerSwipeUp();
+                          },
+                          color: Colors.orange[600]!,
+                        ),
+                        SwipeButton(
+                          icon: Icons.check,
+                          onTap: () {
+                            _cardController.triggerSwipeRight();
+                          },
+                          color: Colors.lightGreen,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 80,
+                  ),
+                ],
+              ),
+              onLoading: buildProgressIndicator(),
             ),
-            onLoading: buildProgressIndicator(),
           ),
         ),
       ),

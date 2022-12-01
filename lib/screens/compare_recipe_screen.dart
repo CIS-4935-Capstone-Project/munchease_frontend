@@ -8,10 +8,13 @@ import '../widgets/me_arrow_button.dart';
 import '../widgets/me_detailed_recipe.dart';
 import '../widgets/me_text_button.dart';
 
+//ignore: must_be_immutable
 class CompareRecipeScreen extends StatelessWidget {
-  const CompareRecipeScreen({
+  CompareRecipeScreen({
     super.key,
   });
+
+  bool shouldPop = false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,26 +22,31 @@ class CompareRecipeScreen extends StatelessWidget {
     final controller =
         Get.put(CompareRecipeScreenController(recipeList: compareList));
 
-    return Scaffold(
-        bottomNavigationBar: buildBottomNavigationBar(context, controller),
-        body: SafeArea(
-          child: Column(
-            children: [
-              Obx(
-                () => Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ...buildPageIndicator(controller, compareList, context)
-                  ],
+    return WillPopScope(
+      onWillPop: () async {
+        return shouldPop;
+      },
+      child: Scaffold(
+          bottomNavigationBar: buildBottomNavigationBar(context, controller),
+          body: SafeArea(
+            child: Column(
+              children: [
+                Obx(
+                  () => Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ...buildPageIndicator(controller, compareList, context)
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              buildPageView(controller, compareList),
-            ],
-          ),
-        ));
+                const SizedBox(
+                  height: 10,
+                ),
+                buildPageView(controller, compareList),
+              ],
+            ),
+          )),
+    );
   }
 
   Expanded buildPageView(
