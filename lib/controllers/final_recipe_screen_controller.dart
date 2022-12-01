@@ -1,12 +1,14 @@
 import 'package:get/get.dart';
+import 'package:munchease/utils/app_pages.dart';
 import 'package:munchease/utils/server_helper.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../models/recipe_model.dart';
+import 'home_screen_controller.dart';
 
 class FinalRecipeScreenController extends GetxController
     with StateMixin<Recipe> {
   Server server = Get.find();
-
+  HomeScreenController hController = Get.find();
   FinalRecipeScreenController({required Recipe recipe}) {
     change(recipe);
   }
@@ -35,5 +37,12 @@ class FinalRecipeScreenController extends GetxController
     } else {
       throw 'Could not launch $googleUri")}';
     }
+  }
+
+//TODO fix home button function
+  void reloadHome() {
+    change(null, status: RxStatus.loading());
+    hController.getRandomRecipes(0);
+    Get.toNamed(Routes.HOME);
   }
 }

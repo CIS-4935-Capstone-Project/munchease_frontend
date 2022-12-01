@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:munchease/utils/theme_utils.dart';
 import 'package:munchease/widgets/me_detailed_recipe.dart';
 import 'package:munchease/widgets/me_text_button.dart';
-
 import '../controllers/final_recipe_screen_controller.dart';
 
 //ignore: must_be_immutable
@@ -22,7 +22,20 @@ class FinalRecipeScreen extends StatelessWidget {
         return shouldPop;
       },
       child: Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            leading: GestureDetector(
+              onTap: () {
+                //controller.reloadHome();
+              },
+              child: const Center(
+                child: Icon(
+                  Icons.home_rounded,
+                  color: MunchColors.primaryDark,
+                  size: 50,
+                ),
+              ),
+            ),
+          ),
           body: SafeArea(
             child: controller.obx(
                 (state) => SingleChildScrollView(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../models/recipe_model.dart';
 
 class CardView extends StatelessWidget {
@@ -17,9 +16,11 @@ class CardView extends StatelessWidget {
             child: Material(
               borderRadius: BorderRadius.circular(12.0),
               child: Image.network(
-                //TODO add error builders
                 recipe.image!,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.asset("./assets/images/error.png");
+                },
               ),
             ),
           ),
