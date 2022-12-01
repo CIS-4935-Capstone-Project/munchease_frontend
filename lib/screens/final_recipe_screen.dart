@@ -27,10 +27,12 @@ class FinalRecipeScreen extends StatelessWidget {
               onTap: () {
                 controller.reloadHome();
               },
-              child: const Center(
+              child: Center(
                 child: Icon(
                   Icons.home_rounded,
-                  color: MunchColors.primaryDark,
+                  color: (Get.theme.brightness == Brightness.dark
+                      ? MunchColors.primaryLight
+                      : MunchColors.primaryDark),
                   size: 30,
                 ),
               ),

@@ -22,6 +22,15 @@ class CardView extends StatelessWidget {
                 errorBuilder: (context, error, stackTrace) {
                   return Image.asset("./assets/images/error.png");
                 },
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const SizedBox(
+                    width: 150,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                },
               ),
             ),
           ),

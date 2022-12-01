@@ -22,10 +22,10 @@ abstract class AppPages {
     // TODO: add new GetPages by typing getpageroute
     GetPage(name: Routes.INITIAL, page: () => SplashScreen()),
     GetPage(
-        name: Routes.REGISTER,
-        page: () => RegisterScreen(),
-        transitionDuration: const Duration(milliseconds: 300),
-        transition: Transition.cupertino),
+      name: Routes.REGISTER,
+      page: () => RegisterScreen(),
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
     GetPage(name: Routes.LOGIN, page: () => LoginScreen()),
     GetPage(
       name: Routes.SIGNIN,
