@@ -30,7 +30,7 @@ class HomeScreenController extends GetxController
   }
 
   void addToFavorites(index) async {
-    if (comparedRecipes.length == 2) {
+    if (comparedRecipes.length == 3) {
       Get.toNamed(Routes.COMPARE, arguments: {"recipeList": comparedRecipes});
       return;
     }
@@ -41,7 +41,7 @@ class HomeScreenController extends GetxController
   }
 
   void addToCompare(index) {
-    if (comparedRecipes.length == 2) {
+    if (comparedRecipes.length == 3) {
       Get.toNamed(Routes.COMPARE, arguments: {"recipeList": comparedRecipes});
       return;
     }
@@ -51,7 +51,7 @@ class HomeScreenController extends GetxController
   }
 
   void checkTotalRecipes(List comparedRecipes, int index) {
-    if (comparedRecipes.length == 2) {
+    if (comparedRecipes.length == 3) {
       Get.toNamed(Routes.COMPARE, arguments: {"recipeList": comparedRecipes});
     } else {
       checkListLength(index);
@@ -59,7 +59,7 @@ class HomeScreenController extends GetxController
   }
 
   void checkListLength(index) {
-    if (index == recipes.length - 1 && comparedRecipes.length < 2) {
+    if (index == recipes.length - 1 && comparedRecipes.length < 3) {
       change(null, status: RxStatus.loading());
       getRandomRecipes(0);
     }

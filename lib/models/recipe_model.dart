@@ -38,6 +38,8 @@ class Recipe {
   int get hashCode => id!;
 
   Recipe.fromJson(Map<String, dynamic> json) {
+    var x = RegExp(r'\.(\w+)$');
+
     if (json['extendedIngredients'] != null) {
       extendedIngredients = <ExtendedIngredients>[];
       json['extendedIngredients'].forEach((v) {
@@ -49,7 +51,8 @@ class Recipe {
     readyInMinutes = json['readyInMinutes'];
     servings = json['servings'];
     sourceUrl = json['sourceUrl'];
-    image = 'https://spoonacular.com/recipeImages/${json['id']}-636x393.jpg';
+    image =
+        'https://spoonacular.com/recipeImages/${json['id']}-636x393.${x.firstMatch(json['image'])!.group(1)}';
     summary = json['summary'];
     cuisines = json['cuisines'].cast<String>() ?? [];
     diets = json['diets'].cast<String>() ?? [];

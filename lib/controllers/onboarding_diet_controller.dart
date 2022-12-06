@@ -16,7 +16,7 @@ class OnboardingDietController extends GetxController with DietBox {
     "Low FODMAP",
     "Whole30"
   ]; // diets from spoonacular
-  late RxInt _selectedIndex;
+  RxInt _selectedIndex = 0.obs;
   get selectedIndex => _selectedIndex.value; //getter
   set selectedIndex(value) => _selectedIndex.value = value; //sett
 

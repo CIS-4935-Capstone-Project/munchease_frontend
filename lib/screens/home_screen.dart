@@ -80,7 +80,7 @@ class HomeScreen extends StatelessWidget with CuisineBox, DietBox, UserToken {
                       if (index == 9) {
                         controller.checkListLength(index);
                       }
-                      if (index > 9 || controller.comparedRecipes.length == 2) {
+                      if (index > 9 || controller.comparedRecipes.length == 3) {
                         Get.toNamed(Routes.COMPARE, arguments: {
                           "recipeList": controller.comparedRecipes
                         });
@@ -134,9 +134,8 @@ class HomeScreen extends StatelessWidget with CuisineBox, DietBox, UserToken {
 
   InkWell buildIcon() {
     return InkWell(
-      child: SizedBox(
-        height: 50,
-        width: 50,
+      child: AspectRatio(
+        aspectRatio: 1,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

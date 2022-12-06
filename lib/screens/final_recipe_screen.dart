@@ -52,7 +52,10 @@ class FinalRecipeScreen extends StatelessWidget {
                               child: const Text("Search Near You"),
                               onPressed: () async {
                                 controller.launchMapURL();
-                              })
+                              }),
+                          const SizedBox(
+                            height: 20,
+                          )
                         ],
                       ),
                     ),

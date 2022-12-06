@@ -8,30 +8,28 @@ class CardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
       child: Stack(
         children: <Widget>[
           SizedBox(
             width: double.infinity,
             height: double.infinity,
-            child: Material(
-              borderRadius: BorderRadius.circular(12.0),
-              child: Image.network(
-                recipe.image!,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Image.asset("./assets/images/error.png");
-                },
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return const SizedBox(
-                    width: 150,
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                },
-              ),
+            child: Image.network(
+              recipe.image!,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Image.asset("./assets/images/error.png");
+              },
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return const SizedBox(
+                  width: 150,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              },
             ),
           ),
           SizedBox(

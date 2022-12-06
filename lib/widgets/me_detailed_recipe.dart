@@ -133,7 +133,9 @@ class MunchDetailedRecipe extends StatelessWidget {
                                   title: e.name!.capitalizeFirst.toString(),
                                   content: Column(
                                     children: [
-                                      Text('${e.original}'),
+                                      Text(
+                                        '${e.original}',
+                                      ),
                                       const SizedBox(
                                         height: 10,
                                       ),
@@ -221,10 +223,15 @@ class MunchDetailedRecipe extends StatelessWidget {
                                       )),
                                   const SizedBox(width: 50),
                                   Expanded(
-                                      child: Text("${e.name}",
-                                          textAlign: TextAlign.start)),
+                                      child: Text(
+                                    "${e.name}",
+                                    textAlign: TextAlign.start,
+                                  )),
                                   const Spacer(),
-                                  Expanded(child: Text("${e.amount} ${e.unit}"))
+                                  Expanded(
+                                      child: Text(
+                                    "${e.amount} ${e.unit}",
+                                  ))
                                 ],
                               ),
                             ),

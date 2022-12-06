@@ -78,11 +78,14 @@ mixin ThemeBox {
 class MunchBox {
   static const _USR_PRF = 'user_prefs';
   static const _USR_FAV = 'user_favorites';
+  static const _USR_INFO = 'remember_user';
   Box? _userPrefs;
   Box? _userFavorites;
+  Box? _userInfo;
   Future openBoxes() async {
     _userPrefs = await Hive.openBox(_USR_PRF);
     _userFavorites = await Hive.openBox(_USR_FAV);
+    _userInfo = await Hive.openBox(_USR_INFO);
   }
 
   Future<bool> boxExists() async {
@@ -94,6 +97,7 @@ class MunchBox {
   Future deleteBoxes() async {
     await _userPrefs?.deleteFromDisk();
     await _userFavorites?.deleteFromDisk();
+    await _userInfo?.deleteFromDisk();
   }
 
   ThemeMode getUserTheme() {

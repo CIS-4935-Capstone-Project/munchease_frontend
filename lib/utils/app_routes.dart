@@ -15,6 +15,7 @@ abstract class Routes {
   static const FINAL = '/final';
   static const SAVED = '/saved';
   static const PROFILE = '/profile';
+  static const SETTINGS = '/settings';
 
   // ONBOARDING RELATED
   static const CUISINE = '/cuisine';

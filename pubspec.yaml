@@ -89,6 +89,9 @@ flutter:
    - assets/images/logo_text.png
    - assets/images/error.png
    - assets/images/logo.svg
+   - assets/images/like.png
+   - assets/images/dislike.png
+   - assets/images/superlike.png
    - assets/animations/splashanimation.riv
    - assets/google_fonts/
 

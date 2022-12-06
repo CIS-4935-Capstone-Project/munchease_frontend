@@ -17,11 +17,11 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: buildTitleAppBar('Profile'),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+        child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const SizedBox(height: 50),
+              const SizedBox(height: 30),
               ExpansionTile(
                   initiallyExpanded: true,
                   title: const Text(
@@ -38,7 +38,7 @@ class ProfileScreen extends StatelessWidget {
                     style: const TextStyle(fontSize: 24),
                   ),
                   children: [DietFilterGrid(controller: dietController)]),
-              const Spacer(),
+              const SizedBox(height: 30),
             ],
           ),
         ),
