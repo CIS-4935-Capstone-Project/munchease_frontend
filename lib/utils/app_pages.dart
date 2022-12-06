@@ -26,7 +26,7 @@ abstract class AppPages {
       name: Routes.REGISTER,
       page: () => RegisterScreen(),
     ),
-    GetPage(name: Routes.LOGIN, page: () => LoginScreen()),
+
     GetPage(
       name: Routes.SIGNIN,
       page: () => SigninScreen(),

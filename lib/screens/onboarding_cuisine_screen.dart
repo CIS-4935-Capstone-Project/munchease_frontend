@@ -10,13 +10,15 @@ import '../utils/app_pages.dart';
 import '../widgets/me_text_button.dart';
 
 //ignore: must_be_immutable
-class OnboardingCuisineScreen extends GetView<OnboardingCuisineController> {
+class OnboardingCuisineScreen extends StatelessWidget {
   OnboardingCuisineScreen({super.key});
 
   bool shouldPop = false;
 
   @override
   Widget build(BuildContext context) {
+    OnboardingCuisineController controller =
+        Get.put(OnboardingCuisineController(), tag: "$hashCode");
     return WillPopScope(
       onWillPop: () async {
         return shouldPop;

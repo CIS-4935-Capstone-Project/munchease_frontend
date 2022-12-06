@@ -97,12 +97,16 @@ class SigninScreen extends StatelessWidget {
                                           label: const Text(
                                             "Password",
                                           ),
-                                          suffixIcon: IconButton(
-                                            icon: Icon(data.value
-                                                ? Icons.visibility_off
-                                                : Icons.visibility),
-                                            onPressed: () => data.toggle(),
-                                          ),
+                                          suffixIcon: signinController
+                                                  .loadedFromHive.value
+                                              ? IconButton(
+                                                  icon: Icon(data.value
+                                                      ? Icons.visibility_off
+                                                      : Icons.visibility),
+                                                  onPressed: () =>
+                                                      data.toggle(),
+                                                )
+                                              : null,
                                         ),
                                       ),
                                   true.obs)),

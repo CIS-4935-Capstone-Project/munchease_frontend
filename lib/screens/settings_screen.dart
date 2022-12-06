@@ -32,8 +32,9 @@ class SettingsScreen extends StatelessWidget with ThemeBox {
                 child: const Text("Clear Data"),
                 onPressed: () {
                   Get.defaultDialog(
-                      title:
-                          "Warning this will delete all your data related to MunchEase",
+                      middleText:
+                          "This will delete all your data related to MunchEase",
+                      title: "Warning",
                       contentPadding: const EdgeInsets.all(20),
                       backgroundColor: Theme.of(context).colorScheme.background,
                       confirmTextColor:
@@ -42,8 +43,9 @@ class SettingsScreen extends StatelessWidget with ThemeBox {
                         Get.back();
                       }),
                       onConfirm: () async {
-                        await MunchBox().deleteBoxes();
-                        Get.toNamed(Routes.SIGNIN);
+                        MunchBox()
+                            .deleteBoxes()
+                            .then((value) => Get.toNamed(Routes.SIGNIN));
                       });
                 }),
             const SizedBox(

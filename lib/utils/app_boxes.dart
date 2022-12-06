@@ -85,7 +85,6 @@ class MunchBox {
   Future openBoxes() async {
     _userPrefs = await Hive.openBox(_USR_PRF);
     _userFavorites = await Hive.openBox(_USR_FAV);
-    _userInfo = await Hive.openBox(_USR_INFO);
   }
 
   Future<bool> boxExists() async {
@@ -95,9 +94,8 @@ class MunchBox {
   }
 
   Future deleteBoxes() async {
-    await _userPrefs?.deleteFromDisk();
-    await _userFavorites?.deleteFromDisk();
-    await _userInfo?.deleteFromDisk();
+    await Hive.box("user_prefs").deleteFromDisk();
+    await Hive.box("user_favorites").deleteFromDisk();
   }
 
   ThemeMode getUserTheme() {

@@ -16,6 +16,7 @@ class SigninScreenController extends GetxController
   RxDouble headerOpacity = 0.0.obs;
   RxBool checkboxValue = false.obs;
   dynamic args = Get.arguments;
+  RxBool loadedFromHive = true.obs;
 
   @override
   void onInit() {
@@ -25,6 +26,8 @@ class SigninScreenController extends GetxController
       emailController.text = args['email'];
       passController.text = args['password'];
       emailValidated = true;
+      loadedFromHive = false.obs;
+      checkboxValue = true.obs;
     }
     Future.delayed(const Duration(milliseconds: 1000)).then((value) {
       headerOpacity.value = 1.0;

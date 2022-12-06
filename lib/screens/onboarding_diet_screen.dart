@@ -11,9 +11,10 @@ import '../widgets/diet_filter_grid.dart';
 //ignore: must_be_immutable
 class OnboardingDietScreen extends StatelessWidget {
   OnboardingDietScreen({super.key});
-  OnboardingDietController controller = Get.find();
   @override
   Widget build(BuildContext context) {
+    OnboardingDietController controller =
+        Get.put(OnboardingDietController(), tag: "$hashCode");
     return Scaffold(
       appBar: buildTitleAppBar('Diets'),
       body: Padding(
