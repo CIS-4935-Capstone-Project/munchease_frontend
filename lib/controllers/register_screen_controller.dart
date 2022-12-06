@@ -101,10 +101,10 @@ class RegisterScreenController extends GetxController
       );
     } else {
       change(null, status: RxStatus.loading());
-      Map res = await loginProvider
-          .registerUser({"email": email, "password": password});
-      change(null, status: RxStatus.success());
-      if (res['message'] == 'success') {
+      try {
+        Map res = await loginProvider
+            .registerUser({"email": email, "password": password});
+        change(null, status: RxStatus.success());
         Get.defaultDialog(
           title: 'Registration Complete',
           textConfirm: 'Let\'s Go!',
@@ -121,7 +121,7 @@ class RegisterScreenController extends GetxController
             newUserSignin(loginProvider, email, password);
           },
         );
-      } else {
+      } on Exception catch (e) {
         Get.defaultDialog(
           title: 'Sign Up Failed',
           textConfirm: 'OK',

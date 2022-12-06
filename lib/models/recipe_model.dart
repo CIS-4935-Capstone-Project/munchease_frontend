@@ -28,6 +28,15 @@ class Recipe {
       this.analyzedInstructions = const [],
       this.extendedIngredients = const []});
 
+  @override
+  bool operator ==(Object other) {
+    return (other != null && other is Recipe && hashCode == other.hashCode) &&
+        spoonacularSourceUrl == other.spoonacularSourceUrl;
+  }
+
+  @override
+  int get hashCode => id!;
+
   Recipe.fromJson(Map<String, dynamic> json) {
     if (json['extendedIngredients'] != null) {
       extendedIngredients = <ExtendedIngredients>[];

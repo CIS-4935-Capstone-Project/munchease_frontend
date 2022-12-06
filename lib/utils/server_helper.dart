@@ -12,7 +12,7 @@ class Server extends GetConnect {
   Future<Recipe> getRecipeFromId(id) async {
     var res = await get('/recipeFromId/$id');
     print(res.body.runtimeType);
-    return Recipe.fromJson(res.body.first);
+    return Recipe.fromJson(res.body[0]);
   }
 
   Future getRecipes(int? dietID) async {

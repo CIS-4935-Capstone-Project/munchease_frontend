@@ -75,7 +75,17 @@ class MunchDrawer extends StatelessWidget {
                           : Get.toNamed(Routes.PROFILE);
                     },
                   ),
-                  const DrawerTile(title: "Settings"),
+                  const DrawerTile(
+                    title: "Settings",
+                  ),
+                  DrawerTile(
+                    title: "Meal Preferences",
+                    onTap: () {
+                      Get.currentRoute == Routes.CUISINE
+                          ? Get.back()
+                          : Get.toNamed(Routes.CUISINE);
+                    },
+                  ),
                   const Spacer(),
                   ThemeToggle(),
                   const SizedBox(

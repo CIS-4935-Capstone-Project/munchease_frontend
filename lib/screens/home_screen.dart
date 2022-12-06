@@ -153,7 +153,7 @@ class HomeScreen extends StatelessWidget with CuisineBox, DietBox, UserToken {
             ),
             Container(
               height: 5,
-              width: 37,
+              width: 34,
               decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 255, 68, 68),
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),

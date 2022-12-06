@@ -87,31 +87,51 @@ class RegisterScreen extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            width: 300,
-                            height: 80,
-                            child: TextFormField(
-                              controller: registerController.passController,
-                              obscureText: true,
-                              decoration: const InputDecoration(
-                                  label: Text(
-                                "Password",
-                              )),
-                            ),
-                          ),
+                              width: 300,
+                              height: 80,
+                              child: ObxValue(
+                                  (data) => TextFormField(
+                                        controller:
+                                            registerController.passController,
+                                        obscureText: data.value,
+                                        decoration: InputDecoration(
+                                          label: const Text(
+                                            "Password",
+                                          ),
+                                          suffixIcon: IconButton(
+                                            icon: Icon(data.value
+                                                ? Icons.visibility_off
+                                                : Icons.visibility),
+                                            onPressed: () => data.toggle(),
+                                          ),
+                                        ),
+                                      ),
+                                  false.obs)),
                           SizedBox(
                             width: 300,
                             height: 80,
-                            child: TextFormField(
-                              validator: (value) {
-                                return registerController.passwordValidator();
-                              },
-                              controller: registerController.confirmController,
-                              obscureText: true,
-                              decoration: const InputDecoration(
-                                  label: Text(
-                                "Confirm Password",
-                              )),
-                            ),
+                            child: ObxValue(
+                                (data) => TextFormField(
+                                      validator: (value) {
+                                        return registerController
+                                            .passwordValidator();
+                                      },
+                                      controller:
+                                          registerController.confirmController,
+                                      obscureText: data.value,
+                                      decoration: InputDecoration(
+                                        label: const Text(
+                                          "Confirm Password",
+                                        ),
+                                        suffixIcon: IconButton(
+                                          icon: Icon(data.value
+                                              ? Icons.visibility_off
+                                              : Icons.visibility),
+                                          onPressed: () => data.toggle(),
+                                        ),
+                                      ),
+                                    ),
+                                false.obs),
                           ),
                           SizedBox(
                             width: 300,

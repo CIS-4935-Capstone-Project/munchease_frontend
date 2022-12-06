@@ -80,14 +80,15 @@ class SigninScreenController extends GetxController
       );
     } else {
       change(null, status: RxStatus.loading());
-      Map res =
-          await loginProvider.signIn({"email": email, "password": password});
-      change(null, status: RxStatus.success());
-      if (res['message'] == 'success') {
+      try {
+        Map res =
+            await loginProvider.signIn({"email": email, "password": password});
+        change(null, status: RxStatus.success());
         rememberMe(email, password);
         putToken({"id": res['id'], "rfrshTkn": res['rfrshTkn']});
         Get.toNamed('/home');
-      } else {
+      } on Exception catch (e) {
+        change(null, status: RxStatus.success());
         Get.defaultDialog(
           title: 'Sign In Failed',
           textConfirm: 'OK',

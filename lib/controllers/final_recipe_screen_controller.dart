@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:munchease/utils/app_pages.dart';
 import 'package:munchease/utils/server_helper.dart';
@@ -10,7 +12,9 @@ class FinalRecipeScreenController extends GetxController
   Server server = Get.find();
   HomeScreenController hController = Get.find();
   FinalRecipeScreenController({required Recipe recipe}) {
-    change(recipe);
+    log(recipe.spoonacularSourceUrl.toString());
+    print(recipe.cuisines);
+    change(recipe, status: RxStatus.loading());
   }
 
   @override

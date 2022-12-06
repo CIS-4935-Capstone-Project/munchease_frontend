@@ -85,17 +85,26 @@ class SigninScreen extends StatelessWidget {
                                 ))),
                           ), //padding box
                           SizedBox(
-                            width: 300,
-                            height: 80,
-                            child: TextFormField(
-                              controller: signinController.passController,
-                              obscureText: true,
-                              decoration: const InputDecoration(
-                                  label: Text(
-                                "Password",
-                              )),
-                            ),
-                          ),
+                              width: 300,
+                              height: 80,
+                              child: ObxValue(
+                                  (data) => TextFormField(
+                                        controller:
+                                            signinController.passController,
+                                        obscureText: data.value,
+                                        decoration: InputDecoration(
+                                          label: const Text(
+                                            "Password",
+                                          ),
+                                          suffixIcon: IconButton(
+                                            icon: Icon(data.value
+                                                ? Icons.visibility_off
+                                                : Icons.visibility),
+                                            onPressed: () => data.toggle(),
+                                          ),
+                                        ),
+                                      ),
+                                  false.obs)),
                           SizedBox(
                             width: 300,
                             child: Row(

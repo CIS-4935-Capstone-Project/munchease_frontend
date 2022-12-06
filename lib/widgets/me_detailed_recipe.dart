@@ -72,15 +72,17 @@ class MunchDetailedRecipe extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Row(children: [
-                        SvgPicture.asset('./assets/images/bowl.svg',
-                            height: 8,
-                            color: Theme.of(context).colorScheme.onBackground),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(recipe.cuisines!.join(' | '))
-                      ]),
+                      if (recipe.cuisines!.isNotEmpty)
+                        Row(children: [
+                          SvgPicture.asset('./assets/images/bowl.svg',
+                              height: 8,
+                              color:
+                                  Theme.of(context).colorScheme.onBackground),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text(recipe.cuisines!.join(' | '))
+                        ]),
                       const SizedBox(height: 5),
                       Row(children: [
                         const IgnoreSelectable(

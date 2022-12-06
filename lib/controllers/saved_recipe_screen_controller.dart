@@ -10,7 +10,7 @@ class SavedRecipeScreenController extends GetxController
     super.onInit();
     change(null, status: RxStatus.loading());
     var recipeShell =
-        (getFavorites() ?? []).map((e) => Recipe.fromHive(e)).toList();
+        (getFavorites() ?? []).map((e) => Recipe.fromHive(e)).toSet().toList();
     change(recipeShell, status: RxStatus.success());
   }
 }
