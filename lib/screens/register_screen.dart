@@ -106,7 +106,7 @@ class RegisterScreen extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                  false.obs)),
+                                  true.obs)),
                           SizedBox(
                             width: 300,
                             height: 80,
@@ -131,7 +131,7 @@ class RegisterScreen extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                false.obs),
+                                true.obs),
                           ),
                           SizedBox(
                             width: 300,

@@ -11,13 +11,14 @@ import '../widgets/me_text_button.dart';
 class SigninScreen extends StatelessWidget {
   SigninScreen({super.key});
 
-  final signinController = Get.put(SigninScreenController());
   SplashScreenController splashController = Get.find();
   final _formKey = GlobalKey<FormState>();
   bool shouldPop = false;
 
   @override
   Widget build(BuildContext context) {
+    final signinController =
+        Get.put(SigninScreenController(), tag: '$hashCode');
     return WillPopScope(
       onWillPop: () async {
         return shouldPop;
@@ -104,7 +105,7 @@ class SigninScreen extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                  false.obs)),
+                                  true.obs)),
                           SizedBox(
                             width: 300,
                             child: Row(

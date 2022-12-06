@@ -22,7 +22,7 @@ class SettingsScreen extends StatelessWidget with ThemeBox {
                 buttonType: MunchButtonType.filled,
                 child: const Text("Sign Out"),
                 onPressed: () {
-                  Get.toNamed(Routes.INITIAL);
+                  Get.toNamed(Routes.SIGNIN);
                 }),
             const SizedBox(
               height: 20,
@@ -43,7 +43,7 @@ class SettingsScreen extends StatelessWidget with ThemeBox {
                       }),
                       onConfirm: () async {
                         await MunchBox().deleteBoxes();
-                        Get.toNamed(Routes.INITIAL);
+                        Get.toNamed(Routes.SIGNIN);
                       });
                 }),
             const SizedBox(
