@@ -24,9 +24,13 @@ class HomeScreenController extends GetxController
 
   void getRandomRecipes(int? dietIndex) async {
     Server recipeProvider = Get.find();
-    var temp = await recipeProvider.getRecipes(dietIndex);
-    recipes = RxList.from(temp);
-    change(null, status: RxStatus.success());
+    try {
+      var temp = await recipeProvider.getRecipes(dietIndex);
+      recipes = RxList.from(temp);
+      change(null, status: RxStatus.success());
+    } on Exception catch (e) {
+      change(null, status: RxStatus.error());
+    }
   }
 
   void addToFavorites(index) async {

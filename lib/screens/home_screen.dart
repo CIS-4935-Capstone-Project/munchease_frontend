@@ -125,6 +125,17 @@ class HomeScreen extends StatelessWidget with CuisineBox, DietBox, UserToken {
                 ],
               ),
               onLoading: buildProgressIndicator(),
+              onError: (e) => MunchButton(
+                  buttonType: MunchButtonType.line,
+                  child: const Text(
+                    "Retry",
+                    style: TextStyle(
+                      fontSize: 18.0,
+                    ),
+                  ),
+                  onPressed: () {
+                    controller.backToHomeHelper();
+                  }),
             ),
           ),
         ),

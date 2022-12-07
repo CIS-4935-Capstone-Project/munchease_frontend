@@ -123,7 +123,6 @@ class RegisterScreenController extends GetxController
         );
       } on Exception catch (e) {
         change(null, status: RxStatus.success());
-
         Get.defaultDialog(
           title: 'Sign Up Failed',
           textConfirm: 'OK',
